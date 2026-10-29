@@ -1,0 +1,410 @@
+<title>Klinika Rrezja Demo</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Plus+Jakarta+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: clinic one-pager; hero with live open/closed status, then services that feed a 3-step booking panel */
+:root{
+  --bg:#f7faf9; --surface:#ffffff; --ink:#12302c; --muted:#557370; --line:#d9e6e3;
+  --accent:#0f7b6c; --accent-soft:#e2f2ef; --warm:#e0734f; --warm-soft:#fbe9e2; --ok:#1d7a4f; --closed:#b4472f;
+  --display:"Bricolage Grotesque","Arial Black",system-ui,sans-serif;
+  --body:"Plus Jakarta Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0c1a18; --surface:#122522; --ink:#e3f0ed; --muted:#93b1ac; --line:#24403b;
+  --accent:#4fc4b0; --accent-soft:#16332e; --warm:#f09474; --warm-soft:#3a231b; --ok:#5fcf95; --closed:#f08a70; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0c1a18; --surface:#122522; --ink:#e3f0ed; --muted:#93b1ac; --line:#24403b;
+  --accent:#4fc4b0; --accent-soft:#16332e; --warm:#f09474; --warm-soft:#3a231b; --ok:#5fcf95; --closed:#f08a70; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:400 16.5px/1.6 var(--body)}
+.wrap{max-width:1060px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--display);margin:0;line-height:1.12;text-wrap:balance}
+h1{font-size:clamp(2rem,5vw,3.3rem);font-weight:700;letter-spacing:-.02em}
+h2{font-size:clamp(1.45rem,3vw,2rem);font-weight:700}
+h3{font-size:1.05rem;font-weight:600}
+p{margin:0}
+.muted{color:var(--muted)}
+.eyebrow{font:500 .72rem var(--mono);text-transform:uppercase;letter-spacing:.08em;color:var(--accent)}
+:focus-visible{outline:3px solid var(--warm);outline-offset:2px}
+button{font:inherit;color:inherit}
+
+.demo{background:var(--warm-soft);color:var(--ink);font-size:.85rem}
+.demo .wrap{padding-block:8px}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:color-mix(in srgb,var(--bg) 90%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+.bar{display:flex;justify-content:space-between;align-items:center;gap:12px;padding-block:12px}
+.brand{display:flex;align-items:center;gap:10px;font:700 1.05rem var(--display)}
+.mark{width:28px;height:28px;border-radius:50%;background:radial-gradient(circle at 35% 35%,var(--warm) 0 30%,var(--accent) 31%)}
+nav{display:flex;gap:16px;align-items:center}
+nav a{color:var(--muted);text-decoration:none;font-weight:500;font-size:.92rem}
+nav a:hover{color:var(--ink)}
+.langs{display:flex;border:1px solid var(--line);border-radius:999px;overflow:hidden}
+.langs button{border:0;background:none;padding:5px 10px;font:600 .75rem var(--body);color:var(--muted);cursor:pointer}
+.langs button[aria-pressed="true"]{background:var(--accent);color:var(--surface)}
+@media (max-width:640px){nav a{display:none}}
+
+.hero{display:grid;grid-template-columns:1.15fr .85fr;gap:40px;padding-block:52px 36px;align-items:center}
+.hero>div{display:grid;gap:18px;min-width:0}
+.lede{font-size:1.12rem;color:var(--muted);max-width:32em}
+.status{display:inline-flex;align-items:center;gap:8px;font:500 .85rem var(--mono);padding:6px 12px;border-radius:999px;background:var(--surface);border:1px solid var(--line);justify-self:start}
+.dot{width:9px;height:9px;border-radius:50%;background:var(--ok)}
+.status.closed .dot{background:var(--closed)}
+.ctas{display:flex;gap:10px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 20px;border-radius:12px;border:1px solid var(--accent);background:var(--accent);color:var(--surface);font-weight:600;text-decoration:none;cursor:pointer}
+.btn.ghost{background:transparent;color:var(--accent)}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.facts{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:22px;display:grid;gap:14px}
+.facts dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:8px 16px}
+.facts dt{color:var(--muted);font-size:.88rem}
+.facts dd{margin:0;font-weight:500}
+.hours{font-variant-numeric:tabular-nums}
+
+section{padding-block:52px}
+.alt{background:var(--surface);border-block:1px solid var(--line)}
+.head{display:grid;gap:8px;margin-bottom:26px;max-width:42em}
+
+.services{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.svc{border:1px solid var(--line);border-radius:14px;padding:18px;display:grid;gap:8px;background:var(--bg);text-align:left;cursor:pointer;min-width:0}
+.svc:hover{border-color:var(--accent)}
+.svc .meta{display:flex;justify-content:space-between;gap:8px;font:500 .82rem var(--mono);color:var(--muted);font-variant-numeric:tabular-nums}
+.svc .price{color:var(--accent)}
+
+.book{display:grid;grid-template-columns:220px 1fr;gap:28px;align-items:start}
+.steps{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.steps li{display:flex;gap:10px;align-items:center;color:var(--muted);font-weight:500}
+.steps li span{width:26px;height:26px;border-radius:50%;border:1px solid var(--line);display:grid;place-items:center;font:500 .8rem var(--mono)}
+.steps li.on{color:var(--ink)}
+.steps li.on span{background:var(--accent);border-color:var(--accent);color:var(--surface)}
+.steps li.done span{background:var(--accent-soft);border-color:var(--accent);color:var(--accent)}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:22px;display:grid;gap:16px;min-width:0}
+.pick{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}
+.opt{border:1px solid var(--line);border-radius:10px;padding:10px 12px;background:none;cursor:pointer;text-align:left;display:grid;gap:2px}
+.opt small{color:var(--muted);font:500 .75rem var(--mono)}
+.opt[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft)}
+.days{display:flex;gap:6px;overflow-x:auto;padding-bottom:4px}
+.day{flex:0 0 auto;min-width:64px;border:1px solid var(--line);border-radius:10px;padding:8px 6px;background:none;cursor:pointer;text-align:center;display:grid;gap:0}
+.day b{font:600 1.1rem var(--display)}
+.day small{color:var(--muted);font-size:.72rem;text-transform:uppercase;letter-spacing:.05em}
+.day[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft)}
+.slots{display:grid;grid-template-columns:repeat(auto-fill,minmax(76px,1fr));gap:6px}
+.slot{border:1px solid var(--line);border-radius:8px;padding:8px 0;background:none;cursor:pointer;font:500 .88rem var(--mono);font-variant-numeric:tabular-nums}
+.slot:disabled{opacity:.35;text-decoration:line-through;cursor:not-allowed}
+.slot[aria-pressed="true"]{background:var(--warm);border-color:var(--warm);color:#fff}
+label{display:grid;gap:6px;font-weight:500;font-size:.92rem}
+input[type=text],input[type=tel]{font:inherit;padding:10px 12px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--ink);width:100%}
+.check{display:flex;gap:10px;align-items:flex-start;font-weight:400;font-size:.88rem;color:var(--muted)}
+.check input{margin-top:4px;accent-color:var(--accent)}
+.err{color:var(--closed);font-size:.85rem}
+.summary{background:var(--accent-soft);border-radius:12px;padding:14px;display:grid;gap:4px}
+.row{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+
+.team{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.member{display:flex;gap:12px;align-items:center;min-width:0}
+.avatar{width:52px;height:52px;border-radius:50%;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center;font:700 1rem var(--display);flex:0 0 auto}
+.member p:last-child{color:var(--muted);font-size:.88rem}
+
+.faq{display:grid;gap:10px;max-width:46em}
+details{border:1px solid var(--line);border-radius:12px;padding:14px 16px;background:var(--bg)}
+summary{cursor:pointer;font-weight:600}
+details p{margin-top:8px;color:var(--muted)}
+
+.contact{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+.contact>div{display:grid;gap:10px;min-width:0}
+table{border-collapse:collapse;width:100%;font-variant-numeric:tabular-nums}
+td{padding:8px 0;border-bottom:1px solid var(--line)}
+td:last-child{text-align:right}
+tr.today td{font-weight:600;color:var(--accent)}
+.privacy{font-size:.9rem;color:var(--muted);display:grid;gap:8px;max-width:52em}
+.privacy b{color:var(--ink)}
+footer{padding-block:28px;color:var(--muted);font-size:.85rem;border-top:1px solid var(--line)}
+
+@media (max-width:860px){.hero,.book,.contact{grid-template-columns:1fr}.services,.team{grid-template-columns:1fr 1fr}.steps{grid-auto-flow:column;overflow-x:auto}}
+@media (max-width:520px){.services,.team{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:no-preference){.opt,.slot,.day,.svc{transition:background .15s,border-color .15s}}
+</style>
+
+<div class="demo" id="demoBar"><div class="wrap" data-t="demo"></div></div>
+<header><div class="wrap bar">
+  <div class="brand"><span class="mark" aria-hidden="true"></span><span id="clinicName"></span></div>
+  <nav>
+    <a href="#sherbimet" data-t="navServices"></a>
+    <a href="#rezervo" data-t="navBook"></a>
+    <a href="#kontakt" data-t="navContact"></a>
+    <div class="langs" role="group" aria-label="Language" id="langs"></div>
+  </nav>
+</div></header>
+
+<main>
+<div class="wrap hero">
+  <div>
+    <span class="status" id="status"><span class="dot"></span><span id="statusText"></span></span>
+    <h1 data-t="h1"></h1>
+    <p class="lede" data-t="lede"></p>
+    <div class="ctas"><a class="btn" href="#rezervo" data-t="ctaBook"></a><a class="btn ghost" href="#sherbimet" data-t="ctaServices"></a></div>
+  </div>
+  <aside class="facts">
+    <h3 data-t="factsTitle"></h3>
+    <dl>
+      <dt data-t="address"></dt><dd id="factAddress"></dd>
+      <dt data-t="phone"></dt><dd id="factPhone"></dd>
+      <dt data-t="languages"></dt><dd data-t="langList"></dd>
+      <dt data-t="payment"></dt><dd data-t="paymentList"></dd>
+    </dl>
+  </aside>
+</div>
+
+<section id="sherbimet" class="alt"><div class="wrap">
+  <div class="head"><span class="eyebrow" data-t="svcEyebrow"></span><h2 data-t="svcTitle"></h2><p class="muted" data-t="svcSub"></p></div>
+  <div class="services" id="services"></div>
+</div></section>
+
+<section id="rezervo"><div class="wrap">
+  <div class="head"><span class="eyebrow" data-t="bookEyebrow"></span><h2 data-t="bookTitle"></h2></div>
+  <div class="book">
+    <ol class="steps" id="steps"></ol>
+    <div class="panel" id="panel" aria-live="polite"></div>
+  </div>
+</div></section>
+
+<section class="alt"><div class="wrap">
+  <div class="head"><span class="eyebrow" data-t="teamEyebrow"></span><h2 data-t="teamTitle"></h2></div>
+  <div class="team" id="team"></div>
+</div></section>
+
+<section><div class="wrap">
+  <div class="head"><span class="eyebrow">FAQ</span><h2 data-t="faqTitle"></h2></div>
+  <div class="faq" id="faq"></div>
+</div></section>
+
+<section id="kontakt" class="alt"><div class="wrap contact">
+  <div><span class="eyebrow" data-t="hoursEyebrow"></span><h2 data-t="hoursTitle"></h2><table class="hours"><tbody id="hours"></tbody></table></div>
+  <div><span class="eyebrow" data-t="contactEyebrow"></span><h2 data-t="contactTitle"></h2>
+    <p id="contactAddress"></p><p id="contactPhone"></p><p id="contactEmail"></p>
+    <a class="btn ghost" id="mapLink" target="_blank" rel="noopener" data-t="map"></a>
+  </div>
+</div></section>
+
+<section id="privatesia"><div class="wrap privacy" id="privacy"></div></section>
+</main>
+<footer><div class="wrap" id="footer"></div></footer>
+
+<script>
+/* ============ CLIENT CONFIG: edit this block for each clinic ============ */
+const CONFIG = {
+  demo: true,                         // true = demo banner on, booking is simulated
+  name: "Klinika Dentare Rrezja",     // fictional demo clinic
+  address: "Rr. Shembull 12, Prishtinë",
+  phone: "+383 44 000 000",
+  whatsapp: "",                       // digits only, e.g. "38344123456"; live mode opens WhatsApp with the request
+  email: "info@shembull.com",
+  mapUrl: "https://maps.google.com/?q=Prishtina",
+  timeZone: "Europe/Belgrade",        // Kosovo uses the same time as Belgrade
+  slotMinutes: 30,
+  // opening hours by weekday, 0=Sunday ... 6=Saturday; null = closed
+  hours: {0:null,1:["09:00","19:00"],2:["09:00","19:00"],3:["09:00","19:00"],4:["09:00","19:00"],5:["09:00","19:00"],6:["09:00","15:00"]},
+  retentionMonths: 12,
+  services: [
+    {id:"check", min:30, price:"€15",  n:{sq:"Kontroll dhe konsultë",en:"Check-up and consultation",de:"Kontrolle und Beratung"}, d:{sq:"Kontroll i plotë dhe plan trajtimi.",en:"Full check-up and treatment plan.",de:"Gründliche Untersuchung und Behandlungsplan."}},
+    {id:"clean", min:45, price:"€30",  n:{sq:"Pastrim profesional",en:"Professional cleaning",de:"Professionelle Zahnreinigung"}, d:{sq:"Heqje e gurëzave dhe polirim.",en:"Tartar removal and polishing.",de:"Zahnsteinentfernung und Politur."}},
+    {id:"fill",  min:45, price:"€35+", n:{sq:"Mbushje kompozite",en:"Composite filling",de:"Kompositfüllung"}, d:{sq:"Mbushje me ngjyrën e dhëmbit.",en:"Tooth-coloured filling.",de:"Zahnfarbene Füllung."}},
+    {id:"canal", min:60, price:"€80+", n:{sq:"Trajtim kanali",en:"Root canal treatment",de:"Wurzelbehandlung"}, d:{sq:"Nën anestezi lokale.",en:"Under local anaesthetic.",de:"Unter örtlicher Betäubung."}},
+    {id:"white", min:60, price:"€150", n:{sq:"Zbardhim i dhëmbëve",en:"Teeth whitening",de:"Bleaching"}, d:{sq:"Zbardhim në klinikë, një seancë.",en:"In-clinic whitening, one session.",de:"Aufhellung in der Praxis, eine Sitzung."}},
+    {id:"impl",  min:30, price:"0 €",  n:{sq:"Konsultë për implante",en:"Implant consultation",de:"Implantat-Beratung"}, d:{sq:"Vlerësim dhe ofertë me shkrim.",en:"Assessment and written quote.",de:"Befund und schriftliches Angebot."}}
+  ],
+  team: [
+    {i:"DR", role:{sq:"Stomatolog i përgjithshëm",en:"General dentist",de:"Allgemeiner Zahnarzt"}},
+    {i:"OR", role:{sq:"Ortodont",en:"Orthodontist",de:"Kieferorthopädin"}},
+    {i:"HD", role:{sq:"Higjieniste dentare",en:"Dental hygienist",de:"Dentalhygienikerin"}}
+  ]
+};
+/* ======================================================================= */
+
+const T = {
+ sq:{demo:"Demo: klinikë fiktive. Kjo është faqja shabllon që e përshtasim për klinikën tuaj; emrat, çmimet dhe oraret janë shembull.",
+  navServices:"Shërbimet",navBook:"Rezervo",navContact:"Kontakt",
+  h1:"Rezervoni terminin te dentisti pa pritur në telefon.",lede:"Zgjidhni shërbimin, ditën dhe orën në më pak se një minutë. Flasim shqip, anglisht dhe gjermanisht.",
+  ctaBook:"Rezervo termin",ctaServices:"Shiko shërbimet",factsTitle:"Në shkurt",address:"Adresa",phone:"Telefoni",languages:"Gjuhët",langList:"Shqip, English, Deutsch",payment:"Pagesa",paymentList:"Para në dorë, kartelë",
+  open:"Hapur tani · mbyllet në {t}",closed:"Mbyllur · hapet {d} në {t}",
+  svcEyebrow:"Shërbimet",svcTitle:"Çmime të qarta para se të vini.",svcSub:"Klikoni një shërbim për ta rezervuar direkt.",
+  bookEyebrow:"Rezervimi online",bookTitle:"Tre hapa, pa telefonata.",
+  s1:"Shërbimi",s2:"Data dhe ora",s3:"Të dhënat tuaja",pickService:"Çfarë ju nevojitet?",pickDay:"Zgjidhni ditën",pickTime:"Oraret e lira",noSlots:"Nuk ka orare të lira këtë ditë.",
+  name:"Emri dhe mbiemri",tel:"Numri i telefonit (WhatsApp)",consent:"Pajtohem që klinika të përdorë emrin dhe numrin tim vetëm për këtë termin.",privacyLink:"Njoftimi i privatësisë",
+  noSymptoms:"Mos shkruani simptoma ose të dhëna mjekësore këtu. Mjeku ju pyet në vizitë.",
+  back:"Kthehu",next:"Vazhdo",confirm:"Dërgo kërkesën",errName:"Shkruani emrin.",errTel:"Shkruani një numër të vlefshëm.",errConsent:"Duhet pëlqimi juaj për të vazhduar.",
+  doneTitle:"Kërkesa u regjistrua",doneDemo:"Në versionin live, klinika e konfirmon terminin në WhatsApp dhe ju dërgon kujtesë një ditë para.",doneLive:"Hapni WhatsApp për ta dërguar kërkesën te klinika.",sendWa:"Dërgo në WhatsApp",again:"Rezervo një tjetër",
+  teamEyebrow:"Ekipi",teamTitle:"Kush ju pret në klinikë.",teamName:"Emri i mjekut",
+  faqTitle:"Pyetjet që na bëni më shpesh.",
+  faq:[["Sa kushton vizita e parë?","Kontrolli kushton €15 dhe zbritet nga trajtimi nëse e vazhdoni te ne."],["Jetoj jashtë vendit. A mund të rezervoj para se të vij?","Po. Zgjidhni datën kur do të jeni në Kosovë. Ju shkruajmë në WhatsApp për ta konfirmuar."],["Si paguhet?","Me para në dorë ose me kartelë në klinikë. Për trajtime më të gjata ju japim ofertë me shkrim."],["Çka nëse vonohem ose anuloj?","Na shkruani në WhatsApp sa më herët, që terminin ta marrë dikush tjetër."]],
+  hoursEyebrow:"Orari",hoursTitle:"Kur jemi të hapur.",contactEyebrow:"Kontakt",contactTitle:"Ku na gjeni.",map:"Hap në Google Maps",closedDay:"Mbyllur",
+  days:["E diel","E hënë","E martë","E mërkurë","E enjte","E premte","E shtunë"],daysShort:["Die","Hën","Mar","Mër","Enj","Pre","Sht"],
+  privacy:c=>`<h3>Njoftimi i privatësisë</h3><p><b>Kush:</b> ${c.name} i përpunon të dhënat tuaja si kontrollues.</p><p><b>Çka mbledhim:</b> emrin, numrin e telefonit, shërbimin dhe orarin që zgjidhni. Nuk mbledhim simptoma ose informata mjekësore përmes kësaj faqeje.</p><p><b>Pse:</b> për të caktuar terminin dhe për t'ju dërguar konfirmim e kujtesë, me pëlqimin tuaj.</p><p><b>Kush i sheh:</b> klinika dhe ofruesit teknikë që na ndihmojnë (hostimi i faqes, kalendari, WhatsApp).</p><p><b>Sa kohë:</b> fshihen pas ${c.retentionMonths} muajsh nëse nuk jeni pacient aktiv.</p><p><b>Të drejtat tuaja:</b> qasje, korrigjim, fshirje dhe tërheqje e pëlqimit, me një email te ${c.email}. Mund të ankoheni te Agjencia për Informim dhe Privatësi (AIP).</p><p>Kjo faqe nuk përdor cookies.</p>`},
+ en:{demo:"Demo: a fictional clinic. This is the template we customise for your clinic; names, prices and hours are examples.",
+  navServices:"Services",navBook:"Book",navContact:"Contact",
+  h1:"Book your dentist appointment without waiting on the phone.",lede:"Pick a service, day and time in under a minute. We speak Albanian, English and German.",
+  ctaBook:"Book an appointment",ctaServices:"See services",factsTitle:"At a glance",address:"Address",phone:"Phone",languages:"Languages",langList:"Shqip, English, Deutsch",payment:"Payment",paymentList:"Cash, card",
+  open:"Open now · closes at {t}",closed:"Closed · opens {d} at {t}",
+  svcEyebrow:"Services",svcTitle:"Clear prices before you come in.",svcSub:"Click a service to book it directly.",
+  bookEyebrow:"Online booking",bookTitle:"Three steps, no phone calls.",
+  s1:"Service",s2:"Date and time",s3:"Your details",pickService:"What do you need?",pickDay:"Choose a day",pickTime:"Available times",noSlots:"No free times on this day.",
+  name:"Full name",tel:"Phone number (WhatsApp)",consent:"I agree that the clinic uses my name and number only for this appointment.",privacyLink:"Privacy notice",
+  noSymptoms:"Please don't write symptoms or medical details here. The dentist will ask at your visit.",
+  back:"Back",next:"Continue",confirm:"Send request",errName:"Please enter your name.",errTel:"Please enter a valid number.",errConsent:"Your consent is needed to continue.",
+  doneTitle:"Request recorded",doneDemo:"In the live version, the clinic confirms on WhatsApp and sends a reminder the day before.",doneLive:"Open WhatsApp to send your request to the clinic.",sendWa:"Send on WhatsApp",again:"Book another",
+  teamEyebrow:"Team",teamTitle:"Who you'll meet at the clinic.",teamName:"Doctor's name",
+  faqTitle:"Questions we get most often.",
+  faq:[["How much is the first visit?","A check-up costs €15 and is deducted from your treatment if you continue with us."],["I live abroad. Can I book before I arrive?","Yes. Choose a date when you'll be in Kosovo and we'll confirm on WhatsApp."],["How do I pay?","Cash or card at the clinic. For longer treatments you get a written quote first."],["What if I'm late or need to cancel?","Message us on WhatsApp as early as you can so someone else can take the slot."]],
+  hoursEyebrow:"Hours",hoursTitle:"When we're open.",contactEyebrow:"Contact",contactTitle:"Where to find us.",map:"Open in Google Maps",closedDay:"Closed",
+  days:["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],daysShort:["Sun","Mon","Tue","Wed","Thu","Fri","Sat"],
+  privacy:c=>`<h3>Privacy notice</h3><p><b>Who:</b> ${c.name} processes your data as controller.</p><p><b>What we collect:</b> your name, phone number and the service and time you choose. We don't collect symptoms or medical information through this site.</p><p><b>Why:</b> to schedule your appointment and send a confirmation and reminder, based on your consent.</p><p><b>Who sees it:</b> the clinic and the technical providers that help us (web hosting, calendar, WhatsApp).</p><p><b>How long:</b> deleted after ${c.retentionMonths} months if you're not an active patient.</p><p><b>Your rights:</b> access, correction, deletion and withdrawing consent, by emailing ${c.email}. You can complain to Kosovo's Information and Privacy Agency (AIP).</p><p>This site uses no cookies.</p>`},
+ de:{demo:"Demo: eine fiktive Praxis. Diese Vorlage passen wir für Ihre Praxis an; Namen, Preise und Zeiten sind Beispiele.",
+  navServices:"Leistungen",navBook:"Termin",navContact:"Kontakt",
+  h1:"Zahnarzttermin buchen, ohne in der Warteschleife zu hängen.",lede:"Leistung, Tag und Uhrzeit in unter einer Minute wählen. Wir sprechen Albanisch, Englisch und Deutsch.",
+  ctaBook:"Termin buchen",ctaServices:"Leistungen ansehen",factsTitle:"Auf einen Blick",address:"Adresse",phone:"Telefon",languages:"Sprachen",langList:"Shqip, English, Deutsch",payment:"Zahlung",paymentList:"Bar, Karte",
+  open:"Jetzt geöffnet · schließt um {t}",closed:"Geschlossen · öffnet {d} um {t}",
+  svcEyebrow:"Leistungen",svcTitle:"Klare Preise, bevor Sie kommen.",svcSub:"Klicken Sie auf eine Leistung, um sie direkt zu buchen.",
+  bookEyebrow:"Online-Termin",bookTitle:"Drei Schritte, kein Anruf.",
+  s1:"Leistung",s2:"Datum und Uhrzeit",s3:"Ihre Angaben",pickService:"Was brauchen Sie?",pickDay:"Tag wählen",pickTime:"Freie Zeiten",noSlots:"An diesem Tag sind keine Zeiten frei.",
+  name:"Vor- und Nachname",tel:"Telefonnummer (WhatsApp)",consent:"Ich bin einverstanden, dass die Praxis meinen Namen und meine Nummer nur für diesen Termin verwendet.",privacyLink:"Datenschutzhinweis",
+  noSymptoms:"Bitte keine Beschwerden oder medizinischen Angaben eintragen. Die Ärztin oder der Arzt fragt beim Termin.",
+  back:"Zurück",next:"Weiter",confirm:"Anfrage senden",errName:"Bitte Namen eingeben.",errTel:"Bitte gültige Nummer eingeben.",errConsent:"Ihre Einwilligung ist erforderlich.",
+  doneTitle:"Anfrage erfasst",doneDemo:"In der Live-Version bestätigt die Praxis per WhatsApp und erinnert Sie am Vortag.",doneLive:"Öffnen Sie WhatsApp, um die Anfrage an die Praxis zu senden.",sendWa:"Per WhatsApp senden",again:"Weiteren Termin buchen",
+  teamEyebrow:"Team",teamTitle:"Wer Sie in der Praxis erwartet.",teamName:"Name der Ärztin / des Arztes",
+  faqTitle:"Häufige Fragen.",
+  faq:[["Was kostet der erste Besuch?","Die Kontrolle kostet 15 € und wird angerechnet, wenn Sie die Behandlung bei uns fortsetzen."],["Ich lebe im Ausland. Kann ich vor der Anreise buchen?","Ja. Wählen Sie ein Datum, an dem Sie im Kosovo sind. Wir bestätigen per WhatsApp."],["Wie bezahle ich?","Bar oder mit Karte in der Praxis. Für längere Behandlungen erhalten Sie vorher ein schriftliches Angebot."],["Was, wenn ich mich verspäte oder absagen muss?","Schreiben Sie uns so früh wie möglich per WhatsApp, damit jemand anderes den Termin bekommt."]],
+  hoursEyebrow:"Öffnungszeiten",hoursTitle:"Wann wir geöffnet haben.",contactEyebrow:"Kontakt",contactTitle:"So finden Sie uns.",map:"In Google Maps öffnen",closedDay:"Geschlossen",
+  days:["Sonntag","Montag","Dienstag","Mittwoch","Donnerstag","Freitag","Samstag"],daysShort:["So","Mo","Di","Mi","Do","Fr","Sa"],
+  privacy:c=>`<h3>Datenschutzhinweis</h3><p><b>Wer:</b> ${c.name} verarbeitet Ihre Daten als Verantwortliche.</p><p><b>Was wir erheben:</b> Name, Telefonnummer sowie gewählte Leistung und Uhrzeit. Über diese Website erheben wir keine Beschwerden oder medizinischen Angaben.</p><p><b>Warum:</b> um Ihren Termin zu planen und Ihnen Bestätigung und Erinnerung zu senden, auf Grundlage Ihrer Einwilligung.</p><p><b>Wer sie sieht:</b> die Praxis und technische Dienstleister (Hosting, Kalender, WhatsApp).</p><p><b>Wie lange:</b> Löschung nach ${c.retentionMonths} Monaten, wenn Sie nicht aktiver Patient sind.</p><p><b>Ihre Rechte:</b> Auskunft, Berichtigung, Löschung und Widerruf der Einwilligung per E-Mail an ${c.email}. Beschwerden sind bei der kosovarischen Agentur für Information und Datenschutz (AIP) möglich.</p><p>Diese Website verwendet keine Cookies.</p>`}
+};
+// per-client wording from CONFIG.text, e.g. {sq:{h1:"..."}}
+for(const l in CONFIG.text||{}) Object.assign(T[l],CONFIG.text[l]);
+
+const $=s=>document.querySelector(s);
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const C=CONFIG, ce={...C,name:esc(C.name),email:esc(C.email)};
+let lang="sq";
+const st={step:1,svc:null,dayKey:null,slot:null,name:"",tel:"",consent:false,err:"",done:false};
+
+/* --- time helpers in the clinic's time zone --- */
+function nowParts(){
+  const p=new Intl.DateTimeFormat("en-GB",{timeZone:C.timeZone,year:"numeric",month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit",hour12:false,weekday:"short"}).formatToParts(new Date());
+  const g=k=>p.find(x=>x.type===k).value;
+  const wd=["Sun","Mon","Tue","Wed","Thu","Fri","Sat"].indexOf(g("weekday"));
+  return {y:+g("year"),m:+g("month"),d:+g("day"),wd,min:(+g("hour")%24)*60+ +g("minute")};
+}
+const toMin=s=>{const [h,m]=s.split(":").map(Number);return h*60+m};
+const fmt=m=>String(Math.floor(m/60)).padStart(2,"0")+":"+String(m%60).padStart(2,"0");
+function upcomingDays(n){
+  const t=nowParts(); const base=Date.UTC(t.y,t.m-1,t.d); const out=[];
+  for(let i=0;out.length<n&&i<21;i++){
+    const dt=new Date(base+i*864e5); const wd=dt.getUTCDay();
+    if(!C.hours[wd]) continue;
+    out.push({key:dt.toISOString().slice(0,10),wd,date:dt.getUTCDate(),today:i===0});
+  }
+  return out;
+}
+function slotsFor(day,svc){
+  const [o,c]=C.hours[day.wd].map(toMin); const t=nowParts(); const res=[];
+  for(let m=o;m+svc.min<=c;m+=C.slotMinutes){
+    if(day.today && m<=t.min+30) continue;
+    // demo: mark some slots as taken, deterministic per day/time
+    let h=0; for(const ch of day.key+m) h=(h*31+ch.charCodeAt(0))>>>0;
+    res.push({m,taken:C.demo && h%3===0});
+  }
+  return res;
+}
+
+function renderStatus(){
+  const t=T[lang], n=nowParts(), h=C.hours[n.wd];
+  const open=h && n.min>=toMin(h[0]) && n.min<toMin(h[1]);
+  $("#status").classList.toggle("closed",!open);
+  if(open){$("#statusText").textContent=t.open.replace("{t}",h[1]);return}
+  for(let i=0;i<8;i++){
+    const wd=(n.wd+i)%7, hh=C.hours[wd];
+    if(!hh) continue;
+    if(i===0 && n.min>=toMin(hh[0])) continue;
+    $("#statusText").textContent=t.closed.replace("{d}",t.days[wd].toLowerCase()).replace("{t}",hh[0]);return;
+  }
+}
+
+function renderBooking(){
+  const t=T[lang], svc=C.services.find(s=>s.id===st.svc);
+  $("#steps").innerHTML=[t.s1,t.s2,t.s3].map((s,i)=>{
+    const n=i+1,cls=st.done||n<st.step?"done":n===st.step?"on":"";
+    return `<li class="${cls}"><span>${st.done||n<st.step?"✓":n}</span>${esc(s)}</li>`}).join("");
+  const P=$("#panel");
+  if(st.done){
+    const d=upcomingDays(7).find(x=>x.key===st.dayKey);
+    const msg=`${C.name}: ${svc.n[lang]} · ${st.dayKey} ${fmt(st.slot)} · ${st.name}, ${st.tel}`;
+    const wa=C.whatsapp.replace(/\D/g,"");
+    P.innerHTML=`<h3>${esc(t.doneTitle)}</h3><div class="summary"><div class="row"><span>${esc(svc.n[lang])}</span><b>${esc(svc.price)}</b></div><div class="row"><span>${esc(d?t.days[d.wd]:"")} ${esc(st.dayKey)}</span><b>${fmt(st.slot)}</b></div><div>${esc(st.name)} · ${esc(st.tel)}</div></div>
+      <p class="muted">${esc(!C.demo&&wa?t.doneLive:t.doneDemo)}</p>
+      <div class="ctas">${!C.demo&&wa?`<a class="btn" target="_blank" rel="noopener" href="https://wa.me/${wa}?text=${encodeURIComponent(msg)}">${esc(t.sendWa)}</a>`:""}<button class="btn ghost" data-a="again">${esc(t.again)}</button></div>`;
+    return;
+  }
+  if(st.step===1){
+    P.innerHTML=`<h3>${esc(t.pickService)}</h3><div class="pick">${C.services.map(s=>`<button class="opt" data-svc="${s.id}" aria-pressed="${st.svc===s.id}"><span>${esc(s.n[lang])}</span><small>${s.min} min · ${esc(s.price)}</small></button>`).join("")}</div>
+      <div class="ctas"><button class="btn" data-a="next" ${st.svc?"":"disabled"}>${esc(t.next)}</button></div>`;
+  } else if(st.step===2){
+    const days=upcomingDays(7); if(!st.dayKey) st.dayKey=days[0].key;
+    const day=days.find(d=>d.key===st.dayKey)||days[0];
+    const slots=slotsFor(day,svc);
+    P.innerHTML=`<h3>${esc(t.pickDay)}</h3><div class="days">${days.map(d=>`<button class="day" data-day="${d.key}" aria-pressed="${d.key===day.key}"><small>${esc(t.daysShort[d.wd])}</small><b>${d.date}</b></button>`).join("")}</div>
+      <h3>${esc(t.pickTime)}</h3>${slots.length?`<div class="slots">${slots.map(s=>`<button class="slot" data-slot="${s.m}" ${s.taken?"disabled":""} aria-pressed="${st.slot===s.m}">${fmt(s.m)}</button>`).join("")}</div>`:`<p class="muted">${esc(t.noSlots)}</p>`}
+      <div class="ctas"><button class="btn ghost" data-a="back">${esc(t.back)}</button><button class="btn" data-a="next" ${st.slot!==null?"":"disabled"}>${esc(t.next)}</button></div>`;
+  } else {
+    P.innerHTML=`<div class="summary"><div class="row"><span>${esc(svc.n[lang])}</span><b>${st.dayKey} · ${fmt(st.slot)}</b></div></div>
+      <label for="f-name">${esc(t.name)}<input type="text" id="f-name" autocomplete="name" value="${esc(st.name)}"></label>
+      <label for="f-tel">${esc(t.tel)}<input type="tel" id="f-tel" autocomplete="tel" inputmode="tel" placeholder="+383 4x xxx xxx" value="${esc(st.tel)}"></label>
+      ${t.noSymptoms?`<p class="muted" style="font-size:.85rem">${esc(t.noSymptoms)}</p>`:""}
+      <label class="check" for="f-consent"><input type="checkbox" id="f-consent" ${st.consent?"checked":""}><span>${esc(t.consent)} <a href="#privatesia">${esc(t.privacyLink)}</a></span></label>
+      ${st.err?`<p class="err">${esc(st.err)}</p>`:""}
+      <div class="ctas"><button class="btn ghost" data-a="back">${esc(t.back)}</button><button class="btn" data-a="confirm">${esc(t.confirm)}</button></div>`;
+  }
+}
+
+function render(){
+  const t=T[lang];
+  document.documentElement.lang=lang;
+  document.querySelectorAll("[data-t]").forEach(el=>{const v=t[el.dataset.t]; if(typeof v==="string") el.textContent=v;});
+  $("#demoBar").hidden=!C.demo;
+  $("#langs").innerHTML=["sq","en","de"].map(l=>`<button data-l="${l}" aria-pressed="${l===lang}">${l.toUpperCase()}</button>`).join("");
+  $("#clinicName").textContent=C.name;
+  $("#factAddress").textContent=C.address; $("#factPhone").textContent=C.phone;
+  $("#services").innerHTML=C.services.map(s=>`<button class="svc" data-book="${s.id}"><h3>${esc(s.n[lang])}</h3><p class="muted">${esc(s.d[lang])}</p><div class="meta"><span>${s.min} min</span><span class="price">${esc(s.price)}</span></div></button>`).join("");
+  $("#team").innerHTML=C.team.map(m=>`<div class="member"><div class="avatar">${esc(m.i)}</div><div><p><b>${esc(m.name||t.teamName)}</b></p><p>${esc(m.role[lang])}</p></div></div>`).join("");
+  $("#faq").innerHTML=t.faq.map(([q,a])=>`<details><summary>${esc(q)}</summary><p>${esc(a)}</p></details>`).join("");
+  const wd=nowParts().wd;
+  $("#hours").innerHTML=[1,2,3,4,5,6,0].map(d=>`<tr class="${d===wd?"today":""}"><td>${esc(t.days[d])}</td><td>${C.hours[d]?C.hours[d].join("–"):esc(t.closedDay)}</td></tr>`).join("");
+  $("#contactAddress").textContent=C.address; $("#contactPhone").textContent=C.phone; $("#contactEmail").textContent=C.email;
+  $("#mapLink").href=C.mapUrl;
+  $("#privacy").innerHTML=t.privacy(ce);
+  $("#footer").textContent=`© ${new Date().getFullYear()} ${C.name}`;
+  renderStatus(); renderBooking();
+}
+
+function readForm(){const n=$("#f-name"),p=$("#f-tel"),c=$("#f-consent"); if(n){st.name=n.value.trim();st.tel=p.value.trim();st.consent=c.checked}}
+document.addEventListener("click",e=>{
+  const b=e.target.closest("button"); if(!b) return;
+  if(b.dataset.l){readForm(); lang=b.dataset.l; try{localStorage.setItem("lang",lang)}catch(_){} render(); return}
+  if(b.dataset.book){Object.assign(st,{svc:b.dataset.book,step:2,slot:null,done:false,err:""}); renderBooking(); $("#rezervo").scrollIntoView({behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth"}); return}
+  if(b.dataset.svc){st.svc=b.dataset.svc; st.slot=null; renderBooking(); return}
+  if(b.dataset.day){st.dayKey=b.dataset.day; st.slot=null; renderBooking(); return}
+  if(b.dataset.slot){st.slot=+b.dataset.slot; renderBooking(); return}
+  const a=b.dataset.a;
+  if(a==="next"){st.step++; renderBooking()}
+  else if(a==="back"){readForm(); st.err=""; st.step--; renderBooking()}
+  else if(a==="confirm"){
+    readForm(); const t=T[lang];
+    st.err = !st.name?t.errName : st.tel.replace(/\D/g,"").length<8?t.errTel : !st.consent?t.errConsent : "";
+    if(!st.err) st.done=true;
+    renderBooking();
+  }
+  else if(a==="again"){Object.assign(st,{step:1,svc:null,dayKey:null,slot:null,consent:false,err:"",done:false}); renderBooking()}
+});
+try{const s=localStorage.getItem("lang"); if(["sq","en","de"].includes(s)) lang=s;}catch(_){}
+render();
+setInterval(renderStatus,60000);
+</script>

@@ -1,0 +1,35 @@
+{
+  "template": "clinic",
+  "demo": true,
+  "name": "Klinika Dentare Rrezja",
+  "address": "Rr. Shembull 12, Prishtinë",
+  "phone": "+383 44 000 000",
+  "whatsapp": "",
+  "email": "info@shembull.com",
+  "mapUrl": "https://maps.google.com/?q=Prishtina",
+  "timeZone": "Europe/Belgrade",
+  "slotMinutes": 30,
+  "hours": {
+    "0": null,
+    "1": ["09:00", "19:00"],
+    "2": ["09:00", "19:00"],
+    "3": ["09:00", "19:00"],
+    "4": ["09:00", "19:00"],
+    "5": ["09:00", "19:00"],
+    "6": ["09:00", "15:00"]
+  },
+  "retentionMonths": 12,
+  "services": [
+    {"id": "check", "min": 30, "price": "€15",  "n": {"sq": "Kontroll dhe konsultë", "en": "Check-up and consultation", "de": "Kontrolle und Beratung"}, "d": {"sq": "Kontroll i plotë dhe plan trajtimi.", "en": "Full check-up and treatment plan.", "de": "Gründliche Untersuchung und Behandlungsplan."}},
+    {"id": "clean", "min": 45, "price": "€30",  "n": {"sq": "Pastrim profesional", "en": "Professional cleaning", "de": "Professionelle Zahnreinigung"}, "d": {"sq": "Heqje e gurëzave dhe polirim.", "en": "Tartar removal and polishing.", "de": "Zahnsteinentfernung und Politur."}},
+    {"id": "fill",  "min": 45, "price": "€35+", "n": {"sq": "Mbushje kompozite", "en": "Composite filling", "de": "Kompositfüllung"}, "d": {"sq": "Mbushje me ngjyrën e dhëmbit.", "en": "Tooth-coloured filling.", "de": "Zahnfarbene Füllung."}},
+    {"id": "canal", "min": 60, "price": "€80+", "n": {"sq": "Trajtim kanali", "en": "Root canal treatment", "de": "Wurzelbehandlung"}, "d": {"sq": "Nën anestezi lokale.", "en": "Under local anaesthetic.", "de": "Unter örtlicher Betäubung."}},
+    {"id": "white", "min": 60, "price": "€150", "n": {"sq": "Zbardhim i dhëmbëve", "en": "Teeth whitening", "de": "Bleaching"}, "d": {"sq": "Zbardhim në klinikë, një seancë.", "en": "In-clinic whitening, one session.", "de": "Aufhellung in der Praxis, eine Sitzung."}},
+    {"id": "impl",  "min": 30, "price": "0 €",  "n": {"sq": "Konsultë për implante", "en": "Implant consultation", "de": "Implantat-Beratung"}, "d": {"sq": "Vlerësim dhe ofertë me shkrim.", "en": "Assessment and written quote.", "de": "Befund und schriftliches Angebot."}}
+  ],
+  "team": [
+    {"i": "DR", "role": {"sq": "Stomatolog i përgjithshëm", "en": "General dentist", "de": "Allgemeiner Zahnarzt"}},
+    {"i": "OR", "role": {"sq": "Ortodont", "en": "Orthodontist", "de": "Kieferorthopädin"}},
+    {"i": "HD", "role": {"sq": "Higjieniste dentare", "en": "Dental hygienist", "de": "Dentalhygienikerin"}}
+  ]
+}

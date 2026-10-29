@@ -1,0 +1,35 @@
+{
+  "template": "salon",
+  "demo": true,
+  "name": "Studio Vela",
+  "address": "Rr. Shembull 7, Prishtinë",
+  "phone": "+383 44 000 000",
+  "whatsapp": "",
+  "email": "info@shembull.com",
+  "mapUrl": "https://maps.google.com/?q=Prishtina",
+  "timeZone": "Europe/Belgrade",
+  "slotMinutes": 15,
+  "hours": {
+    "0": null,
+    "1": ["09:00", "19:00"],
+    "2": ["09:00", "19:00"],
+    "3": ["09:00", "19:00"],
+    "4": ["09:00", "20:00"],
+    "5": ["09:00", "20:00"],
+    "6": ["09:00", "18:00"]
+  },
+  "retentionMonths": 12,
+  "services": [
+    {"id": "cut",    "min": 45,  "price": "€12",  "n": {"sq": "Prerje dhe fëno", "en": "Cut and blow-dry", "de": "Schnitt und Föhnen"}, "d": {"sq": "Larje, prerje dhe stilim.", "en": "Wash, cut and styling.", "de": "Waschen, Schneiden und Styling."}},
+    {"id": "color",  "min": 120, "price": "€35+", "n": {"sq": "Ngjyrosje", "en": "Colouring", "de": "Färben"}, "d": {"sq": "Ngjyrë e plotë ose rrënjë.", "en": "Full colour or roots.", "de": "Komplett oder Ansatz."}},
+    {"id": "nails",  "min": 60,  "price": "€20",  "n": {"sq": "Manikyr me gel", "en": "Gel manicure", "de": "Gel-Maniküre"}, "d": {"sq": "Formim, gel dhe dizajn i thjeshtë.", "en": "Shaping, gel and simple design.", "de": "Formen, Gel und schlichtes Design."}},
+    {"id": "lash",   "min": 90,  "price": "€30",  "n": {"sq": "Zgjatje qerpikësh", "en": "Lash extensions", "de": "Wimpernverlängerung"}, "d": {"sq": "Set natyral, klasik.", "en": "Natural classic set.", "de": "Natürliches Classic-Set."}},
+    {"id": "brows",  "min": 30,  "price": "€8",   "n": {"sq": "Vetulla", "en": "Brows", "de": "Augenbrauen"}, "d": {"sq": "Formim dhe ngjyrosje.", "en": "Shaping and tinting.", "de": "Zupfen und Färben."}},
+    {"id": "bridal", "min": 30,  "price": "0 €",  "n": {"sq": "Konsultë për nuse", "en": "Bridal consultation", "de": "Braut-Beratung"}, "d": {"sq": "Plan për flokë dhe make-up.", "en": "Hair and make-up plan.", "de": "Plan für Haare und Make-up."}}
+  ],
+  "team": [
+    {"i": "FL", "role": {"sq": "Stiliste flokësh", "en": "Hair stylist", "de": "Friseurin"}},
+    {"i": "TH", "role": {"sq": "Teknike thonjsh", "en": "Nail technician", "de": "Nageldesignerin"}},
+    {"i": "QE", "role": {"sq": "Specialiste qerpikësh", "en": "Lash artist", "de": "Wimpernstylistin"}}
+  ]
+}
