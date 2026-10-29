@@ -42,10 +42,6 @@ function Test-Config($cfg) {
   if (-not (Has $cfg 'template') -or -not $templates.ContainsKey([string]$cfg.template)) {
     $e.Add('"template" must be "clinic" or "salon"'); return , $e
   }
-  if ($cfg.template -eq 'website') {
-    foreach ($k in 'brand', 'email') { if (-not (Str $cfg.$k)) { $e.Add("missing ""$k""") } }
-    return , $e
-  }
 
   foreach ($k in 'name', 'address', 'phone', 'email', 'mapUrl', 'timeZone') {
     if (-not (Str $cfg.$k)) { $e.Add("missing ""$k""") }
@@ -125,7 +121,7 @@ function Build-Client($slug) {
   if (-not $m.Success) { throw "CONFIG block not found in $($templates[[string]$cfg.template])" }
   $html = $html.Substring(0, $m.Index) + 'const CONFIG = ' + $raw + ';' + $html.Substring($m.Index + $m.Length)
 
-  $title = if (Has $cfg 'title') { $cfg.title } elseif ($cfg.template -eq 'website') { $cfg.brand } else { $cfg.name }
+  $title = if (Has $cfg 'title') { $cfg.title } else { $cfg.name }
   $html = [regex]::Replace($html, '<title>[^<]*</title>', ('<title>' + (Enc $title) + '</title>').Replace('$', '$$'))
   $html = $html -replace '<meta name="claude:viewport-fit-sides"[^>]*>\r?\n?', ''
 
@@ -148,7 +144,7 @@ function Build-Client($slug) {
   [IO.File]::WriteAllText((Join-Path $out 'index.html'), $page, $utf8)
   [IO.File]::WriteAllText((Join-Path $out '_headers'), $headers, $utf8)
 
-  $mode = if ($cfg.template -eq 'website') { 'site' } elseif ($cfg.demo) { 'DEMO' } else { 'LIVE' }
+  $mode = if ($cfg.demo) { 'DEMO' } else { 'LIVE' }
   Write-Host ("  ok    {0,-22} {1,-8} {2,-5} -> dist\{0}\index.html" -f $slug, $cfg.template, $mode) -ForegroundColor Green
 }
 
