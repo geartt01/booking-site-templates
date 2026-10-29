@@ -4,6 +4,8 @@ One-page websites with **online booking** for small local businesses (clinics an
 **Albanian, English and German**. I use them in my small web studio: each client gets their own
 `config.json`, and a build script turns it into a ready-to-host site.
 
+**Live demos:** [dental clinic](https://geartt01.github.io/booking-site-templates/demo-klinika/) · [beauty salon](https://geartt01.github.io/booking-site-templates/demo-salon/) (made-up businesses, so booking is simulated). Every push rebuilds them with GitHub Actions and publishes them to GitHub Pages.
+
 | Desktop | Booking flow on mobile |
 |---|---|
 | ![Clinic](docs/clinic.png) | ![Clinic booking on mobile](docs/clinic-booking-mobile.png) |
