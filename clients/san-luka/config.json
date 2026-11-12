@@ -1,0 +1,63 @@
+{
+  "template": "clinic",
+  "demo": true,
+  "noindex": true,
+  "langs": ["sq"],
+  "title": "Klinika San Luka: rezervim online (version provë)",
+  "description": "Version provë i rezervimit online për Klinikën San Luka në Lezhë, përgatitur nga Ardeno.",
+  "name": "Klinika San Luka",
+  "address": "Rruga \"Nënë Tereza\", Lezhë 4501 (përballë Spitalit Rajonal)",
+  "phone": "068 829 9079",
+  "whatsapp": "",
+  "email": "info@sanluka.al",
+  "mapUrl": "https://www.google.com/maps/search/?api=1&query=Klinika+San+Luka+Lezh%C3%AB",
+  "timeZone": "Europe/Tirane",
+  "authority": "Komisioneri për të Drejtën e Informimit dhe Mbrojtjen e të Dhënave Personale (IDP)",
+  "slotMinutes": 30,
+  "hours": {
+    "0": null,
+    "1": ["08:00", "16:00"],
+    "2": ["08:00", "16:00"],
+    "3": ["08:00", "16:00"],
+    "4": ["08:00", "16:00"],
+    "5": ["08:00", "16:00"],
+    "6": ["08:00", "12:00"]
+  },
+  "retentionMonths": 12,
+  "services": [
+    {"id": "eko",      "min": 30, "n": {"sq": "EKO konvencionale", "en": "Conventional ultrasound", "de": "Konventioneller Ultraschall"}, "d": {"sq": "Ekografi e organeve, p.sh. abdomeni ose tiroidja.", "en": "Ultrasound of organs such as the abdomen or thyroid.", "de": "Ultraschall der Organe, z. B. Bauch oder Schilddrüse."}},
+    {"id": "doppler",  "min": 30, "n": {"sq": "EKO Doppler", "en": "Doppler ultrasound", "de": "Doppler-Ultraschall"}, "d": {"sq": "Ekzaminim i enëve të gjakut, p.sh. karotidet.", "en": "Examination of blood vessels such as the carotids.", "de": "Untersuchung der Blutgefäße, z. B. der Halsschlagadern."}},
+    {"id": "eko3d",    "min": 30, "n": {"sq": "EKO tomografike 3D", "en": "3D tomographic ultrasound", "de": "Tomografischer 3D-Ultraschall"}, "d": {"sq": "Ekografi tomografike tredimensionale.", "en": "Three-dimensional tomographic ultrasound.", "de": "Dreidimensionaler tomografischer Ultraschall."}},
+    {"id": "ct",       "min": 30, "n": {"sq": "CT-Skaner", "en": "CT scan", "de": "CT-Untersuchung"}, "d": {"sq": "Skaner i kockave, mushkërive dhe organeve të tjera.", "en": "CT of bones, lungs and other organs.", "de": "CT von Knochen, Lunge und anderen Organen."}},
+    {"id": "angio",    "min": 30, "n": {"sq": "Angio-Skaner", "en": "CT angiography", "de": "CT-Angiografie"}, "d": {"sq": "Skaner i enëve të gjakut.", "en": "CT scan of the blood vessels.", "de": "CT der Blutgefäße."}},
+    {"id": "lab",      "min": 30, "n": {"sq": "Analiza laboratorike", "en": "Laboratory tests", "de": "Laboruntersuchungen"}, "d": {"sq": "Analiza në laboratorin e klinikës.", "en": "Tests in the clinic's laboratory.", "de": "Analysen im Labor der Klinik."}},
+    {"id": "konsulte", "min": 30, "n": {"sq": "Konsultë me mjek", "en": "Doctor's consultation", "de": "Arztkonsultation"}, "d": {"sq": "Vizitë dhe konsultë me mjekët e klinikës.", "en": "Visit and consultation with the clinic's doctors.", "de": "Besuch und Beratung bei den Ärzten der Klinik."}}
+  ],
+  "team": [
+    {"i": "AL", "name": "Albert Leka",    "role": {"sq": "Radiolog (diagnostik dhe intervenues)", "en": "Radiologist (diagnostic and interventional)", "de": "Radiologe (diagnostisch und interventionell)"}},
+    {"i": "NN", "name": "Ndrec Ndreca",   "role": {"sq": "Mjek i përgjithshëm", "en": "General practitioner", "de": "Allgemeinarzt"}},
+    {"i": "EP", "name": "Elsuida Prendi", "role": {"sq": "Mjeke e urgjencës", "en": "Emergency medicine physician", "de": "Notfallmedizinerin"}}
+  ],
+  "text": {
+    "sq": {
+      "demo": "Version provë për Klinikën San Luka, përgatitur nga Ardeno. Kërkesat këtu nuk dërgohen askund; në versionin real hapen në WhatsApp-in e klinikës.",
+      "h1": "Rezervoni vizitën te Klinika San Luka, pa pritur në telefon.",
+      "lede": "Zgjidhni ekzaminimin, ditën dhe orën në më pak se një minutë. Klinika ju konfirmon në WhatsApp.",
+      "ctaBook": "Rezervo vizitën",
+      "langList": "",
+      "paymentList": "",
+      "svcTitle": "Zgjidhni ekzaminimin që ju nevojitet.",
+      "svcSub": "Klikoni një shërbim për ta rezervuar direkt.",
+      "pickService": "Çfarë ekzaminimi ju nevojitet?",
+      "telPh": "06x xxx xxxx",
+      "consent": "Pajtohem që klinika të përdorë emrin dhe numrin tim vetëm për këtë vizitë.",
+      "doneDemo": "Në versionin real, kjo kërkesë hapet në WhatsApp-in e klinikës dhe recepsioni e konfirmon me një mesazh.",
+      "faq": [
+        ["A duhet të rezervoj patjetër online?", "Jo. Mund të telefononi ose të na shkruani në WhatsApp si gjithmonë. Rezervimi online është një mundësi më shumë, edhe kur klinika është e mbyllur."],
+        ["Si e marr konfirmimin?", "Pasi dërgoni kërkesën, klinika ju shkruan në WhatsApp për ta konfirmuar orarin."],
+        ["Ku ndodhet klinika?", "Në rrugën \"Nënë Tereza\" në Lezhë, përballë Spitalit Rajonal."],
+        ["Po nëse vonohem ose duhet ta anuloj vizitën?", "Na shkruani në WhatsApp sa më herët, që orarin ta marrë një pacient tjetër."]
+      ]
+    }
+  }
+}

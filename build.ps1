@@ -84,7 +84,7 @@ function Test-Config($cfg) {
     elseif ($ids.ContainsKey($s.id)) { $e.Add("service id ""$($s.id)"" is used twice") }
     else { $ids[$s.id] = $true }
     if ($s.min -isnot [int] -or $s.min -lt 5) { $e.Add("$label needs ""min"" (minutes)") }
-    if (-not (Str $s.price)) { $e.Add("$label needs ""price"", e.g. ""EUR 15"" written with the euro sign") }
+    if ((Has $s 'price') -and -not (Str $s.price)) { $e.Add("$label needs ""price"", e.g. ""EUR 15"" written with the euro sign") }
     Test-Langs $s.n "$label name (n)" $e
     Test-Langs $s.d "$label description (d)" $e
   }

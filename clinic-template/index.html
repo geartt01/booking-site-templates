@@ -31,6 +31,7 @@ p{margin:0}
 :focus-visible{outline:3px solid var(--warm);outline-offset:2px}
 button{font:inherit;color:inherit}
 
+[hidden]{display:none!important}
 .demo{background:var(--warm-soft);color:var(--ink);font-size:.85rem}
 .demo .wrap{padding-block:8px}
 header{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:color-mix(in srgb,var(--bg) 90%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
@@ -240,7 +241,7 @@ const T = {
   faq:[["Sa kushton vizita e parë?","Kontrolli kushton €15 dhe zbritet nga trajtimi nëse e vazhdoni te ne."],["Jetoj jashtë vendit. A mund të rezervoj para se të vij?","Po. Zgjidhni datën kur do të jeni në Kosovë. Ju shkruajmë në WhatsApp për ta konfirmuar."],["Si paguhet?","Me para në dorë ose me kartelë në klinikë. Për trajtime më të gjata ju japim ofertë me shkrim."],["Çka nëse vonohem ose anuloj?","Na shkruani në WhatsApp sa më herët, që terminin ta marrë dikush tjetër."]],
   hoursEyebrow:"Orari",hoursTitle:"Kur jemi të hapur.",contactEyebrow:"Kontakt",contactTitle:"Ku na gjeni.",map:"Hap në Google Maps",closedDay:"Mbyllur",
   days:["E diel","E hënë","E martë","E mërkurë","E enjte","E premte","E shtunë"],daysShort:["Die","Hën","Mar","Mër","Enj","Pre","Sht"],
-  privacy:c=>`<h3>Njoftimi i privatësisë</h3><p><b>Kush:</b> ${c.name} i përpunon të dhënat tuaja si kontrollues.</p><p><b>Çka mbledhim:</b> emrin, numrin e telefonit, shërbimin dhe orarin që zgjidhni. Nuk mbledhim simptoma ose informata mjekësore përmes kësaj faqeje.</p><p><b>Pse:</b> për të caktuar terminin dhe për t'ju dërguar konfirmim e kujtesë, me pëlqimin tuaj.</p><p><b>Kush i sheh:</b> klinika dhe ofruesit teknikë që na ndihmojnë (hostimi i faqes, kalendari, WhatsApp).</p><p><b>Sa kohë:</b> fshihen pas ${c.retentionMonths} muajsh nëse nuk jeni pacient aktiv.</p><p><b>Të drejtat tuaja:</b> qasje, korrigjim, fshirje dhe tërheqje e pëlqimit, me një email te ${c.email}. Mund të ankoheni te Agjencia për Informim dhe Privatësi (AIP).</p><p>Kjo faqe nuk përdor cookies.</p>`},
+  privacy:c=>`<h3>Njoftimi i privatësisë</h3><p><b>Kush:</b> ${c.name} i përpunon të dhënat tuaja si kontrollues.</p><p><b>Çka mbledhim:</b> emrin, numrin e telefonit, shërbimin dhe orarin që zgjidhni. Nuk mbledhim simptoma ose informata mjekësore përmes kësaj faqeje.</p><p><b>Pse:</b> për të caktuar terminin dhe për t'ju dërguar konfirmim e kujtesë, me pëlqimin tuaj.</p><p><b>Kush i sheh:</b> klinika dhe ofruesit teknikë që na ndihmojnë (hostimi i faqes, kalendari, WhatsApp).</p><p><b>Sa kohë:</b> fshihen pas ${c.retentionMonths} muajsh nëse nuk jeni pacient aktiv.</p><p><b>Të drejtat tuaja:</b> qasje, korrigjim, fshirje dhe tërheqje e pëlqimit, me një email te ${c.email}. Mund të ankoheni te ${c.authority||"Agjencia për Informim dhe Privatësi (AIP)"}.</p><p>Kjo faqe nuk përdor cookies.</p>`},
  en:{demo:"Demo: a fictional clinic. This is the template we customise for your clinic; names, prices and hours are examples.",
   navServices:"Services",navBook:"Book",navContact:"Contact",
   h1:"Book your dentist appointment without waiting on the phone.",lede:"Pick a service, day and time in under a minute. We speak Albanian, English and German.",
@@ -258,7 +259,7 @@ const T = {
   faq:[["How much is the first visit?","A check-up costs €15 and is deducted from your treatment if you continue with us."],["I live abroad. Can I book before I arrive?","Yes. Choose a date when you'll be in Kosovo and we'll confirm on WhatsApp."],["How do I pay?","Cash or card at the clinic. For longer treatments you get a written quote first."],["What if I'm late or need to cancel?","Message us on WhatsApp as early as you can so someone else can take the slot."]],
   hoursEyebrow:"Hours",hoursTitle:"When we're open.",contactEyebrow:"Contact",contactTitle:"Where to find us.",map:"Open in Google Maps",closedDay:"Closed",
   days:["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],daysShort:["Sun","Mon","Tue","Wed","Thu","Fri","Sat"],
-  privacy:c=>`<h3>Privacy notice</h3><p><b>Who:</b> ${c.name} processes your data as controller.</p><p><b>What we collect:</b> your name, phone number and the service and time you choose. We don't collect symptoms or medical information through this site.</p><p><b>Why:</b> to schedule your appointment and send a confirmation and reminder, based on your consent.</p><p><b>Who sees it:</b> the clinic and the technical providers that help us (web hosting, calendar, WhatsApp).</p><p><b>How long:</b> deleted after ${c.retentionMonths} months if you're not an active patient.</p><p><b>Your rights:</b> access, correction, deletion and withdrawing consent, by emailing ${c.email}. You can complain to Kosovo's Information and Privacy Agency (AIP).</p><p>This site uses no cookies.</p>`},
+  privacy:c=>`<h3>Privacy notice</h3><p><b>Who:</b> ${c.name} processes your data as controller.</p><p><b>What we collect:</b> your name, phone number and the service and time you choose. We don't collect symptoms or medical information through this site.</p><p><b>Why:</b> to schedule your appointment and send a confirmation and reminder, based on your consent.</p><p><b>Who sees it:</b> the clinic and the technical providers that help us (web hosting, calendar, WhatsApp).</p><p><b>How long:</b> deleted after ${c.retentionMonths} months if you're not an active patient.</p><p><b>Your rights:</b> access, correction, deletion and withdrawing consent, by emailing ${c.email}. You can complain to ${c.authority||"Kosovo's Information and Privacy Agency (AIP)"}.</p><p>This site uses no cookies.</p>`},
  de:{demo:"Demo: eine fiktive Praxis. Diese Vorlage passen wir für Ihre Praxis an; Namen, Preise und Zeiten sind Beispiele.",
   navServices:"Leistungen",navBook:"Termin",navContact:"Kontakt",
   h1:"Zahnarzttermin buchen, ohne in der Warteschleife zu hängen.",lede:"Leistung, Tag und Uhrzeit in unter einer Minute wählen. Wir sprechen Albanisch, Englisch und Deutsch.",
@@ -276,15 +277,17 @@ const T = {
   faq:[["Was kostet der erste Besuch?","Die Kontrolle kostet 15 € und wird angerechnet, wenn Sie die Behandlung bei uns fortsetzen."],["Ich lebe im Ausland. Kann ich vor der Anreise buchen?","Ja. Wählen Sie ein Datum, an dem Sie im Kosovo sind. Wir bestätigen per WhatsApp."],["Wie bezahle ich?","Bar oder mit Karte in der Praxis. Für längere Behandlungen erhalten Sie vorher ein schriftliches Angebot."],["Was, wenn ich mich verspäte oder absagen muss?","Schreiben Sie uns so früh wie möglich per WhatsApp, damit jemand anderes den Termin bekommt."]],
   hoursEyebrow:"Öffnungszeiten",hoursTitle:"Wann wir geöffnet haben.",contactEyebrow:"Kontakt",contactTitle:"So finden Sie uns.",map:"In Google Maps öffnen",closedDay:"Geschlossen",
   days:["Sonntag","Montag","Dienstag","Mittwoch","Donnerstag","Freitag","Samstag"],daysShort:["So","Mo","Di","Mi","Do","Fr","Sa"],
-  privacy:c=>`<h3>Datenschutzhinweis</h3><p><b>Wer:</b> ${c.name} verarbeitet Ihre Daten als Verantwortliche.</p><p><b>Was wir erheben:</b> Name, Telefonnummer sowie gewählte Leistung und Uhrzeit. Über diese Website erheben wir keine Beschwerden oder medizinischen Angaben.</p><p><b>Warum:</b> um Ihren Termin zu planen und Ihnen Bestätigung und Erinnerung zu senden, auf Grundlage Ihrer Einwilligung.</p><p><b>Wer sie sieht:</b> die Praxis und technische Dienstleister (Hosting, Kalender, WhatsApp).</p><p><b>Wie lange:</b> Löschung nach ${c.retentionMonths} Monaten, wenn Sie nicht aktiver Patient sind.</p><p><b>Ihre Rechte:</b> Auskunft, Berichtigung, Löschung und Widerruf der Einwilligung per E-Mail an ${c.email}. Beschwerden sind bei der kosovarischen Agentur für Information und Datenschutz (AIP) möglich.</p><p>Diese Website verwendet keine Cookies.</p>`}
+  privacy:c=>`<h3>Datenschutzhinweis</h3><p><b>Wer:</b> ${c.name} verarbeitet Ihre Daten als Verantwortliche.</p><p><b>Was wir erheben:</b> Name, Telefonnummer sowie gewählte Leistung und Uhrzeit. Über diese Website erheben wir keine Beschwerden oder medizinischen Angaben.</p><p><b>Warum:</b> um Ihren Termin zu planen und Ihnen Bestätigung und Erinnerung zu senden, auf Grundlage Ihrer Einwilligung.</p><p><b>Wer sie sieht:</b> die Praxis und technische Dienstleister (Hosting, Kalender, WhatsApp).</p><p><b>Wie lange:</b> Löschung nach ${c.retentionMonths} Monaten, wenn Sie nicht aktiver Patient sind.</p><p><b>Ihre Rechte:</b> Auskunft, Berichtigung, Löschung und Widerruf der Einwilligung per E-Mail an ${c.email}. Beschwerden sind bei ${c.authority||"der kosovarischen Agentur für Information und Datenschutz (AIP)"} möglich.</p><p>Diese Website verwendet keine Cookies.</p>`}
 };
 // per-client wording from CONFIG.text, e.g. {sq:{h1:"..."}}
 for(const l in CONFIG.text||{}) Object.assign(T[l],CONFIG.text[l]);
 
 const $=s=>document.querySelector(s);
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-const C=CONFIG, ce={...C,name:esc(C.name),email:esc(C.email)};
-let lang="sq";
+const C=CONFIG, ce={...C,name:esc(C.name),email:esc(C.email),authority:C.authority?esc(C.authority):""};
+if(C.noindex){const m=document.createElement("meta");m.name="robots";m.content="noindex";document.head.appendChild(m)}
+const LANGS=(C.langs&&C.langs.length)?C.langs:["sq","en","de"];
+let lang=LANGS[0];
 const st={step:1,svc:null,dayKey:null,slot:null,name:"",tel:"",consent:false,err:"",done:false};
 
 /* --- time helpers in the clinic's time zone --- */
@@ -339,13 +342,13 @@ function renderBooking(){
     const d=upcomingDays(7).find(x=>x.key===st.dayKey);
     const msg=`${C.name}: ${svc.n[lang]} · ${st.dayKey} ${fmt(st.slot)} · ${st.name}, ${st.tel}`;
     const wa=C.whatsapp.replace(/\D/g,"");
-    P.innerHTML=`<h3>${esc(t.doneTitle)}</h3><div class="summary"><div class="row"><span>${esc(svc.n[lang])}</span><b>${esc(svc.price)}</b></div><div class="row"><span>${esc(d?t.days[d.wd]:"")} ${esc(st.dayKey)}</span><b>${fmt(st.slot)}</b></div><div>${esc(st.name)} · ${esc(st.tel)}</div></div>
+    P.innerHTML=`<h3>${esc(t.doneTitle)}</h3><div class="summary"><div class="row"><span>${esc(svc.n[lang])}</span><b>${esc(svc.price||"")}</b></div><div class="row"><span>${esc(d?t.days[d.wd]:"")} ${esc(st.dayKey)}</span><b>${fmt(st.slot)}</b></div><div>${esc(st.name)} · ${esc(st.tel)}</div></div>
       <p class="muted">${esc(!C.demo&&wa?t.doneLive:t.doneDemo)}</p>
       <div class="ctas">${!C.demo&&wa?`<a class="btn" target="_blank" rel="noopener" href="https://wa.me/${wa}?text=${encodeURIComponent(msg)}">${esc(t.sendWa)}</a>`:""}<button class="btn ghost" data-a="again">${esc(t.again)}</button></div>`;
     return;
   }
   if(st.step===1){
-    P.innerHTML=`<h3>${esc(t.pickService)}</h3><div class="pick">${C.services.map(s=>`<button class="opt" data-svc="${s.id}" aria-pressed="${st.svc===s.id}"><span>${esc(s.n[lang])}</span><small>${s.min} min · ${esc(s.price)}</small></button>`).join("")}</div>
+    P.innerHTML=`<h3>${esc(t.pickService)}</h3><div class="pick">${C.services.map(s=>`<button class="opt" data-svc="${s.id}" aria-pressed="${st.svc===s.id}"><span>${esc(s.n[lang])}</span><small>${s.min} min${s.price?" · "+esc(s.price):""}</small></button>`).join("")}</div>
       <div class="ctas"><button class="btn" data-a="next" ${st.svc?"":"disabled"}>${esc(t.next)}</button></div>`;
   } else if(st.step===2){
     const days=upcomingDays(7); if(!st.dayKey) st.dayKey=days[0].key;
@@ -357,7 +360,7 @@ function renderBooking(){
   } else {
     P.innerHTML=`<div class="summary"><div class="row"><span>${esc(svc.n[lang])}</span><b>${st.dayKey} · ${fmt(st.slot)}</b></div></div>
       <label for="f-name">${esc(t.name)}<input type="text" id="f-name" autocomplete="name" value="${esc(st.name)}"></label>
-      <label for="f-tel">${esc(t.tel)}<input type="tel" id="f-tel" autocomplete="tel" inputmode="tel" placeholder="+383 4x xxx xxx" value="${esc(st.tel)}"></label>
+      <label for="f-tel">${esc(t.tel)}<input type="tel" id="f-tel" autocomplete="tel" inputmode="tel" placeholder="${esc(t.telPh||"+383 4x xxx xxx")}" value="${esc(st.tel)}"></label>
       ${t.noSymptoms?`<p class="muted" style="font-size:.85rem">${esc(t.noSymptoms)}</p>`:""}
       <label class="check" for="f-consent"><input type="checkbox" id="f-consent" ${st.consent?"checked":""}><span>${esc(t.consent)} <a href="#privatesia">${esc(t.privacyLink)}</a></span></label>
       ${st.err?`<p class="err">${esc(st.err)}</p>`:""}
@@ -369,11 +372,13 @@ function render(){
   const t=T[lang];
   document.documentElement.lang=lang;
   document.querySelectorAll("[data-t]").forEach(el=>{const v=t[el.dataset.t]; if(typeof v==="string") el.textContent=v;});
+  document.querySelectorAll(".facts dd[data-t]").forEach(dd=>{const off=!dd.textContent.trim(); dd.hidden=off; dd.previousElementSibling.hidden=off;});
   $("#demoBar").hidden=!C.demo;
-  $("#langs").innerHTML=["sq","en","de"].map(l=>`<button data-l="${l}" aria-pressed="${l===lang}">${l.toUpperCase()}</button>`).join("");
+  $("#langs").hidden=LANGS.length<2;
+  $("#langs").innerHTML=LANGS.map(l=>`<button data-l="${l}" aria-pressed="${l===lang}">${l.toUpperCase()}</button>`).join("");
   $("#clinicName").textContent=C.name;
   $("#factAddress").textContent=C.address; $("#factPhone").textContent=C.phone;
-  $("#services").innerHTML=C.services.map(s=>`<button class="svc" data-book="${s.id}"><h3>${esc(s.n[lang])}</h3><p class="muted">${esc(s.d[lang])}</p><div class="meta"><span>${s.min} min</span><span class="price">${esc(s.price)}</span></div></button>`).join("");
+  $("#services").innerHTML=C.services.map(s=>`<button class="svc" data-book="${s.id}"><h3>${esc(s.n[lang])}</h3><p class="muted">${esc(s.d[lang])}</p><div class="meta"><span>${s.min} min</span><span class="price">${esc(s.price||"")}</span></div></button>`).join("");
   $("#team").innerHTML=C.team.map(m=>`<div class="member"><div class="avatar">${esc(m.i)}</div><div><p><b>${esc(m.name||t.teamName)}</b></p><p>${esc(m.role[lang])}</p></div></div>`).join("");
   $("#faq").innerHTML=t.faq.map(([q,a])=>`<details><summary>${esc(q)}</summary><p>${esc(a)}</p></details>`).join("");
   const wd=nowParts().wd;
@@ -404,7 +409,7 @@ document.addEventListener("click",e=>{
   }
   else if(a==="again"){Object.assign(st,{step:1,svc:null,dayKey:null,slot:null,consent:false,err:"",done:false}); renderBooking()}
 });
-try{const s=localStorage.getItem("lang"); if(["sq","en","de"].includes(s)) lang=s;}catch(_){}
+try{const s=localStorage.getItem("lang"); if(LANGS.includes(s)) lang=s;}catch(_){}
 render();
 setInterval(renderStatus,60000);
 </script>
