@@ -1,0 +1,97 @@
+{
+  "template": "clinic",
+  "demo": true,
+  "noindex": true,
+  "langs": ["sq", "en"],
+  "title": "Zen House: rezervim online (version provë)",
+  "description": "Version provë i rezervimit online për Zen House Holistic Clinic në Tiranë, përgatitur nga Ardeno.",
+  "name": "Zen House",
+  "address": "Bulevardi Gjergj Fishta, Kompleksi Delijorgji (pranë BKT), Tiranë 1001",
+  "phone": "+355 67 697 7777",
+  "whatsapp": "",
+  "email": "info@zenhouse.al",
+  "mapUrl": "https://www.google.com/maps/search/?api=1&query=Zen+House+Holistic+Clinic+Tiran%C3%AB",
+  "timeZone": "Europe/Tirane",
+  "authority": "Komisioneri për të Drejtën e Informimit dhe Mbrojtjen e të Dhënave Personale (IDP)",
+  "slotMinutes": 30,
+  "hours": {
+    "0": null,
+    "1": ["08:00", "20:00"],
+    "2": ["08:00", "20:00"],
+    "3": ["08:00", "20:00"],
+    "4": ["08:00", "20:00"],
+    "5": ["08:00", "20:00"],
+    "6": ["08:00", "18:00"]
+  },
+  "retentionMonths": 12,
+  "services": [
+    {"id": "konsulte", "min": 30, "n": {"sq": "Konsultë e parë", "en": "First consultation", "de": "Erstberatung"}, "d": {"sq": "Konsultë personale për të zgjedhur trajtimin e duhur.", "en": "A personal consultation to choose the right treatment.", "de": "Persönliche Beratung zur Wahl der passenden Behandlung."}},
+    {"id": "kiropraktike", "min": 30, "n": {"sq": "Trajtim kiropraktik", "en": "Chiropractic treatment", "de": "Chiropraktische Behandlung"}, "d": {"sq": "Mirëqenia e trupit.", "en": "Body wellness.", "de": "Körperliches Wohlbefinden."}},
+    {"id": "dekompresim", "min": 30, "n": {"sq": "Dekompresim i shtyllës kurrizore", "en": "Spinal decompression", "de": "Wirbelsäulendekompression"}, "d": {"sq": "Mirëqenia e trupit.", "en": "Body wellness.", "de": "Körperliches Wohlbefinden."}},
+    {"id": "masazh", "min": 30, "n": {"sq": "Masazh terapeutik", "en": "Therapeutic massage", "de": "Therapeutische Massage"}, "d": {"sq": "Trajtime estetike.", "en": "Aesthetic treatments.", "de": "Ästhetische Behandlungen."}},
+    {"id": "naturopati", "min": 30, "n": {"sq": "Naturopati", "en": "Naturopathy", "de": "Naturheilkunde"}, "d": {"sq": "Gjetja e shkakut të problemit përmes naturopatisë.", "en": "Finding the root of the problem through naturopathy.", "de": "Die Ursache des Problems mit Naturheilkunde finden."}},
+    {"id": "laser", "min": 30, "n": {"sq": "Depilim me laser", "en": "Laser hair removal", "de": "Laser-Haarentfernung"}, "d": {"sq": "Trajtime estetike.", "en": "Aesthetic treatments.", "de": "Ästhetische Behandlungen."}},
+    {"id": "dermapen", "min": 30, "n": {"sq": "Microneedling me Dermapen 4", "en": "Dermapen 4 microneedling", "de": "Microneedling mit Dermapen 4"}, "d": {"sq": "Trajtime estetike.", "en": "Aesthetic treatments.", "de": "Ästhetische Behandlungen."}},
+    {"id": "fytyre", "min": 30, "n": {"sq": "Trajtime fytyre", "en": "Facial treatments", "de": "Gesichtsbehandlungen"}, "d": {"sq": "Trajtime estetike.", "en": "Aesthetic treatments.", "de": "Ästhetische Behandlungen."}},
+    {"id": "pilates", "min": 30, "n": {"sq": "Pilates", "en": "Pilates class", "de": "Pilates-Kurs"}, "d": {"sq": "Klasë pilatesi e përshtatur për ju.", "en": "A Pilates class adapted to you.", "de": "Ein auf Sie abgestimmter Pilates-Kurs."}}
+  ],
+  "team": [
+    {"i": "ÜÖ", "name": "Ünal Öğüten", "role": {"sq": "Kiropraktikë", "en": "Chiropractic", "de": "Chiropraktik"}},
+    {"i": "EN", "name": "Elona Nura", "role": {"sq": "Dermoestetikë", "en": "Dermo-aesthetics", "de": "Dermoästhetik"}},
+    {"i": "AA", "name": "Alken Aliu", "role": {"sq": "Naturopati", "en": "Naturopathy", "de": "Naturheilkunde"}}
+  ],
+  "text": {
+    "sq": {
+      "demo": "Version provë për Zen House, përgatitur nga Ardeno. Kërkesat këtu nuk dërgohen askund; në versionin real shkojnë te recepsioni i Zen House.",
+      "navServices": "Trajtimet",
+      "h1": "Rezervoni seancën te Zen House, pa pritur në telefon.",
+      "lede": "Zgjidhni trajtimin, ditën dhe orën në më pak se një minutë. Zen House ju konfirmon me një mesazh.",
+      "ctaBook": "Rezervo seancën",
+      "ctaServices": "Shiko trajtimet",
+      "langList": "",
+      "paymentList": "",
+      "svcEyebrow": "Trajtimet",
+      "svcTitle": "Zgjidhni trajtimin që ju nevojitet.",
+      "svcSub": "Klikoni një trajtim për ta rezervuar direkt.",
+      "s1": "Trajtimi",
+      "pickService": "Cilin trajtim dëshironi?",
+      "telPh": "06x xxx xxxx",
+      "consent": "Pajtohem që Zen House të përdorë emrin dhe numrin tim vetëm për këtë rezervim.",
+      "noSymptoms": "Mos shkruani simptoma ose të dhëna shëndetësore këtu. Specialisti ju pyet në seancë.",
+      "doneDemo": "Në versionin real, kjo kërkesë shkon te recepsioni i Zen House, që e konfirmon me një mesazh.",
+      "teamTitle": "Specialistët që ju presin.",
+      "faq": [
+        ["A duhet të rezervoj patjetër online?", "Jo. Mund të telefononi si gjithmonë. Rezervimi online është një mundësi më shumë, edhe kur klinika është e mbyllur."],
+        ["Si e marr konfirmimin?", "Pasi dërgoni kërkesën, Zen House ju shkruan ose ju telefonon për ta konfirmuar orarin."],
+        ["Ku ndodhet Zen House?", "Në Bulevardin Gjergj Fishta, Kompleksi Delijorgji, pranë BKT, në Tiranë."],
+        ["Po nëse duhet ta anuloj seancën?", "Na njoftoni sa më herët, që orarin ta marrë dikush tjetër."]
+      ]
+    },
+    "en": {
+      "demo": "Trial version for Zen House, prepared by Ardeno. Requests here are not sent anywhere; in the real version they go to the Zen House reception.",
+      "navServices": "Treatments",
+      "h1": "Book your session at Zen House without waiting on the phone.",
+      "lede": "Pick a treatment, day and time in under a minute. Zen House confirms with a message.",
+      "ctaBook": "Book a session",
+      "ctaServices": "See treatments",
+      "langList": "",
+      "paymentList": "",
+      "svcEyebrow": "Treatments",
+      "svcTitle": "Choose the treatment you need.",
+      "svcSub": "Click a treatment to book it directly.",
+      "s1": "Treatment",
+      "pickService": "Which treatment would you like?",
+      "telPh": "06x xxx xxxx",
+      "consent": "I agree that Zen House uses my name and number only for this booking.",
+      "noSymptoms": "Please don't write symptoms or health details here. The specialist will ask at your session.",
+      "doneDemo": "In the real version this request goes to the Zen House reception, who confirm it with a message.",
+      "teamTitle": "The specialists you'll meet.",
+      "faq": [
+        ["Do I have to book online?", "No. You can call as always. Online booking is one more option, also when the clinic is closed."],
+        ["How do I get my confirmation?", "After you send the request, Zen House writes or calls you to confirm the time."],
+        ["Where is Zen House?", "On Bulevardi Gjergj Fishta, Kompleksi Delijorgji, next to BKT, in Tirana."],
+        ["What if I need to cancel my session?", "Let us know as early as you can so someone else can take the slot."]
+      ]
+    }
+  }
+}
