@@ -6,7 +6,7 @@
     .\build.cmd demo-klinika     build one client
 
   Reads clients\<slug>\config.json, puts it in place of the CONFIG block of the
-  template named by "template" (clinic | salon), wraps the page in a
+  template named by "template" (clinic | salon | stay), wraps the page in a
   full HTML document and writes dist\<slug>\index.html plus a Cloudflare Pages
   _headers file. Upload dist\<slug>\ to Cloudflare Pages to publish it.
 #>
@@ -15,7 +15,7 @@ param([string]$Slug)
 $ErrorActionPreference = 'Stop'
 $root = $PSScriptRoot
 $utf8 = New-Object System.Text.UTF8Encoding $false
-$templates = @{ clinic = 'clinic-template\index.html'; salon = 'salon-template\index.html' }
+$templates = @{ clinic = 'clinic-template\index.html'; salon = 'salon-template\index.html'; stay = 'stay-template\index.html' }
 $langs = 'sq', 'en', 'de'
 
 $headers = @'
@@ -40,24 +40,43 @@ function Test-Langs($obj, $what, $errs) {
 function Test-Config($cfg) {
   $e = New-Object System.Collections.Generic.List[string]
   if (-not (Has $cfg 'template') -or -not $templates.ContainsKey([string]$cfg.template)) {
-    $e.Add('"template" must be "clinic" or "salon"'); return , $e
+    $e.Add('"template" must be "clinic", "salon" or "stay"'); return , $e
   }
 
   foreach ($k in 'name', 'address', 'phone', 'email', 'mapUrl', 'timeZone') {
     if (-not (Str $cfg.$k)) { $e.Add("missing ""$k""") }
   }
   if ($cfg.demo -isnot [bool]) { $e.Add('"demo" must be true or false') }
-  if ($cfg.slotMinutes -isnot [int] -or $cfg.slotMinutes -lt 5) { $e.Add('"slotMinutes" must be a whole number of at least 5') }
+  $isStay = ([string]$cfg.template -eq 'stay')
+  if (-not $isStay -and ($cfg.slotMinutes -isnot [int] -or $cfg.slotMinutes -lt 5)) { $e.Add('"slotMinutes" must be a whole number of at least 5') }
   if ($cfg.retentionMonths -isnot [int] -or $cfg.retentionMonths -lt 1) { $e.Add('"retentionMonths" must be a whole number (used in the privacy notice)') }
 
   # A live site must be able to send the booking request, and must not still show example data.
   if ($cfg.demo -eq $false) {
     if ((([string]$cfg.whatsapp) -replace '\D', '').Length -lt 8) { $e.Add('a live site ("demo": false) needs "whatsapp" with the full number, e.g. "38344123456"') }
     foreach ($k in 'name', 'address', 'phone', 'email', 'mapUrl') {
-      if ([string]$cfg.$k -match 'shembull|example|000 000|Rrezja|Studio Vela') { $e.Add("""$k"" still has example data: $($cfg.$k)") }
+      if ([string]$cfg.$k -match 'shembull|example|000 000|Rrezja|Studio Vela|Lugina') { $e.Add("""$k"" still has example data: $($cfg.$k)") }
     }
   }
 
+  # Guesthouses (template "stay") take stay requests by room and dates instead of hours and services.
+  if ($isStay) {
+    $rooms = @($cfg.rooms | Where-Object { $null -ne $_ })
+    if ($rooms.Count -eq 0) { $e.Add('"rooms" needs at least one room') }
+    $roomIds = @{}
+    foreach ($r in $rooms) {
+      $label = "room ""$($r.id)"""
+      if ("$($r.id)" -notmatch '^[a-z0-9-]+$') { $e.Add("room id ""$($r.id)"" must use only a-z, 0-9 and -") }
+      elseif ($roomIds.ContainsKey($r.id)) { $e.Add("room id ""$($r.id)"" is used twice") }
+      else { $roomIds[$r.id] = $true }
+      if ($r.guests -isnot [int] -or $r.guests -lt 1) { $e.Add("$label needs ""guests"" (the most people it sleeps)") }
+      if ((Has $r 'price') -and -not (Str $r.price)) { $e.Add("$label has an empty ""price"" (remove it to hide the price)") }
+      Test-Langs $r.n "$label name (n)" $e
+      Test-Langs $r.d "$label description (d)" $e
+    }
+  }
+
+  if (-not $isStay) {
   # Opening hours: "0" (Sunday) to "6" (Saturday), each null or ["HH:MM","HH:MM"].
   $openDays = 0
   if (-not (Has $cfg 'hours')) { $e.Add('missing "hours"') }
@@ -87,6 +106,7 @@ function Test-Config($cfg) {
     if ((Has $s 'price') -and -not (Str $s.price)) { $e.Add("$label needs ""price"", e.g. ""EUR 15"" written with the euro sign") }
     Test-Langs $s.n "$label name (n)" $e
     Test-Langs $s.d "$label description (d)" $e
+  }
   }
 
   foreach ($m in @($cfg.team | Where-Object { $null -ne $_ })) {

@@ -1,0 +1,61 @@
+{
+  "template": "stay",
+  "demo": true,
+  "noindex": true,
+  "langs": ["en", "sq", "de"],
+  "title": "Kulla Guest House: direct booking (trial version)",
+  "description": "Trial version of a direct booking page for Kulla Guest House in Milishevc, Peja, prepared by Ardeno.",
+  "name": "Kulla Guest House",
+  "address": "Bjeshka e Milishevcit, Pejë 30000, Kosovo",
+  "phone": "+383 44 261 583",
+  "phone2": "+383 44 145 537",
+  "whatsapp": "",
+  "email": "info@kullaguesthouse.com",
+  "mapUrl": "https://www.google.com/maps/search/?api=1&query=Kulla+Guest+House+Milishevc+Peja",
+  "timeZone": "Europe/Belgrade",
+  "retentionMonths": 12,
+  "maxNights": 30,
+  "rooms": [
+    {"id": "double", "guests": 2, "price": "€150", "n": {"sq": "Dhomë dyshe", "en": "Double Room", "de": "Doppelzimmer"}, "d": {"sq": "Dhomë 13 m² me dritë natyrale, tavolinë pune, TV dhe banjë. Tarraca ka pamje nga mali. WiFi falas.", "en": "13 m² room with natural light, a desk, TV and bathroom. The terrace looks out over the mountain. Free WiFi.", "de": "13 m² großes Zimmer mit Tageslicht, Schreibtisch, TV und Bad. Die Terrasse bietet Blick auf die Berge. Kostenloses WLAN."}},
+    {"id": "triple", "guests": 4, "price": "€250", "n": {"sq": "Dhomë treshe", "en": "Triple Room", "de": "Dreibettzimmer"}, "d": {"sq": "Dhomë 25 m² me një krevat king-size dhe dy të vetëm, tavolinë pune, TV dhe banjë. Tarraca ka pamje nga mali. WiFi falas.", "en": "25 m² room with one king-size and two single beds, a desk, TV and bathroom. The terrace looks out over the mountain. Free WiFi.", "de": "25 m² großes Zimmer mit einem Kingsize-Bett und zwei Einzelbetten, Schreibtisch, TV und Bad. Die Terrasse bietet Blick auf die Berge. Kostenloses WLAN."}},
+    {"id": "villa", "guests": 6, "price": "€350", "n": {"sq": "Vila Standard", "en": "Standard Villa", "de": "Standard-Villa"}, "d": {"sq": "Vila e tërë për familje dhe grupe, për një fundjavë ose më gjatë. Për 5 deri në 6 të rritur. TV LCD dhe WiFi falas.", "en": "The whole villa for families and groups, for a weekend or longer. Sleeps 5 to 6 adults. LCD TV and free WiFi.", "de": "Die ganze Villa für Familien und Gruppen, für ein Wochenende oder länger. Für 5 bis 6 Erwachsene. LCD-TV und kostenloses WLAN."}}
+  ],
+  "text": {
+    "en": {
+      "demo": "Trial version for Kulla Guest House, prepared by Ardeno. Requests here are not sent anywhere; in the real version they open in the guesthouse's WhatsApp or email.",
+      "heroEyebrow": "Milishevc · Peja mountains",
+      "h1": "Book your stay at Kulla Guest House directly.",
+      "lede": "A guesthouse in Milishevc, in the mountains above Peja, with a view over the city and traditional home cooking. Choose a room, your dates and the number of guests. We confirm every request ourselves.",
+      "faq": [
+        ["Do I pay anything now?", "No. This sends a request. We confirm the dates with you first and tell you how to pay."],
+        ["How do I get my confirmation?", "We write to you on WhatsApp or call the number you leave."],
+        ["Is there food at the guesthouse?", "Yes. Guests can try traditional dishes cooked at the guesthouse."],
+        ["Where is Kulla Guest House?", "In Bjeshka e Milishevcit, in the mountains above Peja, Kosovo."]
+      ]
+    },
+    "sq": {
+      "demo": "Version provë për Kulla Guest House, përgatitur nga Ardeno. Kërkesat këtu nuk dërgohen askund; në versionin real hapen në WhatsApp-in ose emailin e bujtinës.",
+      "heroEyebrow": "Milishevc · Bjeshkët e Pejës",
+      "h1": "Rezervoni qëndrimin te Kulla Guest House direkt.",
+      "lede": "Bujtinë në Milishevc, në bjeshkët mbi Pejë, me pamje nga qyteti dhe ushqim tradicional. Zgjidhni dhomën, datat dhe numrin e mysafirëve. Çdo kërkesë e konfirmojmë vetë.",
+      "faq": [
+        ["A paguaj diçka tani?", "Jo. Kjo dërgon vetëm një kërkesë. Së pari i konfirmojmë datat me ju dhe ju tregojmë si paguhet."],
+        ["Si e marr konfirmimin?", "Ju shkruajmë në WhatsApp ose ju telefonojmë në numrin që e lini."],
+        ["A ka ushqim në bujtinë?", "Po. Mysafirët mund të provojnë ushqime tradicionale të gatuara në bujtinë."],
+        ["Ku ndodhet Kulla Guest House?", "Në Bjeshkën e Milishevcit, në malet mbi Pejë."]
+      ]
+    },
+    "de": {
+      "demo": "Testversion für Kulla Guest House, erstellt von Ardeno. Anfragen werden hier nirgendwohin gesendet; in der echten Version öffnen sie sich in WhatsApp oder im E-Mail-Postfach des Gästehauses.",
+      "heroEyebrow": "Milishevc · Berge von Peja",
+      "h1": "Buchen Sie Ihren Aufenthalt im Kulla Guest House direkt.",
+      "lede": "Ein Gästehaus in Milishevc, in den Bergen oberhalb von Peja, mit Blick über die Stadt und traditioneller Hausmannskost. Wählen Sie Zimmer, Reisedaten und Gästezahl. Jede Anfrage bestätigen wir persönlich.",
+      "faq": [
+        ["Muss ich jetzt etwas bezahlen?", "Nein. Sie senden nur eine Anfrage. Wir bestätigen zuerst die Daten und sagen Ihnen, wie Sie bezahlen."],
+        ["Wie erhalte ich meine Bestätigung?", "Wir schreiben Ihnen per WhatsApp oder rufen die angegebene Nummer an."],
+        ["Gibt es Essen im Gästehaus?", "Ja. Gäste können traditionelle Gerichte probieren, die im Gästehaus gekocht werden."],
+        ["Wo liegt das Kulla Guest House?", "In Bjeshka e Milishevcit, in den Bergen oberhalb von Peja, Kosovo."]
+      ]
+    }
+  }
+}

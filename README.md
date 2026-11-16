@@ -1,6 +1,6 @@
 # Booking Site Templates
 
-One-page websites with **online booking** for small local businesses (clinics and salons), in
+One-page websites with **online booking** for small local businesses (clinics, salons and guesthouses), in
 **Albanian, English and German**. I use them in my small web studio: each client gets their own
 `config.json`, and a build script turns it into a ready-to-host site.
 
@@ -10,6 +10,10 @@ One-page websites with **online booking** for small local businesses (clinics an
 |---|---|
 | ![Clinic](docs/clinic.png) | ![Clinic booking on mobile](docs/clinic-booking-mobile.png) |
 | ![Salon](docs/salon.png) | ![Salon booking on mobile](docs/salon-booking-mobile.png) |
+
+There is also a guesthouse template, where guests pick a room, dates and the number of guests:
+
+![Guesthouse](docs/stay.png)
 
 **Stack:** HTML · CSS · vanilla JavaScript · PowerShell build script · Cloudflare Pages
 
@@ -35,7 +39,8 @@ clients/<client>/config.json  ──►  build.ps1  ──►  dist/<client>/ind
 unique service ids, all three languages filled in, and, for live sites, a real WhatsApp number and no
 leftover example data. Errors are listed in plain language so nothing broken gets published.
 
-The two demo clients in `clients/` (a fictional dental clinic and a fictional salon) show the format.
+The demo clients in `clients/` (a fictional dental clinic, salon and guesthouse) show the format. Guesthouses use
+`"template": "stay"` with a `rooms` list instead of opening hours and services.
 
 ## Build and preview (Windows)
 

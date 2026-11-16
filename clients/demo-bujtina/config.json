@@ -1,0 +1,25 @@
+{
+  "template": "stay",
+  "demo": true,
+  "title": "Bujtina Lugina Demo",
+  "description": "Demo of a one-page guesthouse website with direct booking requests, in Albanian, English and German.",
+  "name": "Bujtina Lugina",
+  "address": "Rruga e Bjeshkëve p.n., Rugovë, Pejë",
+  "phone": "+383 44 000 000",
+  "whatsapp": "",
+  "email": "info@shembull.com",
+  "mapUrl": "https://maps.google.com/?q=Rugova",
+  "timeZone": "Europe/Belgrade",
+  "retentionMonths": 12,
+  "maxNights": 30,
+  "rooms": [
+    {"id": "double", "guests": 2, "price": "€40", "n": {"sq": "Dhomë dyshe", "en": "Double room", "de": "Doppelzimmer"}, "d": {"sq": "Dhomë me pamje nga mali, banjë private dhe mëngjes i përfshirë.", "en": "Room with a mountain view, private bathroom and breakfast included.", "de": "Zimmer mit Bergblick, eigenem Bad und Frühstück inklusive."}},
+    {"id": "family", "guests": 4, "price": "€65", "n": {"sq": "Dhomë familjare", "en": "Family room", "de": "Familienzimmer"}, "d": {"sq": "Një krevat dopio dhe dy të vetëm, ballkon dhe mëngjes i përfshirë.", "en": "One double and two single beds, a balcony and breakfast included.", "de": "Ein Doppelbett und zwei Einzelbetten, Balkon und Frühstück inklusive."}},
+    {"id": "cabin", "guests": 6, "price": "€110", "n": {"sq": "Kasolle druri", "en": "Wooden cabin", "de": "Holzhütte"}, "d": {"sq": "Kasolle e tërë për grupe dhe familje, me kuzhinë dhe oxhak.", "en": "The whole cabin for groups and families, with a kitchen and fireplace.", "de": "Die ganze Hütte für Gruppen und Familien, mit Küche und Kamin."}}
+  ],
+  "text": {
+    "sq": {"perNight": "për natë", "heroEyebrow": "Bujtinë në Rugovë", "langList": "Shqip, English, Deutsch"},
+    "en": {"perNight": "per night", "heroEyebrow": "Guesthouse in Rugova", "langList": "Shqip, English, Deutsch"},
+    "de": {"perNight": "pro Nacht", "heroEyebrow": "Gästehaus in Rugova", "langList": "Shqip, English, Deutsch"}
+  }
+}

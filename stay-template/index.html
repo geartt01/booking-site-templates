@@ -1,0 +1,397 @@
+<title>Bujtina Lugina Demo</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Figtree:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: guesthouse one-pager; hero with a ridge line, room cards that feed a 3-step stay request (room, dates and guests, details) */
+:root{
+  --bg:#f6f3ec; --surface:#fffdf8; --ink:#22271f; --muted:#666b5c; --line:#e0dccf;
+  --accent:#3d5a3c; --accent-soft:#e6ecdf; --warm:#b8692f; --warm-soft:#f6e6d6; --err:#a8432b;
+  --display:"Fraunces",Georgia,"Times New Roman",serif;
+  --body:"Figtree",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#171a15; --surface:#1f231c; --ink:#ecebe2; --muted:#a5a995; --line:#343a2e;
+  --accent:#9fc08f; --accent-soft:#2a3326; --warm:#e0a070; --warm-soft:#3a2b1e; --err:#f08a70; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#171a15; --surface:#1f231c; --ink:#ecebe2; --muted:#a5a995; --line:#343a2e;
+  --accent:#9fc08f; --accent-soft:#2a3326; --warm:#e0a070; --warm-soft:#3a2b1e; --err:#f08a70; color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16.5px/1.6 var(--body)}
+.wrap{max-width:1060px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--display);margin:0;line-height:1.12;text-wrap:balance}
+h1{font-size:clamp(2.1rem,5.2vw,3.5rem);font-weight:700;letter-spacing:-.015em}
+h2{font-size:clamp(1.5rem,3vw,2.05rem);font-weight:700}
+h3{font-size:1.15rem;font-weight:600}
+p{margin:0}
+.muted{color:var(--muted)}
+.eyebrow{font:700 .72rem var(--body);text-transform:uppercase;letter-spacing:.12em;color:var(--warm)}
+:focus-visible{outline:3px solid var(--warm);outline-offset:2px}
+button{font:inherit;color:inherit}
+[hidden]{display:none!important}
+
+.demo{background:var(--warm-soft);color:var(--ink);font-size:.85rem}
+.demo .wrap{padding-block:8px}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:color-mix(in srgb,var(--bg) 90%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+.bar{display:flex;justify-content:space-between;align-items:center;gap:12px;padding-block:12px}
+.brand{display:flex;align-items:center;gap:10px;font:700 1.12rem var(--display);min-width:0}
+.brand svg{flex:0 0 auto}
+nav{display:flex;gap:16px;align-items:center}
+nav a{color:var(--muted);text-decoration:none;font-weight:500;font-size:.92rem}
+nav a:hover{color:var(--ink)}
+.langs{display:flex;border:1px solid var(--line);border-radius:999px;overflow:hidden}
+.langs button{border:0;background:none;padding:5px 10px;font:600 .75rem var(--body);color:var(--muted);cursor:pointer}
+.langs button[aria-pressed="true"]{background:var(--accent);color:var(--surface)}
+@media (max-width:640px){nav a{display:none}}
+
+.hero{display:grid;grid-template-columns:1.2fr .8fr;gap:40px;padding-block:56px 30px;align-items:center}
+.hero>div{display:grid;gap:18px;min-width:0}
+.lede{font-size:1.12rem;color:var(--muted);max-width:33em}
+.ctas{display:flex;gap:10px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 20px;border-radius:10px;border:1px solid var(--accent);background:var(--accent);color:var(--surface);font-weight:600;text-decoration:none;cursor:pointer}
+.btn.ghost{background:transparent;color:var(--accent)}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.facts{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:22px;display:grid;gap:14px}
+.facts dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:8px 16px}
+.facts dt{color:var(--muted);font-size:.88rem}
+.facts dd{margin:0;font-weight:500;overflow-wrap:anywhere}
+.ridge{display:block;width:100%;height:auto;color:var(--accent-soft)}
+
+section{padding-block:52px;scroll-margin-top:56px}
+.alt{background:var(--surface);border-block:1px solid var(--line)}
+.head{display:grid;gap:8px;margin-bottom:26px;max-width:42em}
+
+.rooms{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.room{border:1px solid var(--line);border-radius:14px;padding:20px;display:grid;gap:10px;background:var(--bg);align-content:start;min-width:0}
+.room .meta{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;font-weight:600;font-size:.9rem;color:var(--muted)}
+.room .price{color:var(--warm)}
+.room .btn{justify-self:start;padding:9px 16px}
+
+.book{display:grid;grid-template-columns:220px 1fr;gap:28px;align-items:start}
+.steps{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.steps li{display:flex;gap:10px;align-items:center;color:var(--muted);font-weight:500}
+.steps li span{width:26px;height:26px;border-radius:50%;border:1px solid var(--line);display:grid;place-items:center;font-weight:600;font-size:.82rem}
+.steps li.on{color:var(--ink)}
+.steps li.on span{background:var(--accent);border-color:var(--accent);color:var(--surface)}
+.steps li.done span{background:var(--accent-soft);border-color:var(--accent);color:var(--accent)}
+.panel{background:var(--bg);border:1px solid var(--line);border-radius:16px;padding:22px;display:grid;gap:16px;min-width:0}
+.alt .panel{background:var(--bg)}
+.pick{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:8px}
+.opt{border:1px solid var(--line);border-radius:10px;padding:10px 12px;background:var(--surface);cursor:pointer;text-align:left;display:grid;gap:2px}
+.opt small{color:var(--muted);font-size:.8rem}
+.opt[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft)}
+.dates{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+label{display:grid;gap:6px;font-weight:500;font-size:.92rem}
+input[type=text],input[type=tel],input[type=date],textarea{font:inherit;padding:10px 12px;border-radius:10px;border:1px solid var(--line);background:var(--surface);color:var(--ink);width:100%;min-width:0}
+textarea{resize:vertical;min-height:70px}
+.guests{display:flex;align-items:center;gap:12px}
+.guests button{width:40px;height:40px;border-radius:10px;border:1px solid var(--line);background:var(--surface);cursor:pointer;font-size:1.2rem;line-height:1}
+.guests button:disabled{opacity:.4;cursor:not-allowed}
+.guests b{min-width:1.5em;text-align:center;font-size:1.15rem;font-variant-numeric:tabular-nums}
+.check{display:flex;gap:10px;align-items:flex-start;font-weight:400;font-size:.88rem;color:var(--muted)}
+.err{color:var(--err);font-size:.88rem}
+.summary{background:var(--accent-soft);border-radius:12px;padding:14px;display:grid;gap:4px}
+.row{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+
+.faq{display:grid;gap:10px;max-width:46em}
+details{border:1px solid var(--line);border-radius:12px;padding:14px 16px;background:var(--surface)}
+summary{cursor:pointer;font-weight:600}
+details p{margin-top:8px;color:var(--muted)}
+
+.contact{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+.contact>div{display:grid;gap:10px;min-width:0;align-content:start}
+.contact p{overflow-wrap:anywhere}
+.privacy{font-size:.9rem;color:var(--muted);display:grid;gap:8px;max-width:52em}
+.privacy b{color:var(--ink)}
+.privacy h3{color:var(--ink)}
+footer{padding-block:28px;color:var(--muted);font-size:.85rem;border-top:1px solid var(--line)}
+
+@media (max-width:860px){.hero,.book,.contact{grid-template-columns:1fr}.rooms{grid-template-columns:1fr 1fr}.steps{grid-auto-flow:column;overflow-x:auto}}
+@media (max-width:560px){.rooms,.dates{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:no-preference){.opt,.room,.btn{transition:background .15s,border-color .15s}}
+</style>
+
+<div class="demo" id="demoBar"><div class="wrap" data-t="demo"></div></div>
+<header><div class="wrap bar">
+  <div class="brand">
+    <svg width="30" height="24" viewBox="0 0 30 24" aria-hidden="true"><path d="M1 22 10 6l5 8 4-6 10 14z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+    <span id="placeName"></span>
+  </div>
+  <nav>
+    <a href="#rooms" data-t="navRooms"></a>
+    <a href="#book" data-t="navBook"></a>
+    <a href="#contact" data-t="navContact"></a>
+    <div class="langs" role="group" aria-label="Language" id="langs"></div>
+  </nav>
+</div></header>
+
+<main>
+<div class="wrap hero">
+  <div>
+    <span class="eyebrow" data-t="heroEyebrow"></span>
+    <h1 data-t="h1"></h1>
+    <p class="lede" data-t="lede"></p>
+    <div class="ctas"><a class="btn" href="#book" data-t="ctaBook"></a><a class="btn ghost" href="#rooms" data-t="ctaRooms"></a></div>
+  </div>
+  <aside class="facts">
+    <h3 data-t="factsTitle"></h3>
+    <dl>
+      <dt data-t="address"></dt><dd id="factAddress"></dd>
+      <dt data-t="phone"></dt><dd id="factPhone"></dd>
+      <dt data-t="emailLabel"></dt><dd id="factEmail"></dd>
+      <dt data-t="languages"></dt><dd data-t="langList"></dd>
+    </dl>
+  </aside>
+</div>
+<svg class="ridge" viewBox="0 0 1200 90" preserveAspectRatio="none" aria-hidden="true"><path d="M0 90V62l110-34 90 30 120-52 100 44 80-22 130 40 110-50 120 46 100-28 140 38 100-20v36z" fill="currentColor"/></svg>
+
+<section id="rooms" class="alt" style="margin-top:-1px"><div class="wrap">
+  <div class="head"><span class="eyebrow" data-t="roomsEyebrow"></span><h2 data-t="roomsTitle"></h2><p class="muted" data-t="roomsSub"></p></div>
+  <div class="rooms" id="roomList"></div>
+</div></section>
+
+<section id="book"><div class="wrap">
+  <div class="head"><span class="eyebrow" data-t="bookEyebrow"></span><h2 data-t="bookTitle"></h2><p class="muted" data-t="bookSub"></p></div>
+  <div class="book">
+    <ol class="steps" id="steps"></ol>
+    <div class="panel" id="panel" aria-live="polite"></div>
+  </div>
+</div></section>
+
+<section class="alt"><div class="wrap">
+  <div class="head"><span class="eyebrow" data-t="faqEyebrow"></span><h2 data-t="faqTitle"></h2></div>
+  <div class="faq" id="faq"></div>
+</div></section>
+
+<section id="contact"><div class="wrap contact">
+  <div><span class="eyebrow" data-t="contactEyebrow"></span><h2 data-t="contactTitle"></h2>
+    <p id="contactAddress"></p><p id="contactPhone"></p><p id="contactEmail"></p>
+    <a class="btn ghost" id="mapLink" target="_blank" rel="noopener" data-t="map" style="justify-self:start"></a>
+  </div>
+  <div class="privacy" id="privacy"></div>
+</div></section>
+</main>
+<footer><div class="wrap" id="footer"></div></footer>
+
+<script>
+/* ============ CLIENT CONFIG: edit this block for each guesthouse ============ */
+const CONFIG = {
+  demo: true,                         // true: demo banner, requests are not sent anywhere
+  name: "Bujtina Lugina",             // fictional demo guesthouse
+  address: "Rruga e Bjeshkëve p.n., Rugovë, Pejë",
+  phone: "+383 44 000 000",
+  whatsapp: "",                       // live sites: full number, digits only
+  email: "info@shembull.com",
+  mapUrl: "https://maps.google.com/?q=Rugova",
+  timeZone: "Europe/Belgrade",
+  retentionMonths: 12,
+  maxNights: 30,
+  rooms: [
+    {id:"double", guests:2, price:"€40",  n:{sq:"Dhomë dyshe",en:"Double room",de:"Doppelzimmer"}, d:{sq:"Dhomë me pamje nga mali dhe banjë private.",en:"Room with a mountain view and private bathroom.",de:"Zimmer mit Bergblick und eigenem Bad."}}
+  ]
+};
+/* ======================================================================= */
+
+const T = {
+ en:{demo:"Demo: a fictional guesthouse. This is the template we customise for your property; names, rooms and prices are examples.",
+  navRooms:"Rooms",navBook:"Book",navContact:"Contact",heroEyebrow:"Guesthouse",
+  h1:"Book your stay directly with us.",lede:"Choose a room, your dates and the number of guests in under a minute. We confirm every request ourselves.",
+  ctaBook:"Request a stay",ctaRooms:"See the rooms",factsTitle:"At a glance",address:"Where",phone:"Phone",emailLabel:"Email",languages:"We speak",langList:"",
+  roomsEyebrow:"Rooms",roomsTitle:"Choose where you'll sleep.",roomsSub:"Click a room to start your request.",upTo:"Up to {n} guests",from:"from {p}",perNight:"",bookRoom:"Book this room",
+  bookEyebrow:"Direct booking",bookTitle:"Three steps, no commission.",bookSub:"You send a request, we confirm it. Nothing is charged online.",
+  s1:"Room",s2:"Dates and guests",s3:"Your details",pickRoom:"Which room would you like?",
+  dateFmt:"{w}, {d} {m} {y}",wd:["Sun","Mon","Tue","Wed","Thu","Fri","Sat"],mo:["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],
+  checkIn:"Check-in",checkOut:"Check-out",guests:"Guests",night:"night",nights:"nights",fewer:"Fewer guests",more:"More guests",
+  name:"Full name",tel:"Phone number (WhatsApp)",telPh:"+383 4x xxx xxx",note:"Anything we should know? (optional)",notePh:"Arrival time, dinner, transfer…",
+  consent:"I agree that the guesthouse uses these details only to answer this request.",privacyLink:"Privacy notice",
+  back:"Back",next:"Continue",confirm:"Send request",
+  errDates:"Choose check-in and check-out dates.",errOrder:"Check-out must be after check-in.",errPast:"Check-in can't be in the past.",errLong:"For stays longer than {n} nights, please contact us directly.",
+  errName:"Please enter your name.",errTel:"Please enter a valid phone number.",errConsent:"Your consent is needed to continue.",
+  doneTitle:"Request recorded",doneDemo:"In the live version this request opens in the guesthouse's WhatsApp or email, and they confirm it with one message.",doneLive:"Open WhatsApp to send your request. We'll confirm as soon as we can.",doneMail:"Open your email app to send the request. We'll confirm as soon as we can.",sendWa:"Send on WhatsApp",sendMail:"Send by email",again:"Start another request",
+  faqEyebrow:"Good to know",faqTitle:"Before you book.",
+  faq:[["Do I pay anything now?","No. This sends a request. We confirm the dates with you first and tell you how to pay."],["How do I get my confirmation?","We write to you on WhatsApp or call the number you leave."],["Can I still book through Booking.com?","Yes. Booking directly is simply quicker, and you talk to us without a middleman."]],
+  contactEyebrow:"Contact",contactTitle:"How to find us.",map:"Open in Google Maps",
+  privacy:c=>`<h3>Privacy notice</h3><p><b>Who:</b> ${c.name} processes your data as controller.</p><p><b>What we collect:</b> your name, phone number, the room, dates and number of guests, and the note if you write one.</p><p><b>Why:</b> to answer your booking request, based on your consent.</p><p><b>Who sees it:</b> the guesthouse and the technical providers that help us (web hosting, WhatsApp, email).</p><p><b>How long:</b> deleted after ${c.retentionMonths} months.</p><p><b>Your rights:</b> access, correction, deletion and withdrawing consent, by emailing ${c.email}. You can complain to ${c.authority||"Kosovo's Information and Privacy Agency (AIP)"}.</p><p>This site uses no cookies.</p>`},
+ sq:{demo:"Demo: bujtinë fiktive. Kjo është faqja shabllon që e përshtasim për objektin tuaj; emrat, dhomat dhe çmimet janë shembull.",
+  navRooms:"Dhomat",navBook:"Rezervo",navContact:"Kontakt",heroEyebrow:"Bujtinë",
+  h1:"Rezervoni qëndrimin direkt te ne.",lede:"Zgjidhni dhomën, datat dhe numrin e mysafirëve në më pak se një minutë. Çdo kërkesë e konfirmojmë vetë.",
+  ctaBook:"Kërko rezervim",ctaRooms:"Shiko dhomat",factsTitle:"Në shkurt",address:"Ku",phone:"Telefoni",emailLabel:"Email",languages:"Flasim",langList:"",
+  roomsEyebrow:"Dhomat",roomsTitle:"Zgjidhni ku do të flini.",roomsSub:"Klikoni një dhomë për ta nisur kërkesën.",upTo:"Deri në {n} mysafirë",from:"nga {p}",perNight:"",bookRoom:"Rezervo këtë dhomë",
+  bookEyebrow:"Rezervim direkt",bookTitle:"Tre hapa, pa komision.",bookSub:"Ju dërgoni kërkesën, ne e konfirmojmë. Asgjë nuk paguhet online.",
+  s1:"Dhoma",s2:"Datat dhe mysafirët",s3:"Të dhënat tuaja",pickRoom:"Cilën dhomë dëshironi?",
+  dateFmt:"{w}, {d} {m} {y}",wd:["Die","Hën","Mar","Mër","Enj","Pre","Sht"],mo:["jan","shk","mar","pri","maj","qer","korr","gusht","sht","tet","nën","dhj"],
+  checkIn:"Ardhja",checkOut:"Largimi",guests:"Mysafirë",night:"natë",nights:"net",fewer:"Më pak mysafirë",more:"Më shumë mysafirë",
+  name:"Emri dhe mbiemri",tel:"Numri i telefonit (WhatsApp)",telPh:"+383 4x xxx xxx",note:"Diçka që duhet ta dimë? (opsionale)",notePh:"Ora e ardhjes, darka, transporti…",
+  consent:"Pajtohem që bujtina t'i përdorë këto të dhëna vetëm për t'iu përgjigjur kësaj kërkese.",privacyLink:"Njoftimi i privatësisë",
+  back:"Kthehu",next:"Vazhdo",confirm:"Dërgo kërkesën",
+  errDates:"Zgjidhni datën e ardhjes dhe të largimit.",errOrder:"Largimi duhet të jetë pas ardhjes.",errPast:"Data e ardhjes nuk mund të jetë në të kaluarën.",errLong:"Për qëndrime më të gjata se {n} net, na kontaktoni direkt.",
+  errName:"Shkruani emrin.",errTel:"Shkruani një numër të vlefshëm.",errConsent:"Duhet pëlqimi juaj për të vazhduar.",
+  doneTitle:"Kërkesa u regjistrua",doneDemo:"Në versionin real, kjo kërkesë hapet në WhatsApp-in ose emailin e bujtinës, dhe ata e konfirmojnë me një mesazh.",doneLive:"Hapni WhatsApp për ta dërguar kërkesën. Ju konfirmojmë sa më shpejt.",doneMail:"Hapni emailin për ta dërguar kërkesën. Ju konfirmojmë sa më shpejt.",sendWa:"Dërgo në WhatsApp",sendMail:"Dërgo me email",again:"Nis një kërkesë tjetër",
+  faqEyebrow:"Mirë të dihet",faqTitle:"Para se të rezervoni.",
+  faq:[["A paguaj diçka tani?","Jo. Kjo dërgon vetëm një kërkesë. Së pari i konfirmojmë datat me ju dhe ju tregojmë si paguhet."],["Si e marr konfirmimin?","Ju shkruajmë në WhatsApp ose ju telefonojmë në numrin që e lini."],["A mund të rezervoj ende përmes Booking.com?","Po. Rezervimi direkt është thjesht më i shpejtë, dhe flisni me ne pa ndërmjetës."]],
+  contactEyebrow:"Kontakt",contactTitle:"Si të na gjeni.",map:"Hap në Google Maps",
+  privacy:c=>`<h3>Njoftimi i privatësisë</h3><p><b>Kush:</b> ${c.name} i përpunon të dhënat tuaja si kontrollues.</p><p><b>Çka mbledhim:</b> emrin, numrin e telefonit, dhomën, datat dhe numrin e mysafirëve, si dhe shënimin nëse e shkruani.</p><p><b>Pse:</b> për t'iu përgjigjur kërkesës suaj për rezervim, me pëlqimin tuaj.</p><p><b>Kush i sheh:</b> bujtina dhe ofruesit teknikë që na ndihmojnë (hostimi i faqes, WhatsApp, emaili).</p><p><b>Sa kohë:</b> fshihen pas ${c.retentionMonths} muajsh.</p><p><b>Të drejtat tuaja:</b> qasje, korrigjim, fshirje dhe tërheqje e pëlqimit, me një email te ${c.email}. Mund të ankoheni te ${c.authority||"Agjencia për Informim dhe Privatësi (AIP)"}.</p><p>Kjo faqe nuk përdor cookies.</p>`},
+ de:{demo:"Demo: eine fiktive Pension. Diese Vorlage passen wir für Ihre Unterkunft an; Namen, Zimmer und Preise sind Beispiele.",
+  navRooms:"Zimmer",navBook:"Buchen",navContact:"Kontakt",heroEyebrow:"Gästehaus",
+  h1:"Buchen Sie Ihren Aufenthalt direkt bei uns.",lede:"Zimmer, Reisedaten und Gästezahl in unter einer Minute wählen. Jede Anfrage bestätigen wir persönlich.",
+  ctaBook:"Aufenthalt anfragen",ctaRooms:"Zimmer ansehen",factsTitle:"Auf einen Blick",address:"Wo",phone:"Telefon",emailLabel:"E-Mail",languages:"Wir sprechen",langList:"",
+  roomsEyebrow:"Zimmer",roomsTitle:"Wählen Sie Ihr Zimmer.",roomsSub:"Klicken Sie auf ein Zimmer, um Ihre Anfrage zu starten.",upTo:"Bis zu {n} Gäste",from:"ab {p}",perNight:"",bookRoom:"Dieses Zimmer buchen",
+  bookEyebrow:"Direkt buchen",bookTitle:"Drei Schritte, keine Provision.",bookSub:"Sie senden eine Anfrage, wir bestätigen sie. Online wird nichts abgebucht.",
+  s1:"Zimmer",s2:"Daten und Gäste",s3:"Ihre Angaben",pickRoom:"Welches Zimmer möchten Sie?",
+  dateFmt:"{w}, {d}. {m} {y}",wd:["So","Mo","Di","Mi","Do","Fr","Sa"],mo:["Jan.","Feb.","März","Apr.","Mai","Juni","Juli","Aug.","Sept.","Okt.","Nov.","Dez."],
+  checkIn:"Anreise",checkOut:"Abreise",guests:"Gäste",night:"Nacht",nights:"Nächte",fewer:"Weniger Gäste",more:"Mehr Gäste",
+  name:"Vor- und Nachname",tel:"Telefonnummer (WhatsApp)",telPh:"+49 1xx xxxxxxx",note:"Was sollten wir wissen? (optional)",notePh:"Ankunftszeit, Abendessen, Transfer…",
+  consent:"Ich bin einverstanden, dass das Gästehaus diese Angaben nur zur Beantwortung dieser Anfrage verwendet.",privacyLink:"Datenschutzhinweis",
+  back:"Zurück",next:"Weiter",confirm:"Anfrage senden",
+  errDates:"Bitte An- und Abreisedatum wählen.",errOrder:"Die Abreise muss nach der Anreise liegen.",errPast:"Die Anreise darf nicht in der Vergangenheit liegen.",errLong:"Für Aufenthalte über {n} Nächte kontaktieren Sie uns bitte direkt.",
+  errName:"Bitte Namen eingeben.",errTel:"Bitte gültige Telefonnummer eingeben.",errConsent:"Ihre Einwilligung ist erforderlich.",
+  doneTitle:"Anfrage erfasst",doneDemo:"In der Live-Version öffnet sich diese Anfrage in WhatsApp oder im E-Mail-Postfach des Gästehauses, und es bestätigt mit einer Nachricht.",doneLive:"Öffnen Sie WhatsApp, um die Anfrage zu senden. Wir bestätigen so schnell wie möglich.",doneMail:"Öffnen Sie Ihr E-Mail-Programm, um die Anfrage zu senden. Wir bestätigen so schnell wie möglich.",sendWa:"Per WhatsApp senden",sendMail:"Per E-Mail senden",again:"Weitere Anfrage starten",
+  faqEyebrow:"Gut zu wissen",faqTitle:"Vor der Buchung.",
+  faq:[["Muss ich jetzt etwas bezahlen?","Nein. Sie senden nur eine Anfrage. Wir bestätigen zuerst die Daten und sagen Ihnen, wie Sie bezahlen."],["Wie erhalte ich meine Bestätigung?","Wir schreiben Ihnen per WhatsApp oder rufen die angegebene Nummer an."],["Kann ich weiterhin über Booking.com buchen?","Ja. Direkt zu buchen geht einfach schneller, und Sie sprechen ohne Vermittler mit uns."]],
+  contactEyebrow:"Kontakt",contactTitle:"So finden Sie uns.",map:"In Google Maps öffnen",
+  privacy:c=>`<h3>Datenschutzhinweis</h3><p><b>Wer:</b> ${c.name} verarbeitet Ihre Daten als Verantwortliche.</p><p><b>Was wir erheben:</b> Name, Telefonnummer, Zimmer, Reisedaten und Gästezahl sowie Ihre Anmerkung, falls Sie eine schreiben.</p><p><b>Warum:</b> um Ihre Buchungsanfrage zu beantworten, auf Grundlage Ihrer Einwilligung.</p><p><b>Wer sie sieht:</b> das Gästehaus und technische Dienstleister (Hosting, WhatsApp, E-Mail).</p><p><b>Wie lange:</b> Löschung nach ${c.retentionMonths} Monaten.</p><p><b>Ihre Rechte:</b> Auskunft, Berichtigung, Löschung und Widerruf der Einwilligung per E-Mail an ${c.email}. Beschwerden sind bei ${c.authority||"der kosovarischen Agentur für Information und Datenschutz (AIP)"} möglich.</p><p>Diese Website verwendet keine Cookies.</p>`}
+};
+// per-client wording from CONFIG.text, e.g. {en:{h1:"..."}}
+for(const l in CONFIG.text||{}) if(T[l]) Object.assign(T[l],CONFIG.text[l]);
+
+const $=s=>document.querySelector(s);
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const C=CONFIG, ce={...C,name:esc(C.name),email:esc(C.email),authority:C.authority?esc(C.authority):""};
+if(C.noindex){const m=document.createElement("meta");m.name="robots";m.content="noindex";document.head.appendChild(m)}
+const LANGS=(C.langs&&C.langs.length)?C.langs.filter(l=>T[l]):["sq","en","de"];
+const MAXN=C.maxNights||30;
+let lang=LANGS[0];
+const st={step:1,room:null,cin:"",cout:"",guests:2,name:"",tel:"",note:"",consent:false,err:"",done:false};
+
+/* --- dates: plain YYYY-MM-DD strings, "today" in the property's time zone --- */
+function today(){
+  const p=new Intl.DateTimeFormat("en-CA",{timeZone:C.timeZone,year:"numeric",month:"2-digit",day:"2-digit"}).formatToParts(new Date());
+  const g=k=>p.find(x=>x.type===k).value; return `${g("year")}-${g("month")}-${g("day")}`;
+}
+const utc=k=>{const [y,m,d]=k.split("-").map(Number);return Date.UTC(y,m-1,d)};
+const addDays=(k,n)=>new Date(utc(k)+n*864e5).toISOString().slice(0,10);
+const nightsOf=()=>st.cin&&st.cout?Math.round((utc(st.cout)-utc(st.cin))/864e5):0;
+const okDate=k=>/^\d{4}-\d{2}-\d{2}$/.test(k)&&!isNaN(utc(k));
+const fmtDate=k=>{const d=new Date(utc(k)),t=T[lang];return t.dateFmt.replace("{w}",t.wd[d.getUTCDay()]).replace("{d}",d.getUTCDate()).replace("{m}",t.mo[d.getUTCMonth()]).replace("{y}",d.getUTCFullYear())};
+const nightsText=n=>n+" "+(n===1?T[lang].night:T[lang].nights);
+const priceText=r=>r.price?T[lang].from.replace("{p}",r.price)+(T[lang].perNight?" "+T[lang].perNight:""):"";
+const roomOf=()=>C.rooms.find(r=>r.id===st.room);
+
+function datesError(){
+  const t=T[lang];
+  if(!okDate(st.cin)||!okDate(st.cout)) return t.errDates;
+  if(st.cin<today()) return t.errPast;
+  const n=nightsOf();
+  if(n<1) return t.errOrder;
+  if(n>MAXN) return t.errLong.replace("{n}",MAXN);
+  return "";
+}
+
+function renderBooking(){
+  const t=T[lang], room=roomOf();
+  $("#steps").innerHTML=[t.s1,t.s2,t.s3].map((s,i)=>{
+    const n=i+1,cls=st.done||n<st.step?"done":n===st.step?"on":"";
+    return `<li class="${cls}"><span>${st.done||n<st.step?"✓":n}</span>${esc(s)}</li>`}).join("");
+  const P=$("#panel");
+  const sum=()=>`<div class="summary"><div class="row"><span>${esc(room.n[lang])}</span><b>${esc(priceText(room))}</b></div><div class="row"><span>${esc(fmtDate(st.cin))} → ${esc(fmtDate(st.cout))}</span><b>${esc(nightsText(nightsOf()))}</b></div><div>${esc(t.guests)}: ${st.guests}</div></div>`;
+  if(st.done){
+    const msg=`${C.name}: ${room.n[lang]} · ${st.cin} → ${st.cout} (${nightsText(nightsOf())}) · ${t.guests}: ${st.guests} · ${st.name}, ${st.tel}${st.note?" · "+st.note:""}`;
+    const wa=(C.whatsapp||"").replace(/\D/g,""), live=!C.demo;
+    const link=live&&wa?`<a class="btn" target="_blank" rel="noopener" href="https://wa.me/${wa}?text=${encodeURIComponent(msg)}">${esc(t.sendWa)}</a>`
+      :live?`<a class="btn" href="mailto:${encodeURIComponent(C.email)}?subject=${encodeURIComponent(C.name)}&body=${encodeURIComponent(msg)}">${esc(t.sendMail)}</a>`:"";
+    P.innerHTML=`<h3>${esc(t.doneTitle)}</h3>${sum()}<div>${esc(st.name)} · ${esc(st.tel)}</div>${st.note?`<div class="muted">${esc(st.note)}</div>`:""}
+      <p class="muted">${esc(!live?t.doneDemo:wa?t.doneLive:t.doneMail)}</p>
+      <div class="ctas">${link}<button class="btn ghost" data-a="again">${esc(t.again)}</button></div>`;
+    return;
+  }
+  if(st.step===1){
+    P.innerHTML=`<h3>${esc(t.pickRoom)}</h3><div class="pick">${C.rooms.map(r=>`<button class="opt" data-room="${r.id}" aria-pressed="${st.room===r.id}"><span>${esc(r.n[lang])}</span><small>${esc(t.upTo.replace("{n}",r.guests))}${r.price?" · "+esc(priceText(r)):""}</small></button>`).join("")}</div>
+      <div class="ctas"><button class="btn" data-a="next" ${st.room?"":"disabled"}>${esc(t.next)}</button></div>`;
+  } else if(st.step===2){
+    const td=today(), n=nightsOf();
+    P.innerHTML=`<div class="summary"><div class="row"><span>${esc(room.n[lang])}</span><b>${esc(priceText(room))}</b></div></div>
+      <div class="dates">
+        <label for="f-in">${esc(t.checkIn)}<input type="date" id="f-in" min="${td}" value="${esc(st.cin)}"></label>
+        <label for="f-out">${esc(t.checkOut)}<input type="date" id="f-out" min="${st.cin&&okDate(st.cin)?addDays(st.cin,1):addDays(td,1)}" value="${esc(st.cout)}"></label>
+      </div>
+      ${n>0?`<p class="muted">${esc(nightsText(n))}</p>`:""}
+      <div><div id="g-label" style="font-weight:500;font-size:.92rem;margin-bottom:6px">${esc(t.guests)}</div>
+        <div class="guests" role="group" aria-labelledby="g-label">
+          <button data-g="-1" aria-label="${esc(t.fewer)}" ${st.guests<=1?"disabled":""}>−</button><b>${st.guests}</b>
+          <button data-g="1" aria-label="${esc(t.more)}" ${st.guests>=room.guests?"disabled":""}>+</button>
+          <span class="muted">${esc(t.upTo.replace("{n}",room.guests))}</span>
+        </div></div>
+      ${st.err?`<p class="err">${esc(st.err)}</p>`:""}
+      <div class="ctas"><button class="btn ghost" data-a="back">${esc(t.back)}</button><button class="btn" data-a="next">${esc(t.next)}</button></div>`;
+  } else {
+    P.innerHTML=`${sum()}
+      <label for="f-name">${esc(t.name)}<input type="text" id="f-name" autocomplete="name" value="${esc(st.name)}"></label>
+      <label for="f-tel">${esc(t.tel)}<input type="tel" id="f-tel" autocomplete="tel" inputmode="tel" placeholder="${esc(t.telPh)}" value="${esc(st.tel)}"></label>
+      <label for="f-note">${esc(t.note)}<textarea id="f-note" maxlength="300" placeholder="${esc(t.notePh)}">${esc(st.note)}</textarea></label>
+      <label class="check" for="f-consent"><input type="checkbox" id="f-consent" ${st.consent?"checked":""}><span>${esc(t.consent)} <a href="#privacy">${esc(t.privacyLink)}</a></span></label>
+      ${st.err?`<p class="err">${esc(st.err)}</p>`:""}
+      <div class="ctas"><button class="btn ghost" data-a="back">${esc(t.back)}</button><button class="btn" data-a="confirm">${esc(t.confirm)}</button></div>`;
+  }
+}
+
+function render(){
+  const t=T[lang];
+  document.documentElement.lang=lang;
+  document.querySelectorAll("[data-t]").forEach(el=>{const v=t[el.dataset.t]; if(typeof v==="string") el.textContent=v;});
+  $("#factAddress").textContent=C.address; $("#factPhone").textContent=C.phone; $("#factEmail").textContent=C.email;
+  document.querySelectorAll(".facts dd").forEach(dd=>{const off=!dd.textContent.trim(); dd.hidden=off; dd.previousElementSibling.hidden=off;});
+  $("#demoBar").hidden=!C.demo;
+  $("#langs").hidden=LANGS.length<2;
+  $("#langs").innerHTML=LANGS.map(l=>`<button data-l="${l}" aria-pressed="${l===lang}">${l.toUpperCase()}</button>`).join("");
+  $("#placeName").textContent=C.name;
+  $("#roomList").innerHTML=C.rooms.map(r=>`<article class="room"><h3>${esc(r.n[lang])}</h3><p class="muted">${esc(r.d[lang])}</p><div class="meta"><span>${esc(t.upTo.replace("{n}",r.guests))}</span><span class="price">${esc(priceText(r))}</span></div><button class="btn" data-book="${r.id}">${esc(t.bookRoom)}</button></article>`).join("");
+  $("#faq").innerHTML=t.faq.map(([q,a])=>`<details><summary>${esc(q)}</summary><p>${esc(a)}</p></details>`).join("");
+  $("#contactAddress").textContent=C.address;
+  $("#contactPhone").textContent=[C.phone,C.phone2].filter(Boolean).join(" · ");
+  $("#contactEmail").textContent=C.email;
+  $("#mapLink").href=C.mapUrl;
+  $("#privacy").innerHTML=t.privacy(ce);
+  $("#footer").textContent=`© ${new Date().getFullYear()} ${C.name}`;
+  renderBooking();
+}
+
+function readForm(){
+  const a=$("#f-in"),b=$("#f-out"); if(a){st.cin=a.value; st.cout=b.value}
+  const n=$("#f-name"); if(n){st.name=n.value.trim(); st.tel=$("#f-tel").value.trim(); st.note=$("#f-note").value.trim(); st.consent=$("#f-consent").checked}
+}
+function pickRoom(id){
+  st.room=id; const r=roomOf(); if(st.guests>r.guests) st.guests=r.guests;
+}
+document.addEventListener("change",e=>{
+  if(e.target.id==="f-in"||e.target.id==="f-out"){
+    readForm(); st.err="";
+    if(okDate(st.cin)&&(!okDate(st.cout)||st.cout<=st.cin)) st.cout=addDays(st.cin,1);
+    renderBooking();
+  }
+});
+document.addEventListener("click",e=>{
+  const b=e.target.closest("button"); if(!b) return;
+  if(b.dataset.l){readForm(); lang=b.dataset.l; try{localStorage.setItem("lang",lang)}catch(_){} render(); return}
+  if(b.dataset.book){pickRoom(b.dataset.book); Object.assign(st,{step:2,done:false,err:""}); renderBooking(); $("#book").scrollIntoView({behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth"}); return}
+  if(b.dataset.room){pickRoom(b.dataset.room); renderBooking(); return}
+  if(b.dataset.g){readForm(); const r=roomOf(); st.guests=Math.min(r.guests,Math.max(1,st.guests+Number(b.dataset.g))); renderBooking(); return}
+  const a=b.dataset.a, t=T[lang];
+  if(a==="next"){
+    readForm();
+    if(st.step===2){st.err=datesError(); if(st.err){renderBooking(); return}}
+    st.err=""; st.step++; renderBooking();
+  }
+  else if(a==="back"){readForm(); st.err=""; st.step--; renderBooking()}
+  else if(a==="confirm"){
+    readForm();
+    st.err = !st.name?t.errName : st.tel.replace(/\D/g,"").length<8?t.errTel : !st.consent?t.errConsent : "";
+    if(!st.err) st.done=true;
+    renderBooking();
+  }
+  else if(a==="again"){Object.assign(st,{step:1,room:null,cin:"",cout:"",guests:2,note:"",consent:false,err:"",done:false}); renderBooking()}
+});
+try{const s=localStorage.getItem("lang"); if(LANGS.includes(s)) lang=s;}catch(_){}
+render();
+</script>
