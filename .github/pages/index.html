@@ -1,48 +1,278 @@
 <!doctype html>
-<html lang="en">
+<html lang="sq" data-l="sq">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Booking site templates: live demos</title>
-<meta name="description" content="Live demos of one-page booking websites for clinics, salons and guesthouses, in Albanian, English and German.">
+<title>Ardeno: faqe me rezervim online për biznese lokale</title>
+<meta name="description" content="Ardeno ndërton faqe me rezervim online për klinika, sallone dhe bujtina në Kosovë dhe Shqipëri, në shqip, anglisht dhe gjermanisht. Version provë falas me të dhënat tuaja.">
+<meta property="og:title" content="Ardeno: faqe me rezervim online për biznese lokale">
+<meta property="og:description" content="Klientët ju rezervojnë vetë, edhe natën. Version provë falas me të dhënat e biznesit tuaj.">
+<meta property="og:image" content="https://geartt01.github.io/booking-site-templates/stay.png">
 <style>
-  :root { --bg: #f6f5f2; --card: #fff; --ink: #1d2433; --muted: #5b6475; --line: #e3e1db; --accent: #2c5e4f; }
+  :root { --bg: #f6f5f2; --card: #fff; --ink: #1d2433; --muted: #5b6475; --line: #e3e1db; --accent: #2c5e4f; --accent-ink: #fff; --soft: #e9f0ec; }
   * { box-sizing: border-box; }
-  body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.55 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
-  main { max-width: 960px; margin: 0 auto; padding: 48px 16px 64px; }
-  h1 { font-size: clamp(1.6rem, 4vw, 2.2rem); margin: 0 0 8px; letter-spacing: -0.01em; }
-  p.lead { color: var(--muted); margin: 0 0 32px; max-width: 60ch; }
-  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.6 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  html[data-l="sq"] .en, html[data-l="en"] .sq { display: none !important; }
+  a { color: var(--accent); }
+  .wrap { max-width: 1040px; margin: 0 auto; padding: 0 18px; }
+  header { position: sticky; top: 0; z-index: 5; background: rgba(246,245,242,.92); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); }
+  header .wrap { display: flex; align-items: center; gap: 18px; height: 58px; }
+  .logo { font-weight: 800; font-size: 1.2rem; letter-spacing: -.02em; color: var(--ink); text-decoration: none; }
+  .logo span { color: var(--accent); }
+  nav { display: flex; gap: 16px; margin-left: auto; font-size: .95rem; }
+  nav a { color: var(--muted); text-decoration: none; }
+  nav a:hover { color: var(--ink); }
+  .lang { display: flex; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+  .lang button { border: 0; background: transparent; padding: 5px 9px; font: inherit; font-size: .85rem; cursor: pointer; color: var(--muted); }
+  .lang button[aria-pressed="true"] { background: var(--ink); color: #fff; }
+  @media (max-width: 720px) { nav { display: none; } .lang { margin-left: auto; } }
+  section { padding: 56px 0; scroll-margin-top: 60px; }
+  h1 { font-size: clamp(2rem, 5.5vw, 3.1rem); line-height: 1.12; letter-spacing: -.025em; margin: 0 0 16px; max-width: 18ch; }
+  h2 { font-size: clamp(1.45rem, 3.4vw, 1.9rem); letter-spacing: -.015em; margin: 0 0 10px; }
+  .lead { color: var(--muted); font-size: 1.12rem; max-width: 58ch; margin: 0 0 28px; }
+  .sub { color: var(--muted); max-width: 62ch; margin: 0 0 28px; }
+  .btn { display: inline-flex; align-items: center; gap: 8px; padding: 13px 20px; border-radius: 10px; font-weight: 650; text-decoration: none; border: 1px solid transparent; }
+  .btn.primary { background: var(--accent); color: var(--accent-ink); }
+  .btn.primary:hover { filter: brightness(1.08); }
+  .btn.ghost { border-color: var(--line); color: var(--ink); background: var(--card); }
+  .ctas { display: flex; flex-wrap: wrap; gap: 12px; }
+  .note { color: var(--muted); font-size: .9rem; margin-top: 14px; }
+  .hero { padding-top: 64px; }
+  .hero-grid { display: grid; grid-template-columns: 1.1fr .9fr; gap: 40px; align-items: center; }
+  .hero-shot { border-radius: 14px; overflow: hidden; border: 1px solid var(--line); box-shadow: 0 18px 50px rgba(29,36,51,.12); background: #fff; }
+  .hero-shot img { display: block; width: 100%; height: auto; aspect-ratio: 16/10; object-fit: contain; }
+  @media (max-width: 820px) { .hero-grid { grid-template-columns: 1fr; } }
+  .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 16px; counter-reset: s; }
+  .step { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 20px; }
+  .step::before { counter-increment: s; content: counter(s); display: inline-grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; background: var(--soft); color: var(--accent); font-weight: 750; margin-bottom: 10px; }
+  .step h3 { margin: 0 0 4px; font-size: 1.05rem; }
+  .step p { margin: 0; color: var(--muted); font-size: .95rem; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 18px; }
   a.card { display: block; background: var(--card); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; color: inherit; text-decoration: none; transition: transform .15s, box-shadow .15s; }
   a.card:hover, a.card:focus-visible { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,.08); }
-  a.card img { display: block; width: 100%; aspect-ratio: 16 / 10; object-fit: cover; object-position: top; border-bottom: 1px solid var(--line); }
-  .body { padding: 16px 18px 18px; }
-  .body h2 { font-size: 1.1rem; margin: 0 0 4px; }
-  .body p { margin: 0; color: var(--muted); font-size: .95rem; }
-  .go { display: inline-block; margin-top: 10px; color: var(--accent); font-weight: 600; }
-  footer { margin-top: 40px; color: var(--muted); font-size: .9rem; }
-  footer a { color: var(--accent); }
+  a.card img { display: block; width: 100%; aspect-ratio: 16/10; object-fit: cover; object-position: top; border-bottom: 1px solid var(--line); }
+  .card-body { padding: 16px 18px 18px; }
+  .card-body h3 { font-size: 1.08rem; margin: 0 0 4px; }
+  .card-body p { margin: 0; color: var(--muted); font-size: .95rem; }
+  .go { display: inline-block; margin-top: 10px; color: var(--accent); font-weight: 650; }
+  .feats { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px 28px; padding: 0; margin: 0; list-style: none; }
+  .feats li { padding-left: 28px; position: relative; }
+  .feats li::before { content: ""; position: absolute; left: 0; top: .45em; width: 16px; height: 9px; border-left: 3px solid var(--accent); border-bottom: 3px solid var(--accent); transform: rotate(-45deg); }
+  .feats b { display: block; }
+  .feats span { color: var(--muted); font-size: .94rem; }
+  .prices { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px; align-items: stretch; }
+  .price { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 24px; display: flex; flex-direction: column; }
+  .price.pop { border: 2px solid var(--accent); }
+  .tag { align-self: flex-start; background: var(--soft); color: var(--accent); font-size: .78rem; font-weight: 700; padding: 3px 9px; border-radius: 99px; margin-bottom: 8px; }
+  .price h3 { margin: 0; font-size: 1.15rem; }
+  .amount { font-size: 2.3rem; font-weight: 800; letter-spacing: -.03em; margin: 8px 0 0; }
+  .amount small { font-size: .95rem; font-weight: 500; color: var(--muted); letter-spacing: 0; }
+  .monthly { color: var(--muted); font-size: .93rem; margin: 2px 0 14px; }
+  .price ul { margin: 0 0 18px; padding-left: 20px; color: var(--ink); font-size: .95rem; }
+  .price li { margin: 4px 0; }
+  .price .btn { margin-top: auto; justify-content: center; }
+  .terms { margin-top: 22px; background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 18px 20px; color: var(--muted); font-size: .94rem; }
+  .terms p { margin: 4px 0; }
+  details { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 14px 18px; margin-bottom: 10px; }
+  summary { cursor: pointer; font-weight: 650; }
+  details p { color: var(--muted); margin: 8px 0 0; }
+  .contact { background: var(--ink); color: #fff; border-radius: 18px; padding: 40px 28px; text-align: center; }
+  .contact h2 { color: #fff; }
+  .contact p { color: #c9cfdb; max-width: 54ch; margin: 0 auto 22px; }
+  .contact .btn.ghost { background: transparent; color: #fff; border-color: #4a5468; }
+  .contact .ctas { justify-content: center; }
+  footer { padding: 28px 0 40px; color: var(--muted); font-size: .9rem; }
 </style>
 </head>
 <body>
-<main>
-  <h1>Booking site templates</h1>
-  <p class="lead">One-page websites with online booking for small local businesses, in Albanian, English and German. These are demo clients with made-up details, so booking is simulated and nothing is sent.</p>
-  <div class="grid">
-    <a class="card" href="demo-klinika/">
-      <img src="clinic.png" alt="Dental clinic demo site" loading="lazy">
-      <div class="body"><h2>Dental clinic</h2><p>Services, team, opening hours and a 3-step booking flow.</p><span class="go">Open demo &rarr;</span></div>
-    </a>
-    <a class="card" href="demo-salon/">
-      <img src="salon.png" alt="Beauty salon demo site" loading="lazy">
-      <div class="body"><h2>Beauty salon</h2><p>Treatments, prices, live open/closed status and booking.</p><span class="go">Open demo &rarr;</span></div>
-    </a>
-    <a class="card" href="demo-bujtina/">
-      <img src="stay.png" alt="Guesthouse demo site" loading="lazy">
-      <div class="body"><h2>Guesthouse</h2><p>Rooms, dates and guests in a direct booking request, without commission.</p><span class="go">Open demo &rarr;</span></div>
-    </a>
+<header>
+  <div class="wrap">
+    <a class="logo" href="#top">Ardeno<span>.</span></a>
+    <nav>
+      <a href="#shembuj"><span class="sq">Shembuj</span><span class="en">Examples</span></a>
+      <a href="#si"><span class="sq">Si funksionon</span><span class="en">How it works</span></a>
+      <a href="#cmimet"><span class="sq">Çmimet</span><span class="en">Pricing</span></a>
+      <a href="#kontakt"><span class="sq">Kontakt</span><span class="en">Contact</span></a>
+    </nav>
+    <div class="lang" role="group" aria-label="Gjuha / Language">
+      <button type="button" data-set="sq" aria-pressed="true">SQ</button>
+      <button type="button" data-set="en" aria-pressed="false">EN</button>
+    </div>
   </div>
-  <footer>Source code: <a href="https://github.com/geartt01/booking-site-templates">github.com/geartt01/booking-site-templates</a></footer>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <h1><span class="sq">Klientët ju rezervojnë vetë, edhe natën.</span><span class="en">Your customers book themselves, even at night.</span></h1>
+        <p class="lead"><span class="sq">Faqe me rezervim online për klinika, sallone dhe bujtina në Kosovë dhe Shqipëri. Në shqip, anglisht dhe gjermanisht, që t'ju gjejë edhe diaspora. Kërkesat ju vijnë në WhatsApp ose në email, pa komision.</span><span class="en">Websites with online booking for clinics, salons and guesthouses in Kosovo and Albania. In Albanian, English and German, so the diaspora finds you too. Requests reach you on WhatsApp or by email, with no commission.</span></p>
+        <div class="ctas">
+          <a class="btn primary wa" href="https://wa.me/38343782783" target="_blank" rel="noopener"><span class="sq">Kërkoni një version provë falas</span><span class="en">Ask for a free trial version</span></a>
+          <a class="btn ghost" href="#shembuj"><span class="sq">Shikoni shembujt</span><span class="en">See examples</span></a>
+        </div>
+        <p class="note"><span class="sq">E përgatisim versionin provë me emrin, shërbimet dhe oraret tuaja, para se të paguani diçka.</span><span class="en">We build the trial with your own name, services and hours before you pay anything.</span></p>
+      </div>
+      <div class="hero-shot"><img src="stay.png" alt="Shembull: faqe rezervimi për një bujtinë" width="1280" height="800"></div>
+    </div>
+  </section>
+
+  <section id="si">
+    <div class="wrap">
+      <h2><span class="sq">Si funksionon</span><span class="en">How it works</span></h2>
+      <p class="sub"><span class="sq">Pa takime të gjata dhe pa rrezik: e shihni faqen tuaj para se të vendosni.</span><span class="en">No long meetings and no risk: you see your own site before you decide.</span></p>
+      <div class="steps">
+        <div class="step"><h3><span class="sq">Na shkruani</span><span class="en">Message us</span></h3><p><span class="sq">Emrin e biznesit dhe qytetin, në WhatsApp ose në telefon.</span><span class="en">Your business name and city, on WhatsApp or by phone.</span></p></div>
+        <div class="step"><h3><span class="sq">Merrni versionin provë</span><span class="en">Get your trial</span></h3><p><span class="sq">Brenda 2 deri 3 ditësh ju dërgojmë një link me faqen tuaj, me të dhënat që gjejmë publikisht. Falas.</span><span class="en">Within 2 to 3 days we send a link to your own site, built from your public details. Free.</span></p></div>
+        <div class="step"><h3><span class="sq">E publikojmë</span><span class="en">We go live</span></h3><p><span class="sq">Nëse ju pëlqen, e rregullojmë sipas jush dhe del online brenda 7 ditëve.</span><span class="en">If you like it, we adjust it to your wishes and it goes live within 7 days.</span></p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="shembuj">
+    <div class="wrap">
+      <h2><span class="sq">Shembuj që mund t'i provoni</span><span class="en">Examples you can try</span></h2>
+      <p class="sub"><span class="sq">Këta janë biznese të shpikura, vetëm për demonstrim: rezervimi simulohet dhe nuk dërgohet askund.</span><span class="en">These are made-up businesses, for demonstration only: booking is simulated and nothing is sent.</span></p>
+      <div class="grid">
+        <a class="card" href="demo-klinika/">
+          <img src="clinic.png" alt="Shembull klinike dentare" loading="lazy">
+          <div class="card-body"><h3><span class="sq">Klinikë dentare</span><span class="en">Dental clinic</span></h3><p><span class="sq">Shërbimet, ekipi, oraret dhe rezervim në 3 hapa.</span><span class="en">Services, team, opening hours and a 3-step booking flow.</span></p><span class="go"><span class="sq">Hape shembullin →</span><span class="en">Open example →</span></span></div>
+        </a>
+        <a class="card" href="demo-salon/">
+          <img src="salon.png" alt="Shembull salloni bukurie" loading="lazy">
+          <div class="card-body"><h3><span class="sq">Sallon bukurie</span><span class="en">Beauty salon</span></h3><p><span class="sq">Trajtimet, çmimet, a është hapur tani, dhe rezervim.</span><span class="en">Treatments, prices, live open/closed status and booking.</span></p><span class="go"><span class="sq">Hape shembullin →</span><span class="en">Open example →</span></span></div>
+        </a>
+        <a class="card" href="demo-bujtina/">
+          <img src="stay.png" alt="Shembull bujtine" loading="lazy">
+          <div class="card-body"><h3><span class="sq">Bujtinë ose hotel</span><span class="en">Guesthouse or hotel</span></h3><p><span class="sq">Dhomat, datat dhe numri i personave, si kërkesë direkte pa komision.</span><span class="en">Rooms, dates and guests as a direct request, without commission.</span></p><span class="go"><span class="sq">Hape shembullin →</span><span class="en">Open example →</span></span></div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <h2><span class="sq">Çfarë përfshin çdo faqe</span><span class="en">What every site includes</span></h2>
+      <p class="sub"><span class="sq">Gjërat që i duhen një biznesi lokal, pa gjëra të panevojshme.</span><span class="en">What a local business needs, nothing it doesn't.</span></p>
+      <ul class="feats">
+        <li><b><span class="sq">Tri gjuhë</span><span class="en">Three languages</span></b><span><span class="sq">Shqip, anglisht, gjermanisht, me një buton.</span><span class="en">Albanian, English, German, one tap to switch.</span></span></li>
+        <li><b><span class="sq">E bërë për telefon</span><span class="en">Built for phones</span></b><span><span class="sq">Shumica e klientëve ju gjejnë nga telefoni.</span><span class="en">Most customers find you on their phone.</span></span></li>
+        <li><b><span class="sq">Kërkesa direkt te ju</span><span class="en">Requests straight to you</span></b><span><span class="sq">Në WhatsApp ose email. Ju e konfirmoni, pa komision.</span><span class="en">On WhatsApp or email. You confirm, no commission.</span></span></li>
+        <li><b><span class="sq">Thirrje, WhatsApp, hartë</span><span class="en">Call, WhatsApp, map</span></b><span><span class="sq">Butona që hapen menjëherë, plus lidhja me Google Maps.</span><span class="en">Buttons that open instantly, plus your Google Maps link.</span></span></li>
+        <li><b><span class="sq">Pa disponueshmëri të rreme</span><span class="en">No fake availability</span></b><span><span class="sq">Faqja nuk premton orare që nuk i keni.</span><span class="en">The site never promises slots you don't have.</span></span></li>
+        <li><b><span class="sq">Privatësi për klinikat</span><span class="en">Privacy for clinics</span></b><span><span class="sq">Vetëm emri, telefoni dhe shërbimi; asnjë e dhënë shëndetësore.</span><span class="en">Only name, phone and service; no health details.</span></span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="cmimet">
+    <div class="wrap">
+      <h2><span class="sq">Çmimet</span><span class="en">Pricing</span></h2>
+      <p class="sub"><span class="sq">Pagesë një herë për ndërtimin. Mirëmbajtja mujore është opsionale: e merrni vetëm nëse nuk doni të merreni vetë me faqen.</span><span class="en">One payment for the build. Monthly care is optional: take it only if you don't want to look after the site yourself.</span></p>
+      <div class="prices">
+        <div class="price">
+          <h3>Start</h3>
+          <p class="amount">150 € <small><span class="sq">një herë</span><span class="en">one-time</span></small></p>
+          <p class="monthly"><span class="sq">Mirëmbajtja: 15 € / muaj (opsionale)</span><span class="en">Care: €15 / month (optional)</span></p>
+          <ul>
+            <li><span class="sq">Faqe një-faqëshe në shqip dhe anglisht (gjermanisht sipas kërkesës)</span><span class="en">One-page site in Albanian and English (German on request)</span></li>
+            <li><span class="sq">Butona për thirrje dhe WhatsApp</span><span class="en">Call and WhatsApp buttons</span></li>
+            <li><span class="sq">Profili në Google Maps, i rregulluar</span><span class="en">Google Maps profile set up</span></li>
+            <li><span class="sq">Online brenda 7 ditëve</span><span class="en">Live within 7 days</span></li>
+          </ul>
+          <a class="btn ghost wa" data-pkg="Start" href="https://wa.me/38343782783" target="_blank" rel="noopener"><span class="sq">Kërkoni versionin provë</span><span class="en">Ask for a trial</span></a>
+        </div>
+        <div class="price pop">
+          <span class="tag"><span class="sq">E rekomanduar</span><span class="en">Recommended</span></span>
+          <h3>Booking</h3>
+          <p class="amount">200 € <small><span class="sq">një herë</span><span class="en">one-time</span></small></p>
+          <p class="monthly"><span class="sq">Mirëmbajtja: 25 € / muaj (opsionale)</span><span class="en">Care: €25 / month (optional)</span></p>
+          <ul>
+            <li><span class="sq">Gjithçka te Start</span><span class="en">Everything in Start</span></li>
+            <li><span class="sq">Rezervim online: shërbimi ose dhoma, data, ora</span><span class="en">Online booking: service or room, date, time</span></li>
+            <li><span class="sq">Kërkesat ju vijnë në WhatsApp ose email</span><span class="en">Requests reach you on WhatsApp or email</span></li>
+            <li><span class="sq">Deri në 5 faqe, tri gjuhë</span><span class="en">Up to 5 pages, three languages</span></li>
+          </ul>
+          <a class="btn primary wa" data-pkg="Booking" href="https://wa.me/38343782783" target="_blank" rel="noopener"><span class="sq">Kërkoni versionin provë</span><span class="en">Ask for a trial</span></a>
+        </div>
+        <div class="price">
+          <h3>Automated</h3>
+          <p class="amount">300 € <small><span class="sq">një herë</span><span class="en">one-time</span></small></p>
+          <p class="monthly"><span class="sq">Mirëmbajtja: 35 € / muaj (opsionale)</span><span class="en">Care: €35 / month (optional)</span></p>
+          <ul>
+            <li><span class="sq">Gjithçka te Booking</span><span class="en">Everything in Booking</span></li>
+            <li><span class="sq">Përgjigje automatike për pyetjet e shpeshta në WhatsApp/Instagram, me kalim te një person</span><span class="en">Automatic replies to common questions on WhatsApp/Instagram, with handover to a person</span></li>
+            <li><span class="sq">Raport i shkurtër çdo muaj</span><span class="en">Short monthly report</span></li>
+          </ul>
+          <a class="btn ghost wa" data-pkg="Automated" href="https://wa.me/38343782783" target="_blank" rel="noopener"><span class="sq">Kërkoni versionin provë</span><span class="en">Ask for a trial</span></a>
+        </div>
+      </div>
+      <div class="terms">
+        <p><b><span class="sq">Mirëmbajtja mujore përfshin:</span><span class="en">Monthly care includes:</span></b> <span class="sq">hostimin, ndryshime të vogla (çmime, orare, foto, tekste), kontroll që faqja dhe rezervimi punojnë, dhe ndihmë në WhatsApp. Mund ta ndërprisni kur të doni.</span><span class="en">hosting, small changes (prices, hours, photos, text), checks that the site and booking work, and help on WhatsApp. Cancel any time.</span></p>
+        <p><b><span class="sq">Pagesa:</span><span class="en">Payment:</span></b> <span class="sq">50% në fillim, 50% kur faqja del online, me transfer bankar. Dy raunde ndryshimesh të përfshira.</span><span class="en">50% at the start, 50% when the site goes live, by bank transfer. Two rounds of changes included.</span></p>
+        <p><b><span class="sq">Juaja mbetet:</span><span class="en">Yours to keep:</span></b> <span class="sq">domeni (rreth 10–15 € në vit) regjistrohet në emrin tuaj dhe e paguani direkt; përmbajtja është e juaja. Mesazhet automatike në WhatsApp faturohen nga Meta dhe i paguan biznesi.</span><span class="en">the domain (about €10–15 a year) is registered in your name and paid by you directly; the content is yours. Automated WhatsApp messages are billed by Meta and paid by the business.</span></p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <h2><span class="sq">Pyetje të shpeshta</span><span class="en">Questions</span></h2>
+      <details><summary><span class="sq">Kush jeni ju?</span><span class="en">Who are you?</span></summary><p><span class="sq">Ardeno është një studio e vogël nga Prishtina. Kemi ndërtuar dhe mirëmbajmë faqen e një qendre mjekësore familjare në Kosovë, përfshirë menaxhimin e terminëve.</span><span class="en">Ardeno is a small studio from Prishtina. We built and maintain the website of a family medical centre in Kosovo, including appointment handling.</span></p></details>
+      <details><summary><span class="sq">A e zëvendëson Booking.com?</span><span class="en">Does it replace Booking.com?</span></summary><p><span class="sq">Jo. I shton një rrugë direkte: mysafirët që ju gjejnë në Instagram ose Google ju shkruajnë drejtpërdrejt, pa komision. Booking.com mund ta mbani si më parë.</span><span class="en">No. It adds a direct route: guests who find you on Instagram or Google contact you directly, with no commission. You can keep Booking.com as before.</span></p></details>
+      <details><summary><span class="sq">Si e di që termini ose dhoma është e lirë?</span><span class="en">How do I know a slot or room is free?</span></summary><p><span class="sq">Kërkesa vjen te ju dhe ju e konfirmoni. Nëse e doni, e lidhim edhe me një kalendar, që oraret e zëna të mos shfaqen fare.</span><span class="en">The request comes to you and you confirm it. If you want, we also connect a calendar so taken slots don't show at all.</span></p></details>
+      <details><summary><span class="sq">A duhet të paguaj çdo muaj?</span><span class="en">Do I have to pay monthly?</span></summary><p><span class="sq">Jo. Mirëmbajtja është opsionale. Pa të, faqen e merrni të gatshme dhe ndryshimet e mëvonshme i paguani sipas nevojës.</span><span class="en">No. Care is optional. Without it you get the finished site, and later changes are paid as needed.</span></p></details>
+      <details><summary><span class="sq">Sa zgjat?</span><span class="en">How long does it take?</span></summary><p><span class="sq">Versioni provë: 2 deri 3 ditë. Faqja përfundimtare: brenda 7 ditëve pasi të na i dërgoni të dhënat.</span><span class="en">Trial version: 2 to 3 days. Final site: within 7 days after you send us your details.</span></p></details>
+    </div>
+  </section>
+
+  <section id="kontakt">
+    <div class="wrap">
+      <div class="contact">
+        <h2><span class="sq">Doni ta shihni faqen tuaj?</span><span class="en">Want to see your own site?</span></h2>
+        <p><span class="sq">Na shkruani emrin e biznesit dhe qytetin. Ju dërgojmë versionin provë falas, pa asnjë obligim.</span><span class="en">Send us your business name and city. We'll send your trial version for free, with no obligation.</span></p>
+        <div class="ctas">
+          <a class="btn primary wa" href="https://wa.me/38343782783" target="_blank" rel="noopener">WhatsApp</a>
+          <a class="btn ghost" href="tel:+38343782783">+383 43 782 783</a>
+        </div>
+      </div>
+    </div>
+  </section>
 </main>
+
+<footer>
+  <div class="wrap">© 2026 Ardeno · <span class="sq">Prishtinë, Kosovë</span><span class="en">Prishtina, Kosovo</span></div>
+</footer>
+
+<script>
+(function () {
+  var root = document.documentElement;
+  var msg = {
+    sq: "Përshëndetje Ardeno, dua një version provë falas për biznesin tim: ",
+    en: "Hello Ardeno, I would like a free trial version for my business: "
+  };
+  function apply(l) {
+    root.setAttribute("data-l", l);
+    root.lang = l;
+    document.querySelectorAll(".lang button").forEach(function (b) {
+      b.setAttribute("aria-pressed", String(b.dataset.set === l));
+    });
+    document.querySelectorAll("a.wa").forEach(function (a) {
+      var pkg = a.dataset.pkg ? (l === "sq" ? "(paketa " : "(package ") + a.dataset.pkg + ") " : "";
+      a.href = "https://wa.me/38343782783?text=" + encodeURIComponent(msg[l] + pkg);
+    });
+    try { localStorage.setItem("ardeno-lang", l); } catch (e) {}
+  }
+  var start = "sq";
+  var q = new URLSearchParams(location.search).get("lang");
+  if (q === "en" || q === "sq") start = q;
+  else { try { var s = localStorage.getItem("ardeno-lang"); if (s === "en" || s === "sq") start = s; } catch (e) {} }
+  apply(start);
+  document.querySelectorAll(".lang button").forEach(function (b) {
+    b.addEventListener("click", function () { apply(b.dataset.set); });
+  });
+})();
+</script>
 </body>
 </html>
