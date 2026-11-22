@@ -1,0 +1,61 @@
+{
+  "template": "stay",
+  "demo": true,
+  "noindex": true,
+  "langs": ["sq", "en", "de"],
+  "title": "Guest House Tofaj: rezervim direkt (version provë)",
+  "description": "Version provë i një faqeje rezervimi direkt për Guest House Tofaj në bjeshkët e Junikut, përgatitur nga Ardeno.",
+  "name": "Guest House Tofaj",
+  "address": "Kroni Mets, Junik 51050, Kosovë",
+  "phone": "+383 45 744 978",
+  "whatsapp": "",
+  "email": "shtofaj1@outlook.com",
+  "mapUrl": "https://www.google.com/maps/search/?api=1&query=Guest+House+Tofaj+Junik",
+  "timeZone": "Europe/Belgrade",
+  "retentionMonths": 12,
+  "maxNights": 14,
+  "rooms": [
+    {"id": "twin", "guests": 2, "n": {"sq": "Dhomë me dy shtretër teke", "en": "Twin Room", "de": "Zweibettzimmer"}, "d": {"sq": "Dy shtretër teke dhe ballkon me pamje nga mali.", "en": "Two single beds and a balcony with mountain views.", "de": "Zwei Einzelbetten und ein Balkon mit Bergblick."}},
+    {"id": "double", "guests": 2, "n": {"sq": "Dhomë dyshe", "en": "Double Room", "de": "Doppelzimmer"}, "d": {"sq": "Një krevat dopio dhe ballkon me pamje nga mali.", "en": "One double bed and a balcony with mountain views.", "de": "Ein Doppelbett und ein Balkon mit Bergblick."}},
+    {"id": "family", "guests": 4, "n": {"sq": "Dhomë familjare", "en": "Family Room", "de": "Familienzimmer"}, "d": {"sq": "Një krevat dopio dhe dy shtretër teke, për familje ose grupe të vogla.", "en": "One double bed and two single beds, for families or small groups.", "de": "Ein Doppelbett und zwei Einzelbetten, für Familien oder kleine Gruppen."}},
+    {"id": "group", "guests": 8, "n": {"sq": "Dhomë për grupe (8 shtretër)", "en": "Group Room (8 beds)", "de": "Gruppenzimmer (8 Betten)"}, "d": {"sq": "Tetë shtretër teke, për grupe alpinistësh në Via Dinarica ose Peaks of the Balkans.", "en": "Eight single beds, for hiking groups on the Via Dinarica or the Peaks of the Balkans.", "de": "Acht Einzelbetten, für Wandergruppen auf der Via Dinarica oder dem Peaks of the Balkans."}}
+  ],
+  "text": {
+    "sq": {
+      "demo": "Version provë për Guest House Tofaj, përgatitur nga Ardeno. Kërkesat këtu nuk dërgohen askund; në versionin real hapen në WhatsApp-in ose emailin e bujtinës. Dhomat janë marrë nga listimi publik dhe duhen konfirmuar.",
+      "heroEyebrow": "Junik · Via Dinarica, etapa 9",
+      "h1": "Rezervoni qëndrimin te Guest House Tofaj direkt.",
+      "lede": "Bujtinë prej guri dhe druri mbi 2.000 metra lartësi, në bjeshkët e Junikut, pikënisje për Gjeravicën. Ushqim shtëpie dhe pamje nga malet. Zgjidhni dhomën, datat dhe numrin e personave; çdo kërkesë e konfirmojmë vetë.",
+      "faq": [
+        ["A paguaj diçka tani?", "Jo. Kjo dërgon vetëm një kërkesë. Së pari i konfirmojmë datat me ju dhe ju tregojmë si paguhet."],
+        ["Si e marr konfirmimin?", "Ju shkruajmë në WhatsApp ose ju telefonojmë në numrin që e lini."],
+        ["Si arrihet te bujtina?", "Me makinë deri te Zalli i Rupës. 3 kilometrat e fundit kërkojnë veturë 4x4, sepse rruga është e pjerrët malore. Na shkruani para se të vini."],
+        ["A ka ushqim?", "Po, gatuajmë ushqim shtëpie për mysafirët. Na tregoni në kërkesë nëse keni nevoja të veçanta."]
+      ]
+    },
+    "en": {
+      "demo": "Trial version for Guest House Tofaj, prepared by Ardeno. Requests here are not sent anywhere; in the real version they open in the guesthouse's WhatsApp or email. Rooms are taken from the public listing and need confirming.",
+      "heroEyebrow": "Junik · Via Dinarica, stage 9",
+      "h1": "Book your stay at Guest House Tofaj directly.",
+      "lede": "A stone and wood guesthouse above 2,000 metres in the Junik mountains, the starting point for Gjeravica. Home cooking and mountain views. Choose a room, your dates and the number of guests; we confirm every request ourselves.",
+      "faq": [
+        ["Do I pay anything now?", "No. This sends a request. We confirm the dates with you first and tell you how to pay."],
+        ["How do I get my confirmation?", "We write to you on WhatsApp or call the number you leave."],
+        ["How do I get there?", "You can drive to Zalli i Rupës. The last 3 km need a 4x4 because the mountain road is steep. Message us before you arrive."],
+        ["Is there food?", "Yes, we cook home meals for our guests. Tell us in your request if you have special needs."]
+      ]
+    },
+    "de": {
+      "demo": "Testversion für Guest House Tofaj, erstellt von Ardeno. Anfragen werden hier nirgendwohin gesendet; in der echten Version öffnen sie sich in WhatsApp oder im E-Mail-Postfach des Gästehauses. Die Zimmer stammen aus dem öffentlichen Eintrag und müssen bestätigt werden.",
+      "heroEyebrow": "Junik · Via Dinarica, Etappe 9",
+      "h1": "Buchen Sie Ihren Aufenthalt im Guest House Tofaj direkt.",
+      "lede": "Ein Gästehaus aus Stein und Holz auf über 2.000 Metern in den Bergen von Junik, Ausgangspunkt für den Gjeravica. Hausmannskost und Bergblick. Wählen Sie Zimmer, Reisedaten und Gästezahl; jede Anfrage bestätigen wir persönlich.",
+      "faq": [
+        ["Muss ich jetzt etwas bezahlen?", "Nein. Sie senden nur eine Anfrage. Wir bestätigen zuerst die Daten und sagen Ihnen, wie Sie bezahlen."],
+        ["Wie erhalte ich meine Bestätigung?", "Wir schreiben Ihnen per WhatsApp oder rufen die angegebene Nummer an."],
+        ["Wie komme ich hin?", "Mit dem Auto bis Zalli i Rupës. Die letzten 3 km erfordern einen Geländewagen (4x4), da die Bergstraße steil ist. Schreiben Sie uns vor der Anreise."],
+        ["Gibt es Essen?", "Ja, wir kochen Hausmannskost für unsere Gäste. Teilen Sie uns besondere Wünsche in Ihrer Anfrage mit."]
+      ]
+    }
+  }
+}
