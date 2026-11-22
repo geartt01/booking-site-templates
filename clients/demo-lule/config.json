@@ -1,0 +1,41 @@
+{
+  "template": "shop",
+  "kind": "flowers",
+  "demo": true,
+  "langs": ["sq", "en", "de"],
+  "title": "Lulishtja Bora: lule me porosi në WhatsApp (demo)",
+  "description": "Demo e një faqeje për dyqan lulesh: katalog me buqeta dhe porosi në WhatsApp. Përgatitur nga Ardeno.",
+  "name": "Lulishtja Bora",
+  "address": "Rruga e Shembullit 1, Prishtinë",
+  "phone": "+383 44 000 000",
+  "whatsapp": "",
+  "email": "info@shembull.com",
+  "instagram": "",
+  "mapUrl": "https://maps.google.com/?q=Prishtina",
+  "timeZone": "Europe/Belgrade",
+  "retentionMonths": 6,
+  "currency": "€",
+  "delivery": true,
+  "pickup": true,
+  "hours": {"0": ["10:00", "16:00"], "1": ["08:00", "20:00"], "2": ["08:00", "20:00"], "3": ["08:00", "20:00"], "4": ["08:00", "20:00"], "5": ["08:00", "20:00"], "6": ["08:00", "20:00"]},
+  "categories": [
+    {"id": "bouquets", "n": {"sq": "Buqeta", "en": "Bouquets", "de": "Sträuße"}},
+    {"id": "boxes", "n": {"sq": "Kuti me lule", "en": "Flower boxes", "de": "Blumenboxen"}},
+    {"id": "plants", "n": {"sq": "Bimë", "en": "Plants", "de": "Pflanzen"}}
+  ],
+  "products": [
+    {"id": "roses-12", "cat": "bouquets", "price": 25, "tag": {"sq": "Më e kërkuara", "en": "Most ordered", "de": "Am beliebtesten"}, "n": {"sq": "12 trëndafila të kuq", "en": "12 red roses", "de": "12 rote Rosen"}, "d": {"sq": "Me letër kraft dhe kartolinë me mesazhin tuaj.", "en": "Wrapped in kraft paper, with a card carrying your message.", "de": "In Kraftpapier, mit Karte und Ihrer Nachricht."}},
+    {"id": "roses-24", "cat": "bouquets", "price": 45, "n": {"sq": "24 trëndafila", "en": "24 roses", "de": "24 Rosen"}, "d": {"sq": "Të kuq, të bardhë ose rozë, sipas zgjedhjes.", "en": "Red, white or pink, your choice.", "de": "Rot, weiß oder rosa, nach Wahl."}},
+    {"id": "seasonal", "cat": "bouquets", "price": 20, "n": {"sq": "Buqetë e stinës", "en": "Seasonal bouquet", "de": "Saisonstrauß"}, "d": {"sq": "Lulet më të freskëta të ditës, të zgjedhura nga ne.", "en": "The freshest flowers of the day, chosen by us.", "de": "Die frischesten Blumen des Tages, von uns ausgewählt."}},
+    {"id": "tulips", "cat": "bouquets", "price": 18, "n": {"sq": "Tulipanë", "en": "Tulips", "de": "Tulpen"}, "d": {"sq": "15 tulipanë me ngjyra të përziera.", "en": "15 tulips in mixed colours.", "de": "15 Tulpen in gemischten Farben."}},
+    {"id": "box-small", "cat": "boxes", "price": 30, "n": {"sq": "Kuti e vogël me trëndafila", "en": "Small rose box", "de": "Kleine Rosenbox"}, "d": {"sq": "Kuti e rrumbullakët me 9 trëndafila.", "en": "Round box with 9 roses.", "de": "Runde Box mit 9 Rosen."}},
+    {"id": "box-choco", "cat": "boxes", "price": 38, "n": {"sq": "Kuti me lule dhe çokollata", "en": "Flowers and chocolates box", "de": "Box mit Blumen und Pralinen"}, "d": {"sq": "Lule të stinës dhe një kuti me çokollata.", "en": "Seasonal flowers and a box of chocolates.", "de": "Saisonblumen und eine Schachtel Pralinen."}},
+    {"id": "orchid", "cat": "plants", "price": 22, "n": {"sq": "Orkide në vazo", "en": "Potted orchid", "de": "Orchidee im Topf"}, "d": {"sq": "E bardhë ose vjollcë, me vazo qeramike.", "en": "White or purple, in a ceramic pot.", "de": "Weiß oder lila, im Keramiktopf."}},
+    {"id": "succulents", "cat": "plants", "price": 12, "n": {"sq": "Set me sukulente", "en": "Succulent set", "de": "Sukkulenten-Set"}, "d": {"sq": "Tri bimë të vogla që s'kërkojnë shumë kujdes.", "en": "Three small, low-care plants.", "de": "Drei kleine, pflegeleichte Pflanzen."}}
+  ],
+  "text": {
+    "sq": {"faq": [["Si paguaj?", "Me para në dorë kur e merrni porosinë ose kur jua sjellim, ose me transfer bankar."], ["Sa shpejt e sillni?", "Brenda ditës në Prishtinë, nëse porosia vjen para orës 16:00."], ["A mund të shtoj një kartolinë?", "Po, shkruani mesazhin te shporta dhe e vendosim në buqetë."]]},
+    "en": {"faq": [["How do I pay?", "In cash when you pick it up or we deliver, or by bank transfer."], ["How fast do you deliver?", "Same day in Prishtina for orders before 16:00."], ["Can I add a card?", "Yes, write the message in the basket and we add it to the bouquet."]]},
+    "de": {"faq": [["Wie bezahle ich?", "Bar bei Abholung oder Lieferung, oder per Überweisung."], ["Wie schnell liefern Sie?", "Am selben Tag in Prishtina bei Bestellung vor 16:00."], ["Kann ich eine Karte beilegen?", "Ja, schreiben Sie den Text in den Korb, wir legen ihn dem Strauß bei."]]}
+  }
+}

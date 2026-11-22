@@ -1,0 +1,417 @@
+<title>Lulishtja Bora Demo</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Figtree:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: small-shop one-pager; hero, category filter, product grid with a basket that sends one order to WhatsApp, hours, delivery, contact */
+:root{
+  --bg:#faf6f1; --surface:#fffdfa; --ink:#2a2320; --muted:#6f655e; --line:#e8dfd5;
+  --accent:#b4475e; --accent-ink:#fff; --accent-soft:#f6e3e6; --soft2:#efe7dc; --err:#a8432b; --ok:#3f6b4a;
+  --display:"Instrument Serif",Georgia,"Times New Roman",serif;
+  --body:"Figtree",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#1b1715; --surface:#231e1b; --ink:#f1ebe5; --muted:#b2a79e; --line:#3a322d;
+  --accent:#e58ba0; --accent-ink:#1b1715; --accent-soft:#3b2529; --soft2:#2c2622; --err:#f08a70; --ok:#8fc39b; color-scheme:dark}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.6 var(--body)}
+.wrap{max-width:1080px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{margin:0;line-height:1.1;text-wrap:balance}
+h1,h2{font-family:var(--display);font-weight:400}
+h1{font-size:clamp(2.4rem,6vw,4rem);letter-spacing:-.01em}
+h2{font-size:clamp(1.8rem,3.6vw,2.5rem)}
+h3{font-size:1.02rem;font-weight:600}
+p{margin:0}
+.muted{color:var(--muted)}
+.eyebrow{font:700 .72rem var(--body);text-transform:uppercase;letter-spacing:.12em;color:var(--accent)}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+button{font:inherit;color:inherit}
+[hidden]{display:none!important}
+
+.demo{background:var(--accent-soft);font-size:.85rem}
+.demo .wrap{padding-block:8px}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:color-mix(in srgb,var(--bg) 90%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+.bar{display:flex;justify-content:space-between;align-items:center;gap:12px;padding-block:11px}
+.brand{font:400 1.55rem var(--display);min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+nav{display:flex;gap:16px;align-items:center}
+nav a{color:var(--muted);text-decoration:none;font-weight:500;font-size:.92rem}
+nav a:hover{color:var(--ink)}
+.langs{display:flex;border:1px solid var(--line);border-radius:999px;overflow:hidden}
+.langs button{border:0;background:none;padding:5px 10px;font:600 .75rem var(--body);color:var(--muted);cursor:pointer}
+.langs button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.cartbtn{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:6px 12px;font-weight:600;font-size:.9rem;cursor:pointer}
+.cartbtn b{background:var(--accent);color:var(--accent-ink);border-radius:999px;min-width:1.5em;padding:0 6px;text-align:center;font-size:.8rem}
+@media (max-width:700px){nav a{display:none}.brand{font-size:1.25rem}nav{gap:8px}}
+
+.hero{display:grid;grid-template-columns:1.15fr .85fr;gap:36px;padding-block:52px 40px;align-items:center}
+.hero>div{display:grid;gap:18px;min-width:0}
+.lede{font-size:1.1rem;color:var(--muted);max-width:32em}
+.ctas{display:flex;gap:10px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 20px;border-radius:999px;border:1px solid var(--accent);background:var(--accent);color:var(--accent-ink);font-weight:600;text-decoration:none;cursor:pointer}
+.btn.ghost{background:transparent;color:var(--accent)}
+.btn.small{padding:8px 14px;font-size:.9rem}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.facts{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:22px;display:grid;gap:12px}
+.facts dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:8px 16px}
+.facts dt{color:var(--muted);font-size:.88rem}
+.facts dd{margin:0;font-weight:500;overflow-wrap:anywhere}
+.status{display:inline-flex;align-items:center;gap:8px;font-weight:600;font-size:.92rem}
+.status i{width:9px;height:9px;border-radius:50%;background:var(--muted)}
+.status.open i{background:var(--ok)}
+
+section{padding-block:48px;scroll-margin-top:60px}
+.alt{background:var(--surface);border-block:1px solid var(--line)}
+.head{display:grid;gap:8px;margin-bottom:22px;max-width:44em}
+
+.cats{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+.cats button{border:1px solid var(--line);background:var(--bg);border-radius:999px;padding:7px 14px;font-weight:500;font-size:.9rem;cursor:pointer}
+.cats button[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px}
+.item{background:var(--bg);border:1px solid var(--line);border-radius:16px;overflow:hidden;display:grid;grid-template-rows:auto 1fr;min-width:0}
+.alt .item{background:var(--bg)}
+.pic{aspect-ratio:4/3;display:block;width:100%;object-fit:cover;background:var(--soft2)}
+.pic svg{display:block;width:100%;height:100%}
+.info{padding:14px 16px 16px;display:grid;gap:6px;align-content:start}
+.info .d{color:var(--muted);font-size:.9rem}
+.info .row{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:6px}
+.price{font-weight:700}
+.tag{display:inline-block;font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:1px 8px;justify-self:start}
+.sold .pic{filter:grayscale(1);opacity:.55}
+.sold .tag{color:var(--err);border-color:var(--err)}
+
+.how{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.how div{background:var(--bg);border:1px solid var(--line);border-radius:16px;padding:18px;display:grid;gap:6px;align-content:start}
+.how b{font:400 1.8rem var(--display);color:var(--accent)}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+.hours{margin:0;display:grid;grid-template-columns:auto 1fr;gap:6px 18px;max-width:22em}
+.hours dt{color:var(--muted)}
+.hours dd{margin:0;font-weight:500;font-variant-numeric:tabular-nums}
+.hours .today{color:var(--accent);font-weight:700}
+.faq{display:grid;gap:10px}
+details{border:1px solid var(--line);border-radius:12px;padding:13px 16px;background:var(--surface)}
+summary{cursor:pointer;font-weight:600}
+details p{margin-top:8px;color:var(--muted)}
+.contact p{overflow-wrap:anywhere}
+.privacy{font-size:.9rem;color:var(--muted);display:grid;gap:8px}
+.privacy b,.privacy h3{color:var(--ink)}
+footer{padding-block:28px;color:var(--muted);font-size:.85rem;border-top:1px solid var(--line)}
+
+/* basket drawer */
+.drawer{position:fixed;inset:0;z-index:20;display:grid;grid-template-columns:1fr min(420px,100%)}
+.drawer .scrim{background:rgba(20,15,12,.45)}
+.sheet{background:var(--surface);height:100%;overflow:auto;padding:20px 18px calc(20px + env(safe-area-inset-bottom,0px));display:grid;gap:14px;align-content:start;border-left:1px solid var(--line)}
+.sheet .top{display:flex;justify-content:space-between;align-items:center}
+.x{border:1px solid var(--line);background:var(--bg);border-radius:999px;width:36px;height:36px;cursor:pointer;font-size:1.1rem}
+.line{display:grid;grid-template-columns:1fr auto;gap:4px 10px;padding-block:10px;border-bottom:1px solid var(--line)}
+.line .q{display:flex;align-items:center;gap:8px}
+.line .q button{width:30px;height:30px;border-radius:8px;border:1px solid var(--line);background:var(--bg);cursor:pointer}
+label{display:grid;gap:6px;font-weight:500;font-size:.92rem}
+input[type=text],input[type=tel],input[type=date],textarea,select{font:inherit;padding:10px 12px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--ink);width:100%;min-width:0}
+textarea{resize:vertical;min-height:64px}
+.choice{display:flex;gap:8px;flex-wrap:wrap}
+.choice button{border:1px solid var(--line);background:var(--bg);border-radius:10px;padding:9px 12px;cursor:pointer;font-weight:500}
+.choice button[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft)}
+.check{display:flex;gap:10px;align-items:flex-start;font-weight:400;font-size:.86rem;color:var(--muted)}
+.err{color:var(--err);font-size:.88rem}
+.total{display:flex;justify-content:space-between;font-weight:700;font-size:1.05rem}
+.toast{position:fixed;left:50%;bottom:calc(18px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:999px;font-weight:600;font-size:.9rem;z-index:30}
+
+@media (max-width:860px){.hero,.split{grid-template-columns:1fr}.how{grid-template-columns:1fr}}
+@media (max-width:560px){.grid{grid-template-columns:1fr 1fr;gap:10px}.info{padding:10px 12px 12px}.info .d{display:none}.info .row{flex-wrap:wrap}.info .btn.small{padding:7px 12px}.langs button{padding:5px 7px}}
+@media (prefers-reduced-motion:no-preference){.item,.btn,.cats button{transition:background .15s,border-color .15s,transform .15s}}
+</style>
+
+<div class="demo" id="demoBar"><div class="wrap" data-t="demo"></div></div>
+<header><div class="wrap bar">
+  <span class="brand" id="shopName"></span>
+  <nav>
+    <a href="#shop" data-t="navShop"></a>
+    <a href="#info" data-t="navInfo"></a>
+    <a href="#contact" data-t="navContact"></a>
+    <div class="langs" role="group" aria-label="Language" id="langs"></div>
+    <button class="cartbtn" id="cartBtn" type="button"><span data-t="basket"></span><b id="cartCount">0</b></button>
+  </nav>
+</div></header>
+
+<main>
+<div class="wrap hero">
+  <div>
+    <span class="eyebrow" data-t="heroEyebrow"></span>
+    <h1 data-t="h1"></h1>
+    <p class="lede" data-t="lede"></p>
+    <div class="ctas"><a class="btn" href="#shop" data-t="ctaShop"></a><a class="btn ghost" id="heroWa" target="_blank" rel="noopener" data-t="ctaAsk"></a></div>
+  </div>
+  <aside class="facts">
+    <span class="status" id="status"><i></i><span></span></span>
+    <dl>
+      <dt data-t="address"></dt><dd id="factAddress"></dd>
+      <dt data-t="phone"></dt><dd id="factPhone"></dd>
+      <dt data-t="delivery"></dt><dd id="factDelivery"></dd>
+      <dt>Instagram</dt><dd id="factIg"></dd>
+    </dl>
+  </aside>
+</div>
+
+<section id="shop" class="alt"><div class="wrap">
+  <div class="head"><span class="eyebrow" data-t="shopEyebrow"></span><h2 data-t="shopTitle"></h2><p class="muted" data-t="shopSub"></p></div>
+  <div class="cats" id="cats" role="group"></div>
+  <div class="grid" id="grid"></div>
+</div></section>
+
+<section><div class="wrap">
+  <div class="head"><span class="eyebrow" data-t="howEyebrow"></span><h2 data-t="howTitle"></h2></div>
+  <div class="how" id="how"></div>
+</div></section>
+
+<section id="info" class="alt"><div class="wrap split">
+  <div><div class="head"><span class="eyebrow" data-t="hoursEyebrow"></span><h2 data-t="hoursTitle"></h2></div><dl class="hours" id="hours"></dl></div>
+  <div><div class="head"><span class="eyebrow" data-t="faqEyebrow"></span><h2 data-t="faqTitle"></h2></div><div class="faq" id="faq"></div></div>
+</div></section>
+
+<section id="contact"><div class="wrap split contact">
+  <div style="display:grid;gap:10px;align-content:start">
+    <span class="eyebrow" data-t="contactEyebrow"></span><h2 data-t="contactTitle"></h2>
+    <p id="contactAddress"></p><p id="contactPhone"></p><p id="contactEmail"></p>
+    <div class="ctas"><a class="btn ghost small" id="mapLink" target="_blank" rel="noopener" data-t="map"></a><a class="btn ghost small" id="igLink" target="_blank" rel="noopener">Instagram</a></div>
+  </div>
+  <div class="privacy" id="privacy"></div>
+</div></section>
+</main>
+<footer><div class="wrap" id="footer"></div></footer>
+
+<div class="drawer" id="drawer" hidden role="dialog" aria-modal="true" aria-labelledby="sheetTitle">
+  <div class="scrim" data-a="close"></div>
+  <div class="sheet" id="sheet"></div>
+</div>
+<div class="toast" id="toast" hidden aria-live="polite"></div>
+
+<script>
+/* ============ CLIENT CONFIG: edit this block for each shop ============ */
+const CONFIG = {
+  demo: true,                         // true: demo banner, orders are not sent anywhere
+  name: "Lulishtja Bora",             // fictional demo shop
+  kind: "flowers",                    // flowers | clothes | cakes | gifts (changes default wording)
+  address: "Rruga e Shembullit 1, Prishtinë",
+  phone: "+383 44 000 000",
+  whatsapp: "",                       // live sites: full number, digits only
+  email: "info@shembull.com",
+  instagram: "",                      // handle without @
+  mapUrl: "https://maps.google.com/?q=Prishtina",
+  timeZone: "Europe/Belgrade",
+  retentionMonths: 6,
+  currency: "€",
+  delivery: true,                     // offers delivery
+  pickup: true,                       // offers pickup in store
+  hours: {"0":null,"1":["08:00","20:00"],"2":["08:00","20:00"],"3":["08:00","20:00"],"4":["08:00","20:00"],"5":["08:00","20:00"],"6":["09:00","18:00"]},
+  categories: [{id:"bouquets", n:{sq:"Buqeta",en:"Bouquets",de:"Sträuße"}}],
+  products: [
+    {id:"roses-12", cat:"bouquets", price:25, n:{sq:"12 trëndafila të kuq",en:"12 red roses",de:"12 rote Rosen"}, d:{sq:"Me letër kraft dhe kartolinë.",en:"Wrapped in kraft paper, with a card.",de:"In Kraftpapier, mit Karte."}}
+  ]
+};
+/* ======================================================================= */
+
+const KIND = {
+  flowers:{
+    sq:{heroEyebrow:"Lule dhe dhurata",h1:"Lule të freskëta, me porosi në WhatsApp.",lede:"Zgjidhni buqetën, shtoni një mesazh për kartolinën dhe na e dërgoni porosinë me një prekje. Dërgesa në qytet ose merreni në dyqan.",shopTitle:"Zgjidhni buqetën.",cardNote:"Mesazhi për kartolinën (opsionale)",cardPh:"Gëzuar ditëlindjen, Ana!"},
+    en:{heroEyebrow:"Flowers and gifts",h1:"Fresh flowers, ordered on WhatsApp.",lede:"Pick a bouquet, add a message for the card and send us the order in one tap. Delivery in town or pick it up in the shop.",shopTitle:"Choose your bouquet.",cardNote:"Message for the card (optional)",cardPh:"Happy birthday, Ana!"},
+    de:{heroEyebrow:"Blumen und Geschenke",h1:"Frische Blumen, per WhatsApp bestellt.",lede:"Strauß wählen, Kartentext hinzufügen und die Bestellung mit einem Tipp senden. Lieferung in der Stadt oder Abholung im Laden.",shopTitle:"Wählen Sie Ihren Strauß.",cardNote:"Text für die Karte (optional)",cardPh:"Alles Gute zum Geburtstag, Ana!"}},
+  clothes:{
+    sq:{heroEyebrow:"Thrift dhe vintage",h1:"Copë unike. Kush e porosit i pari, e merr.",lede:"Shikoni çka ka ardhur sot, zgjidhni masën dhe na e dërgoni porosinë në WhatsApp. Dërgesa në të gjithë Kosovën.",shopTitle:"Çka ka në dyqan.",cardNote:"Shënim (masa, ngjyra, pyetje)",cardPh:"A e keni edhe në M?"},
+    en:{heroEyebrow:"Thrift and vintage",h1:"One-of-a-kind pieces. First to order gets it.",lede:"See what came in today, pick your size and send us the order on WhatsApp. Delivery across Kosovo.",shopTitle:"In the shop now.",cardNote:"Note (size, colour, questions)",cardPh:"Do you have it in M?"},
+    de:{heroEyebrow:"Thrift und Vintage",h1:"Einzelstücke. Wer zuerst bestellt, bekommt es.",lede:"Sehen Sie, was heute neu ist, wählen Sie die Größe und senden Sie die Bestellung per WhatsApp. Lieferung im ganzen Kosovo.",shopTitle:"Jetzt im Laden.",cardNote:"Notiz (Größe, Farbe, Fragen)",cardPh:"Gibt es das auch in M?"}},
+  cakes:{
+    sq:{heroEyebrow:"Ëmbëltore",h1:"Torta me porosi, pa telefonata.",lede:"Zgjidhni tortën, madhësinë dhe ditën kur e merrni. Ne ju konfirmojmë në WhatsApp.",shopTitle:"Zgjidhni tortën.",cardNote:"Mbishkrimi në tortë (opsionale)",cardPh:"Urime 18-vjetori, Era!"},
+    en:{heroEyebrow:"Cake shop",h1:"Custom cakes, no phone calls.",lede:"Pick the cake, the size and the day you collect it. We confirm on WhatsApp.",shopTitle:"Choose your cake.",cardNote:"Writing on the cake (optional)",cardPh:"Happy 18th, Era!"},
+    de:{heroEyebrow:"Konditorei",h1:"Torten auf Bestellung, ohne Anruf.",lede:"Torte, Größe und Abholtag wählen. Wir bestätigen per WhatsApp.",shopTitle:"Wählen Sie Ihre Torte.",cardNote:"Aufschrift (optional)",cardPh:"Alles Gute zum 18., Era!"}},
+  gifts:{
+    sq:{heroEyebrow:"Dhurata",h1:"Dhurata të gatshme, me porosi në WhatsApp.",lede:"Zgjidhni dhuratën, shtoni një mesazh dhe na e dërgoni porosinë me një prekje.",shopTitle:"Zgjidhni dhuratën.",cardNote:"Mesazhi (opsionale)",cardPh:"Për mamin, me dashuri"},
+    en:{heroEyebrow:"Gifts",h1:"Ready-made gifts, ordered on WhatsApp.",lede:"Pick a gift, add a message and send us the order in one tap.",shopTitle:"Choose a gift.",cardNote:"Message (optional)",cardPh:"For mum, with love"},
+    de:{heroEyebrow:"Geschenke",h1:"Fertige Geschenke, per WhatsApp bestellt.",lede:"Geschenk wählen, Nachricht hinzufügen und mit einem Tipp bestellen.",shopTitle:"Wählen Sie ein Geschenk.",cardNote:"Nachricht (optional)",cardPh:"Für Mama, in Liebe"}}
+};
+
+const T = {
+ sq:{demo:"Demo: dyqan fiktiv. Kjo është faqja shabllon që e përshtasim për dyqanin tuaj; emrat, produktet dhe çmimet janë shembull.",
+  navShop:"Produktet",navInfo:"Oraret",navContact:"Kontakt",basket:"Shporta",ctaShop:"Shiko produktet",ctaAsk:"Pyet në WhatsApp",
+  address:"Ku",phone:"Telefoni",delivery:"Dërgesa",deliveryYes:"Po, në qytet",deliveryNo:"Merret në dyqan",
+  openNow:"Hapur tani",closedNow:"Mbyllur tani",opensAt:"Hapet {t}",closesAt:"mbyllet {t}",
+  shopEyebrow:"Produktet",shopSub:"Shtoni në shportë dhe na e dërgoni porosinë në WhatsApp. Pagesa bëhet kur e merrni.",all:"Të gjitha",add:"Shto",added:"U shtua në shportë",sold:"E shitur",inBasket:"në shportë",
+  howEyebrow:"Si funksionon",howTitle:"Tre hapa, pa pritur në telefon.",how:[["Zgjidhni","Shtoni në shportë çka ju pëlqen."],["Dërgoni","Porosia hapet e shkruar në WhatsApp-in tonë."],["Merreni","Ne e konfirmojmë, ju e merrni ose jua sjellim."]],
+  hoursEyebrow:"Oraret",hoursTitle:"Kur jemi të hapur.",closed:"Mbyllur",days:["E diel","E hënë","E martë","E mërkurë","E enjte","E premte","E shtunë"],
+  faqEyebrow:"Pyetje",faqTitle:"Mirë të dihet.",
+  faq:[["Si paguaj?","Me para në dorë kur e merrni porosinë, ose me transfer bankar nëse merremi vesh në WhatsApp."],["A mund ta ndryshoj porosinë?","Po. Na shkruani në WhatsApp para se ta përgatisim."],["A i keni produktet gjithmonë?","Fotot tregojnë çka kemi zakonisht; disa gjëra varen nga dita. Ju konfirmojmë para se ta përgatisim."]],
+  contactEyebrow:"Kontakt",contactTitle:"Ku na gjeni.",map:"Hap në Google Maps",
+  sheetTitle:"Shporta juaj",empty:"Shporta është bosh.",total:"Totali",how2:"Si ta merrni",pickupL:"E marr në dyqan",deliveryL:"Ma sillni",when:"Data",addr:"Adresa për dërgesë",addrPh:"Rruga, numri, qyteti",name:"Emri",tel:"Telefoni (WhatsApp)",telPh:"+383 4x xxx xxx",
+  consent:"Pajtohem që dyqani t'i përdorë këto të dhëna vetëm për këtë porosi.",send:"Dërgo porosinë në WhatsApp",sendMail:"Dërgo porosinë me email",close:"Mbyll",
+  errEmpty:"Shtoni të paktën një produkt.",errName:"Shkruani emrin.",errTel:"Shkruani një numër të vlefshëm.",errAddr:"Shkruani adresën për dërgesë.",errDate:"Zgjidhni datën.",errConsent:"Duhet pëlqimi juaj.",
+  doneDemo:"Në versionin real, porosia hapet e shkruar në WhatsApp-in e dyqanit dhe ata e konfirmojnë me një mesazh.",orderFor:"Porosi nga",
+  privacy:c=>`<h3>Privatësia</h3><p><b>Kush:</b> ${c.name} i përdor të dhënat tuaja.</p><p><b>Çka:</b> emri, telefoni, produktet, data, adresa (vetëm për dërgesë) dhe shënimi.</p><p><b>Pse:</b> vetëm për ta përgatitur dhe dërguar porosinë, me pëlqimin tuaj.</p><p><b>Sa kohë:</b> fshihen pas ${c.retentionMonths} muajsh.</p><p><b>Të drejtat:</b> mund të kërkoni qasje ose fshirje duke na shkruar. Kjo faqe nuk përdor cookies.</p>`},
+ en:{demo:"Demo: a fictional shop. This is the template we customise for your shop; names, products and prices are examples.",
+  navShop:"Products",navInfo:"Hours",navContact:"Contact",basket:"Basket",ctaShop:"See the products",ctaAsk:"Ask on WhatsApp",
+  address:"Where",phone:"Phone",delivery:"Delivery",deliveryYes:"Yes, in town",deliveryNo:"Pick up in store",
+  openNow:"Open now",closedNow:"Closed now",opensAt:"Opens {t}",closesAt:"closes {t}",
+  shopEyebrow:"Products",shopSub:"Add to your basket and send us the order on WhatsApp. You pay when you get it.",all:"All",add:"Add",added:"Added to basket",sold:"Sold",inBasket:"in basket",
+  howEyebrow:"How it works",howTitle:"Three steps, no waiting on the phone.",how:[["Choose","Add what you like to your basket."],["Send","Your order opens ready-written in our WhatsApp."],["Get it","We confirm, you pick it up or we bring it."]],
+  hoursEyebrow:"Opening hours",hoursTitle:"When we're open.",closed:"Closed",days:["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],
+  faqEyebrow:"Questions",faqTitle:"Good to know.",
+  faq:[["How do I pay?","In cash when you get your order, or by bank transfer if we agree on WhatsApp."],["Can I change my order?","Yes. Message us on WhatsApp before we prepare it."],["Do you always have these items?","The photos show what we usually have; some things depend on the day. We confirm before preparing your order."]],
+  contactEyebrow:"Contact",contactTitle:"Where to find us.",map:"Open in Google Maps",
+  sheetTitle:"Your basket",empty:"Your basket is empty.",total:"Total",how2:"How you get it",pickupL:"Pick up in store",deliveryL:"Deliver to me",when:"Date",addr:"Delivery address",addrPh:"Street, number, town",name:"Name",tel:"Phone (WhatsApp)",telPh:"+383 4x xxx xxx",
+  consent:"I agree that the shop uses these details only for this order.",send:"Send order on WhatsApp",sendMail:"Send order by email",close:"Close",
+  errEmpty:"Add at least one item.",errName:"Please enter your name.",errTel:"Please enter a valid phone number.",errAddr:"Please enter the delivery address.",errDate:"Please choose a date.",errConsent:"Your consent is needed.",
+  doneDemo:"In the live version the order opens ready-written in the shop's WhatsApp, and they confirm with one message.",orderFor:"Order from",
+  privacy:c=>`<h3>Privacy</h3><p><b>Who:</b> ${c.name} uses your details.</p><p><b>What:</b> name, phone, items, date, address (delivery only) and your note.</p><p><b>Why:</b> only to prepare and deliver your order, with your consent.</p><p><b>How long:</b> deleted after ${c.retentionMonths} months.</p><p><b>Your rights:</b> ask us for access or deletion. This site uses no cookies.</p>`},
+ de:{demo:"Demo: ein fiktiver Laden. Diese Vorlage passen wir für Ihren Laden an; Namen, Produkte und Preise sind Beispiele.",
+  navShop:"Produkte",navInfo:"Öffnungszeiten",navContact:"Kontakt",basket:"Korb",ctaShop:"Produkte ansehen",ctaAsk:"Per WhatsApp fragen",
+  address:"Wo",phone:"Telefon",delivery:"Lieferung",deliveryYes:"Ja, in der Stadt",deliveryNo:"Abholung im Laden",
+  openNow:"Jetzt geöffnet",closedNow:"Jetzt geschlossen",opensAt:"Öffnet {t}",closesAt:"schließt {t}",
+  shopEyebrow:"Produkte",shopSub:"In den Korb legen und die Bestellung per WhatsApp senden. Bezahlt wird bei Erhalt.",all:"Alle",add:"Hinzufügen",added:"In den Korb gelegt",sold:"Verkauft",inBasket:"im Korb",
+  howEyebrow:"So geht's",howTitle:"Drei Schritte, ohne Warteschleife.",how:[["Auswählen","Legen Sie in den Korb, was Ihnen gefällt."],["Senden","Die Bestellung öffnet sich fertig geschrieben in unserem WhatsApp."],["Erhalten","Wir bestätigen, Sie holen ab oder wir liefern."]],
+  hoursEyebrow:"Öffnungszeiten",hoursTitle:"Wann wir geöffnet haben.",closed:"Geschlossen",days:["Sonntag","Montag","Dienstag","Mittwoch","Donnerstag","Freitag","Samstag"],
+  faqEyebrow:"Fragen",faqTitle:"Gut zu wissen.",
+  faq:[["Wie bezahle ich?","Bar bei Erhalt oder per Überweisung, wenn wir das per WhatsApp vereinbaren."],["Kann ich die Bestellung ändern?","Ja. Schreiben Sie uns per WhatsApp, bevor wir sie vorbereiten."],["Haben Sie die Artikel immer?","Die Fotos zeigen unser übliches Angebot; manches hängt vom Tag ab. Wir bestätigen vor der Vorbereitung."]],
+  contactEyebrow:"Kontakt",contactTitle:"So finden Sie uns.",map:"In Google Maps öffnen",
+  sheetTitle:"Ihr Korb",empty:"Ihr Korb ist leer.",total:"Summe",how2:"Wie Sie es bekommen",pickupL:"Im Laden abholen",deliveryL:"Liefern",when:"Datum",addr:"Lieferadresse",addrPh:"Straße, Nummer, Ort",name:"Name",tel:"Telefon (WhatsApp)",telPh:"+49 1xx xxxxxxx",
+  consent:"Ich bin einverstanden, dass der Laden diese Angaben nur für diese Bestellung verwendet.",send:"Bestellung per WhatsApp senden",sendMail:"Bestellung per E-Mail senden",close:"Schließen",
+  errEmpty:"Fügen Sie mindestens einen Artikel hinzu.",errName:"Bitte Namen eingeben.",errTel:"Bitte gültige Telefonnummer eingeben.",errAddr:"Bitte Lieferadresse eingeben.",errDate:"Bitte Datum wählen.",errConsent:"Ihre Einwilligung ist erforderlich.",
+  doneDemo:"In der Live-Version öffnet sich die Bestellung fertig geschrieben im WhatsApp des Ladens, und er bestätigt mit einer Nachricht.",orderFor:"Bestellung von",
+  privacy:c=>`<h3>Datenschutz</h3><p><b>Wer:</b> ${c.name} verwendet Ihre Angaben.</p><p><b>Was:</b> Name, Telefon, Artikel, Datum, Adresse (nur bei Lieferung) und Ihre Notiz.</p><p><b>Warum:</b> nur zur Vorbereitung und Lieferung Ihrer Bestellung, mit Ihrer Einwilligung.</p><p><b>Wie lange:</b> Löschung nach ${c.retentionMonths} Monaten.</p><p><b>Ihre Rechte:</b> Auskunft oder Löschung auf Anfrage. Diese Website verwendet keine Cookies.</p>`}
+};
+const C=CONFIG;
+for(const l in T){ Object.assign(T[l], (KIND[C.kind]||KIND.flowers)[l]); }
+for(const l in C.text||{}) if(T[l]) Object.assign(T[l],C.text[l]);
+
+const $=s=>document.querySelector(s);
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+if(C.noindex){const m=document.createElement("meta");m.name="robots";m.content="noindex";document.head.appendChild(m)}
+const LANGS=(C.langs&&C.langs.length)?C.langs.filter(l=>T[l]):["sq","en","de"];
+let lang=LANGS[0], cat="all";
+const cart={}; // id -> qty
+const st={open:false,mode:C.pickup!==false?"pickup":"delivery",date:"",addr:"",name:"",tel:"",note:"",consent:false,err:"",done:false};
+const WA=(C.whatsapp||"").replace(/\D/g,"");
+const money=v=>(Number.isInteger(v)?v:v.toFixed(2))+" "+(C.currency||"€");
+const prod=id=>C.products.find(p=>p.id===id);
+
+/* time in the shop's zone */
+function nowParts(){
+  const p=new Intl.DateTimeFormat("en-GB",{timeZone:C.timeZone,weekday:"short",hour:"2-digit",minute:"2-digit",hourCycle:"h23",year:"numeric",month:"2-digit",day:"2-digit"}).formatToParts(new Date());
+  const g=k=>(p.find(x=>x.type===k)||{}).value;
+  const wd=["Sun","Mon","Tue","Wed","Thu","Fri","Sat"].indexOf(g("weekday"));
+  return {wd, hm:g("hour")+":"+g("minute"), ymd:`${g("year")}-${g("month")}-${g("day")}`};
+}
+function statusText(){
+  const t=T[lang], n=nowParts(), h=C.hours&&C.hours[String(n.wd)];
+  if(h&&n.hm>=h[0]&&n.hm<h[1]) return {open:true,txt:t.openNow+", "+t.closesAt.replace("{t}",h[1])};
+  if(h&&n.hm<h[0]) return {open:false,txt:t.closedNow+" · "+t.opensAt.replace("{t}",h[0])};
+  for(let i=1;i<=7;i++){const d=(n.wd+i)%7, x=C.hours&&C.hours[String(d)]; if(x) return {open:false,txt:t.closedNow+" · "+t.opensAt.replace("{t}",(lang==="sq"?t.days[d].toLowerCase():t.days[d])+" "+x[0])};}
+  return {open:false,txt:t.closedNow};
+}
+
+/* simple illustration when a product has no photo */
+const PAL=["#e7b7c1","#c9d8b6","#f1d2a6","#c8cbe6","#e9c4a8","#bcd9d6"];
+function art(p,i){
+  const c=PAL[i%PAL.length], c2=PAL[(i+2)%PAL.length];
+  if(C.kind==="clothes") return `<svg viewBox="0 0 400 300" aria-hidden="true"><rect width="400" height="300" fill="${c}"/><path d="M150 70l-50 30 20 40 25-12v102h110V128l25 12 20-40-50-30c-8 18-26 28-50 28s-42-10-50-28z" fill="${c2}" stroke="rgba(0,0,0,.18)" stroke-width="3"/></svg>`;
+  if(C.kind==="cakes") return `<svg viewBox="0 0 400 300" aria-hidden="true"><rect width="400" height="300" fill="${c}"/><rect x="120" y="150" width="160" height="80" rx="10" fill="${c2}"/><rect x="140" y="105" width="120" height="50" rx="10" fill="#fff8f0"/><rect x="196" y="70" width="8" height="35" fill="#fff"/><circle cx="200" cy="64" r="7" fill="#f0a640"/></svg>`;
+  return `<svg viewBox="0 0 400 300" aria-hidden="true"><rect width="400" height="300" fill="${c}"/>${[[200,120],[160,140],[240,140],[180,95],[222,95]].map(([x,y],k)=>`<circle cx="${x}" cy="${y}" r="${26-k%2*4}" fill="${k%2?c2:"#fff6f3"}" stroke="rgba(0,0,0,.12)" stroke-width="2"/>`).join("")}<path d="M200 165v90M200 200l-30-20M200 215l30-22" stroke="#5c7a4e" stroke-width="5" fill="none" stroke-linecap="round"/><path d="M150 240h100l-14 40h-72z" fill="#d8c3a5"/></svg>`;
+}
+const picHtml=(p,i)=>p.img?`<img class="pic" src="${esc(p.img)}" alt="${esc(p.n[lang])}" loading="lazy">`:`<div class="pic">${art(p,i)}</div>`;
+
+function render(){
+  const t=T[lang];
+  document.documentElement.lang=lang;
+  document.querySelectorAll("[data-t]").forEach(el=>{const v=t[el.dataset.t]; if(typeof v==="string") el.textContent=v;});
+  $("#demoBar").hidden=!C.demo;
+  $("#shopName").textContent=C.name;
+  $("#langs").hidden=LANGS.length<2;
+  $("#langs").innerHTML=LANGS.map(l=>`<button type="button" data-l="${l}" aria-pressed="${l===lang}">${l.toUpperCase()}</button>`).join("");
+  const s=statusText(); $("#status").className="status"+(s.open?" open":""); $("#status span").textContent=s.txt;
+  $("#factAddress").textContent=C.address; $("#factPhone").textContent=C.phone;
+  $("#factDelivery").textContent=C.delivery?t.deliveryYes:t.deliveryNo;
+  $("#factIg").textContent=C.instagram?"@"+C.instagram:"";
+  document.querySelectorAll(".facts dd").forEach(dd=>{const off=!dd.textContent.trim(); dd.hidden=off; dd.previousElementSibling.hidden=off;});
+  $("#heroWa").hidden=!(WA||C.demo); $("#heroWa").href=WA?`https://wa.me/${WA}`:"#shop";
+  const cats=[{id:"all",n:{[lang]:t.all}},...(C.categories||[])];
+  $("#cats").hidden=(C.categories||[]).length<2;
+  $("#cats").innerHTML=cats.map(c=>`<button type="button" data-cat="${c.id}" aria-pressed="${cat===c.id}">${esc(c.n[lang])}</button>`).join("");
+  renderGrid();
+  $("#how").innerHTML=t.how.map(([a,b],i)=>`<div><b>${i+1}</b><h3>${esc(a)}</h3><p class="muted">${esc(b)}</p></div>`).join("");
+  const today=nowParts().wd;
+  $("#hours").innerHTML=[1,2,3,4,5,6,0].map(d=>{const h=C.hours&&C.hours[String(d)];return `<dt class="${d===today?"today":""}">${esc(t.days[d])}</dt><dd class="${d===today?"today":""}">${h?esc(h[0]+" – "+h[1]):esc(t.closed)}</dd>`}).join("");
+  $("#faq").innerHTML=t.faq.map(([q,a])=>`<details><summary>${esc(q)}</summary><p>${esc(a)}</p></details>`).join("");
+  $("#contactAddress").textContent=C.address; $("#contactPhone").textContent=C.phone; $("#contactEmail").textContent=C.email||"";
+  $("#mapLink").href=C.mapUrl;
+  $("#igLink").hidden=!C.instagram; $("#igLink").href=C.instagram?`https://www.instagram.com/${encodeURIComponent(C.instagram)}/`:"#";
+  $("#privacy").innerHTML=t.privacy({name:esc(C.name),retentionMonths:C.retentionMonths||6});
+  $("#footer").textContent=`© ${new Date().getFullYear()} ${C.name}`;
+  renderCount();
+  if(st.open) renderSheet();
+}
+function renderGrid(){
+  const t=T[lang];
+  const list=C.products.filter(p=>cat==="all"||p.cat===cat);
+  $("#grid").innerHTML=list.map(p=>{const i=C.products.indexOf(p), q=cart[p.id]||0;
+    return `<article class="item${p.sold?" sold":""}">${picHtml(p,i)}<div class="info">${p.sold?`<span class="tag">${esc(t.sold)}</span>`:p.tag&&p.tag[lang]?`<span class="tag">${esc(p.tag[lang])}</span>`:""}<h3>${esc(p.n[lang])}</h3>${p.d&&p.d[lang]?`<p class="d">${esc(p.d[lang])}</p>`:""}<div class="row"><span class="price">${typeof p.price==="number"?esc(money(p.price)):""}</span>${p.sold?"":`<button type="button" class="btn small" data-add="${p.id}">${esc(t.add)}${q?` · ${q}`:""}</button>`}</div></div></article>`}).join("");
+}
+function renderCount(){const n=Object.values(cart).reduce((a,b)=>a+b,0); $("#cartCount").textContent=n;}
+function total(){return Object.entries(cart).reduce((s,[id,q])=>s+(prod(id).price||0)*q,0)}
+function minDate(){return nowParts().ymd}
+
+function renderSheet(){
+  const t=T[lang], S=$("#sheet"), items=Object.entries(cart).filter(([,q])=>q>0);
+  if(st.done){
+    S.innerHTML=`<div class="top"><h2 id="sheetTitle">${esc(t.sheetTitle)}</h2><button type="button" class="x" data-a="close" aria-label="${esc(t.close)}">×</button></div><p>${esc(t.doneDemo)}</p><div class="ctas"><button type="button" class="btn ghost" data-a="close">${esc(t.close)}</button></div>`;
+    return;
+  }
+  const modes=[C.pickup!==false&&"pickup",C.delivery&&"delivery"].filter(Boolean);
+  S.innerHTML=`<div class="top"><h2 id="sheetTitle">${esc(t.sheetTitle)}</h2><button type="button" class="x" data-a="close" aria-label="${esc(t.close)}">×</button></div>
+   ${items.length?items.map(([id,q])=>{const p=prod(id);return `<div class="line"><span>${esc(p.n[lang])}</span><b>${typeof p.price==="number"?esc(money(p.price*q)):""}</b><div class="q"><button type="button" data-q="${id}" data-d="-1" aria-label="−">−</button><span>${q}</span><button type="button" data-q="${id}" data-d="1" aria-label="+" ${p.unique?"disabled":""}>+</button></div></div>`}).join("")+`<div class="total"><span>${esc(t.total)}</span><span>${esc(money(total()))}</span></div>`:`<p class="muted">${esc(t.empty)}</p>`}
+   ${modes.length>1?`<div><div style="font-weight:500;font-size:.92rem;margin-bottom:6px">${esc(t.how2)}</div><div class="choice">${modes.map(m=>`<button type="button" data-mode="${m}" aria-pressed="${st.mode===m}">${esc(m==="pickup"?t.pickupL:t.deliveryL)}</button>`).join("")}</div></div>`:""}
+   ${C.kind==="clothes"?"":`<label for="o-date">${esc(t.when)}<input type="date" id="o-date" min="${minDate()}" value="${esc(st.date)}"></label>`}
+   ${st.mode==="delivery"?`<label for="o-addr">${esc(t.addr)}<input type="text" id="o-addr" autocomplete="street-address" placeholder="${esc(t.addrPh)}" value="${esc(st.addr)}"></label>`:""}
+   <label for="o-name">${esc(t.name)}<input type="text" id="o-name" autocomplete="name" value="${esc(st.name)}"></label>
+   <label for="o-tel">${esc(t.tel)}<input type="tel" id="o-tel" autocomplete="tel" inputmode="tel" placeholder="${esc(t.telPh)}" value="${esc(st.tel)}"></label>
+   <label for="o-note">${esc(t.cardNote)}<textarea id="o-note" maxlength="200" placeholder="${esc(t.cardPh)}">${esc(st.note)}</textarea></label>
+   <label class="check" for="o-consent"><input type="checkbox" id="o-consent" ${st.consent?"checked":""}><span>${esc(t.consent)}</span></label>
+   ${st.err?`<p class="err">${esc(st.err)}</p>`:""}
+   <button type="button" class="btn" data-a="send">${esc(WA||C.demo?t.send:t.sendMail)}</button>`;
+}
+function readSheet(){
+  const g=id=>{const e=$(id);return e?e.value.trim():null};
+  const d=g("#o-date"); if(d!==null) st.date=d;
+  const a=g("#o-addr"); if(a!==null) st.addr=a;
+  const n=g("#o-name"); if(n!==null){st.name=n; st.tel=g("#o-tel"); st.note=g("#o-note"); st.consent=$("#o-consent").checked;}
+}
+function toast(msg){const el=$("#toast"); el.textContent=msg; el.hidden=false; clearTimeout(toast.h); toast.h=setTimeout(()=>{el.hidden=true},1600)}
+function openSheet(){st.open=true; st.done=false; $("#drawer").hidden=false; document.body.style.overflow="hidden"; renderSheet(); setTimeout(()=>{const x=$("#sheet .x"); if(x) x.focus()},0)}
+function closeSheet(){readSheet(); st.open=false; $("#drawer").hidden=true; document.body.style.overflow=""; $("#cartBtn").focus()}
+
+function send(){
+  readSheet(); const t=T[lang], items=Object.entries(cart).filter(([,q])=>q>0);
+  st.err = !items.length?t.errEmpty : (C.kind!=="clothes"&&!st.date)?t.errDate : (st.mode==="delivery"&&!st.addr)?t.errAddr : !st.name?t.errName : st.tel.replace(/\D/g,"").length<8?t.errTel : !st.consent?t.errConsent : "";
+  if(st.err){renderSheet(); return}
+  const lines=items.map(([id,q])=>{const p=prod(id);return `• ${q} × ${p.n[lang]}${typeof p.price==="number"?" ("+money(p.price*q)+")":""}`});
+  const msg=[`${t.orderFor} ${C.name}`,...lines,`${t.total}: ${money(total())}`,st.mode==="delivery"?`${t.deliveryL}: ${st.addr}`:t.pickupL,st.date?`${t.when}: ${st.date}`:"",st.note?`${t.cardNote.replace(/ \(.*\)$/,"")}: ${st.note}`:"",`${st.name}, ${st.tel}`].filter(Boolean).join("\n");
+  if(C.demo){st.done=true; renderSheet(); return}
+  const url=WA?`https://wa.me/${WA}?text=${encodeURIComponent(msg)}`:`mailto:${encodeURIComponent(C.email)}?subject=${encodeURIComponent(t.orderFor+" "+C.name)}&body=${encodeURIComponent(msg)}`;
+  const a=document.createElement("a"); a.href=url; a.target="_blank"; a.rel="noopener"; document.body.appendChild(a); a.click(); a.remove();
+}
+
+document.addEventListener("click",e=>{
+  const b=e.target.closest("button,[data-a]"); if(!b) return;
+  if(b.dataset.l){readSheet(); lang=b.dataset.l; try{localStorage.setItem("lang",lang)}catch(_){} render(); return}
+  if(b.dataset.cat){cat=b.dataset.cat; render(); return}
+  if(b.dataset.add){const p=prod(b.dataset.add); cart[p.id]=p.unique?1:(cart[p.id]||0)+1; renderCount(); renderGrid(); toast(T[lang].added); return}
+  if(b.dataset.q){readSheet(); const p=prod(b.dataset.q); cart[p.id]=Math.max(0,(cart[p.id]||0)+Number(b.dataset.d)); if(!cart[p.id]) delete cart[p.id]; renderCount(); renderGrid(); renderSheet(); return}
+  if(b.dataset.mode){readSheet(); st.mode=b.dataset.mode; st.err=""; renderSheet(); return}
+  if(b.id==="cartBtn"){openSheet(); return}
+  const a=b.dataset.a;
+  if(a==="close") closeSheet();
+  else if(a==="send") send();
+});
+document.addEventListener("keydown",e=>{if(e.key==="Escape"&&st.open) closeSheet()});
+try{const s=localStorage.getItem("lang"); if(LANGS.includes(s)) lang=s;}catch(_){}
+render();
+setInterval(()=>{const s=statusText(); $("#status").className="status"+(s.open?" open":""); $("#status span").textContent=s.txt;},60000);
+</script>

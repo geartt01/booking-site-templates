@@ -1,0 +1,304 @@
+{
+  "template": "shop",
+  "kind": "clothes",
+  "demo": true,
+  "langs": [
+    "sq",
+    "en",
+    "de"
+  ],
+  "title": "Rafti Vintage: copë vintage me porosi në WhatsApp (demo)",
+  "description": "Demo e një faqeje për thrift shop: katalog me copë unike dhe porosi në WhatsApp. Përgatitur nga Ardeno.",
+  "name": "Rafti Vintage",
+  "address": "Rruga e Shembullit 2, Prishtinë",
+  "phone": "+383 44 000 000",
+  "whatsapp": "",
+  "email": "info@shembull.com",
+  "instagram": "",
+  "mapUrl": "https://maps.google.com/?q=Prishtina",
+  "timeZone": "Europe/Belgrade",
+  "retentionMonths": 6,
+  "currency": "€",
+  "delivery": true,
+  "pickup": true,
+  "hours": {
+    "0": null,
+    "1": [
+      "11:00",
+      "19:00"
+    ],
+    "2": [
+      "11:00",
+      "19:00"
+    ],
+    "3": [
+      "11:00",
+      "19:00"
+    ],
+    "4": [
+      "11:00",
+      "19:00"
+    ],
+    "5": [
+      "11:00",
+      "20:00"
+    ],
+    "6": [
+      "10:00",
+      "20:00"
+    ]
+  },
+  "categories": [
+    {
+      "id": "jackets",
+      "n": {
+        "sq": "Xhaketa",
+        "en": "Jackets",
+        "de": "Jacken"
+      }
+    },
+    {
+      "id": "tops",
+      "n": {
+        "sq": "Bluza dhe këmisha",
+        "en": "Tops and shirts",
+        "de": "Oberteile und Hemden"
+      }
+    },
+    {
+      "id": "jeans",
+      "n": {
+        "sq": "Xhinse",
+        "en": "Jeans",
+        "de": "Jeans"
+      }
+    }
+  ],
+  "products": [
+    {
+      "id": "denim-jacket",
+      "cat": "jackets",
+      "price": 28,
+      "unique": true,
+      "tag": {
+        "sq": "Masa M",
+        "en": "Size M",
+        "de": "Größe M"
+      },
+      "n": {
+        "sq": "Xhaketë xhinsi vintage",
+        "en": "Vintage denim jacket",
+        "de": "Vintage-Jeansjacke"
+      },
+      "d": {
+        "sq": "Ngjyrë e çelur, gjendje shumë e mirë.",
+        "en": "Light wash, very good condition.",
+        "de": "Helle Waschung, sehr guter Zustand."
+      }
+    },
+    {
+      "id": "leather-jacket",
+      "cat": "jackets",
+      "price": 45,
+      "unique": true,
+      "tag": {
+        "sq": "Masa L",
+        "en": "Size L",
+        "de": "Größe L"
+      },
+      "n": {
+        "sq": "Xhaketë lëkure e zezë",
+        "en": "Black leather jacket",
+        "de": "Schwarze Lederjacke"
+      },
+      "d": {
+        "sq": "Lëkurë e vërtetë, stil i viteve '90.",
+        "en": "Real leather, 90s cut.",
+        "de": "Echtleder, Schnitt der 90er."
+      }
+    },
+    {
+      "id": "fleece",
+      "cat": "jackets",
+      "price": 22,
+      "unique": true,
+      "sold": true,
+      "tag": {
+        "sq": "Masa S",
+        "en": "Size S",
+        "de": "Größe S"
+      },
+      "n": {
+        "sq": "Fleece i gjelbër",
+        "en": "Green fleece",
+        "de": "Grüne Fleecejacke"
+      },
+      "d": {
+        "sq": "Me zinxhir të plotë.",
+        "en": "Full zip.",
+        "de": "Durchgehender Reißverschluss."
+      }
+    },
+    {
+      "id": "flannel",
+      "cat": "tops",
+      "price": 14,
+      "unique": true,
+      "tag": {
+        "sq": "Masa M",
+        "en": "Size M",
+        "de": "Größe M"
+      },
+      "n": {
+        "sq": "Këmishë flanel me kuadrate",
+        "en": "Checked flannel shirt",
+        "de": "Kariertes Flanellhemd"
+      },
+      "d": {
+        "sq": "E kuqe dhe e zezë, pambuk.",
+        "en": "Red and black, cotton.",
+        "de": "Rot-schwarz, Baumwolle."
+      }
+    },
+    {
+      "id": "knit",
+      "cat": "tops",
+      "price": 18,
+      "unique": true,
+      "tag": {
+        "sq": "Masa L",
+        "en": "Size L",
+        "de": "Größe L"
+      },
+      "n": {
+        "sq": "Triko e thurur me dorë",
+        "en": "Hand-knit sweater",
+        "de": "Handgestrickter Pullover"
+      },
+      "d": {
+        "sq": "Ngjyrë krem, lesh i butë.",
+        "en": "Cream, soft wool.",
+        "de": "Creme, weiche Wolle."
+      }
+    },
+    {
+      "id": "band-tee",
+      "cat": "tops",
+      "price": 12,
+      "unique": true,
+      "tag": {
+        "sq": "Masa M",
+        "en": "Size M",
+        "de": "Größe M"
+      },
+      "n": {
+        "sq": "Bluzë me printim retro",
+        "en": "Retro graphic tee",
+        "de": "Retro-Print-T-Shirt"
+      },
+      "d": {
+        "sq": "Pambuk i trashë, ngjyrë e zbehur.",
+        "en": "Heavy cotton, faded colour.",
+        "de": "Schwere Baumwolle, verwaschen."
+      }
+    },
+    {
+      "id": "straight-jeans",
+      "cat": "jeans",
+      "price": 20,
+      "unique": true,
+      "tag": {
+        "sq": "W30 L32",
+        "en": "W30 L32",
+        "de": "W30 L32"
+      },
+      "n": {
+        "sq": "Xhinse të drejta",
+        "en": "Straight-leg jeans",
+        "de": "Gerade Jeans"
+      },
+      "d": {
+        "sq": "Ngjyrë blu e errët.",
+        "en": "Dark blue wash.",
+        "de": "Dunkelblaue Waschung."
+      }
+    },
+    {
+      "id": "mom-jeans",
+      "cat": "jeans",
+      "price": 19,
+      "unique": true,
+      "tag": {
+        "sq": "W27",
+        "en": "W27",
+        "de": "W27"
+      },
+      "n": {
+        "sq": "Mom jeans me bel të lartë",
+        "en": "High-waist mom jeans",
+        "de": "Mom-Jeans mit hohem Bund"
+      },
+      "d": {
+        "sq": "Blu e çelur.",
+        "en": "Light blue.",
+        "de": "Hellblau."
+      }
+    }
+  ],
+  "text": {
+    "sq": {
+      "lede": "Copë të zgjedhura vintage dhe second hand. Shikoni çka ka ardhur, zgjidhni dhe na e dërgoni porosinë në WhatsApp. Dërgesa në të gjithë Kosovën.",
+      "faq": [
+        [
+          "Si paguaj?",
+          "Me para në dorë kur e merrni, ose me transfer bankar."
+        ],
+        [
+          "Sa kushton dërgesa?",
+          "2 € në Prishtinë, 3 € në qytetet e tjera të Kosovës."
+        ],
+        [
+          "A mund ta provoj?",
+          "Po, ejani në dyqan; e ruajmë copën për ju deri në 24 orë."
+        ]
+      ],
+      "deliveryYes": "Po, në gjithë Kosovën"
+    },
+    "en": {
+      "lede": "Hand-picked vintage and second-hand pieces. See what's new, choose and send us the order on WhatsApp. Delivery across Kosovo.",
+      "faq": [
+        [
+          "How do I pay?",
+          "Cash on delivery or pickup, or bank transfer."
+        ],
+        [
+          "How much is delivery?",
+          "€2 in Prishtina, €3 elsewhere in Kosovo."
+        ],
+        [
+          "Can I try it on?",
+          "Yes, come to the shop; we hold the piece for you for 24 hours."
+        ]
+      ],
+      "deliveryYes": "Yes, across Kosovo"
+    },
+    "de": {
+      "lede": "Ausgewählte Vintage- und Secondhand-Stücke. Sehen Sie, was neu ist, wählen Sie aus und bestellen Sie per WhatsApp. Lieferung im ganzen Kosovo.",
+      "faq": [
+        [
+          "Wie bezahle ich?",
+          "Bar bei Lieferung oder Abholung, oder per Überweisung."
+        ],
+        [
+          "Was kostet die Lieferung?",
+          "2 € in Prishtina, 3 € im restlichen Kosovo."
+        ],
+        [
+          "Kann ich anprobieren?",
+          "Ja, kommen Sie in den Laden; wir reservieren das Stück 24 Stunden für Sie."
+        ]
+      ],
+      "deliveryYes": "Ja, im ganzen Kosovo"
+    }
+  }
+}

@@ -6,7 +6,7 @@
     .\build.cmd demo-klinika     build one client
 
   Reads clients\<slug>\config.json, puts it in place of the CONFIG block of the
-  template named by "template" (clinic | salon | stay), wraps the page in a
+  template named by "template" (clinic | salon | stay | shop), wraps the page in a
   full HTML document and writes dist\<slug>\index.html plus a Cloudflare Pages
   _headers file. Upload dist\<slug>\ to Cloudflare Pages to publish it.
 #>
@@ -15,7 +15,7 @@ param([string]$Slug)
 $ErrorActionPreference = 'Stop'
 $root = $PSScriptRoot
 $utf8 = New-Object System.Text.UTF8Encoding $false
-$templates = @{ clinic = 'clinic-template\index.html'; salon = 'salon-template\index.html'; stay = 'stay-template\index.html' }
+$templates = @{ clinic = 'clinic-template\index.html'; salon = 'salon-template\index.html'; stay = 'stay-template\index.html'; shop = 'shop-template\index.html' }
 $langs = 'sq', 'en', 'de'
 
 $headers = @'
@@ -40,7 +40,7 @@ function Test-Langs($obj, $what, $errs) {
 function Test-Config($cfg) {
   $e = New-Object System.Collections.Generic.List[string]
   if (-not (Has $cfg 'template') -or -not $templates.ContainsKey([string]$cfg.template)) {
-    $e.Add('"template" must be "clinic", "salon" or "stay"'); return , $e
+    $e.Add('"template" must be "clinic", "salon", "stay" or "shop"'); return , $e
   }
 
   foreach ($k in 'name', 'address', 'phone', 'email', 'mapUrl', 'timeZone') {
@@ -48,14 +48,15 @@ function Test-Config($cfg) {
   }
   if ($cfg.demo -isnot [bool]) { $e.Add('"demo" must be true or false') }
   $isStay = ([string]$cfg.template -eq 'stay')
-  if (-not $isStay -and ($cfg.slotMinutes -isnot [int] -or $cfg.slotMinutes -lt 5)) { $e.Add('"slotMinutes" must be a whole number of at least 5') }
+  $isShop = ([string]$cfg.template -eq 'shop')
+  if (-not $isStay -and -not $isShop -and ($cfg.slotMinutes -isnot [int] -or $cfg.slotMinutes -lt 5)) { $e.Add('"slotMinutes" must be a whole number of at least 5') }
   if ($cfg.retentionMonths -isnot [int] -or $cfg.retentionMonths -lt 1) { $e.Add('"retentionMonths" must be a whole number (used in the privacy notice)') }
 
   # A live site must be able to send the booking request, and must not still show example data.
   if ($cfg.demo -eq $false) {
     if ((([string]$cfg.whatsapp) -replace '\D', '').Length -lt 8) { $e.Add('a live site ("demo": false) needs "whatsapp" with the full number, e.g. "38344123456"') }
     foreach ($k in 'name', 'address', 'phone', 'email', 'mapUrl') {
-      if ([string]$cfg.$k -match 'shembull|example|000 000|Rrezja|Studio Vela|Lugina') { $e.Add("""$k"" still has example data: $($cfg.$k)") }
+      if ([string]$cfg.$k -match 'shembull|example|000 000|Rrezja|Studio Vela|Lugina|Lulishtja Bora|Rafti Vintage') { $e.Add("""$k"" still has example data: $($cfg.$k)") }
     }
   }
 
@@ -73,6 +74,28 @@ function Test-Config($cfg) {
       if ((Has $r 'price') -and -not (Str $r.price)) { $e.Add("$label has an empty ""price"" (remove it to hide the price)") }
       Test-Langs $r.n "$label name (n)" $e
       Test-Langs $r.d "$label description (d)" $e
+    }
+  }
+
+  # Small shops (template "shop") list products in categories; orders go to WhatsApp.
+  if ($isShop) {
+    $catIds = @{}
+    foreach ($c in @($cfg.categories | Where-Object { $null -ne $_ })) {
+      if ("$($c.id)" -notmatch '^[a-z0-9-]+$') { $e.Add("category id ""$($c.id)"" must use only a-z, 0-9 and -") }
+      else { $catIds[$c.id] = $true }
+      Test-Langs $c.n "category ""$($c.id)"" name (n)" $e
+    }
+    $prods = @($cfg.products | Where-Object { $null -ne $_ })
+    if ($prods.Count -eq 0) { $e.Add('"products" needs at least one product') }
+    $pids = @{}
+    foreach ($pr in $prods) {
+      $label = "product ""$($pr.id)"""
+      if ("$($pr.id)" -notmatch '^[a-z0-9-]+$') { $e.Add("product id ""$($pr.id)"" must use only a-z, 0-9 and -") }
+      elseif ($pids.ContainsKey($pr.id)) { $e.Add("product id ""$($pr.id)"" is used twice") }
+      else { $pids[$pr.id] = $true }
+      if ((Has $pr 'price') -and -not ($pr.price -is [int] -or $pr.price -is [long] -or $pr.price -is [double] -or $pr.price -is [decimal])) { $e.Add("$label ""price"" must be a number, e.g. 25") }
+      if ($catIds.Count -gt 0 -and -not $catIds.ContainsKey([string]$pr.cat)) { $e.Add("$label has unknown category ""$($pr.cat)""") }
+      Test-Langs $pr.n "$label name (n)" $e
     }
   }
 
@@ -95,7 +118,7 @@ function Test-Config($cfg) {
 
   # Services feed the booking flow. ids go into HTML attributes, so keep them simple.
   $svcs = @($cfg.services | Where-Object { $null -ne $_ })
-  if ($svcs.Count -eq 0) { $e.Add('"services" needs at least one service') }
+  if ($svcs.Count -eq 0 -and -not $isShop) { $e.Add('"services" needs at least one service') }
   $ids = @{}
   foreach ($s in $svcs) {
     $label = "service ""$($s.id)"""
