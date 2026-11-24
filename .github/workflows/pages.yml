@@ -45,7 +45,7 @@ jobs:
         run: |
           find site -name _headers -delete   # Cloudflare-only file, not used by GitHub Pages
           cp .github/pages/index.html site/
-          cp docs/clinic.png docs/salon.png docs/stay.png docs/lule.png docs/thrift.png site/
+          cp docs/clinic.png docs/salon.png docs/stay.png docs/lule.png docs/thrift.png docs/kafe.png site/
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:

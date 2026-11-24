@@ -225,6 +225,10 @@ const KIND = {
     sq:{heroEyebrow:"Ëmbëltore",h1:"Torta me porosi, pa telefonata.",lede:"Zgjidhni tortën, madhësinë dhe ditën kur e merrni. Ne ju konfirmojmë në WhatsApp.",shopTitle:"Zgjidhni tortën.",cardNote:"Mbishkrimi në tortë (opsionale)",cardPh:"Urime 18-vjetori, Era!"},
     en:{heroEyebrow:"Cake shop",h1:"Custom cakes, no phone calls.",lede:"Pick the cake, the size and the day you collect it. We confirm on WhatsApp.",shopTitle:"Choose your cake.",cardNote:"Writing on the cake (optional)",cardPh:"Happy 18th, Era!"},
     de:{heroEyebrow:"Konditorei",h1:"Torten auf Bestellung, ohne Anruf.",lede:"Torte, Größe und Abholtag wählen. Wir bestätigen per WhatsApp.",shopTitle:"Wählen Sie Ihre Torte.",cardNote:"Aufschrift (optional)",cardPh:"Alles Gute zum 18., Era!"}},
+  cafe:{
+    sq:{heroEyebrow:"Kafene",h1:"Porosit kafen para se të vish.",lede:"Shiko menynë me çmime, zgjidh çka do dhe na e dërgo porosinë në WhatsApp. E gjen gati kur arrin, ose ta sjellim.",shopTitle:"Menyja.",cardNote:"Shënim (sheqer, qumësht, ora kur vjen)",cardPh:"Pa sheqer, vij në 8:30"},
+    en:{heroEyebrow:"Café",h1:"Order your coffee before you arrive.",lede:"See the menu with prices, pick what you want and send us the order on WhatsApp. It's ready when you get here, or we bring it.",shopTitle:"The menu.",cardNote:"Note (sugar, milk, time you'll arrive)",cardPh:"No sugar, arriving at 8:30"},
+    de:{heroEyebrow:"Café",h1:"Kaffee bestellen, bevor Sie kommen.",lede:"Menü mit Preisen ansehen, auswählen und per WhatsApp bestellen. Bei Ankunft fertig, oder wir liefern.",shopTitle:"Die Karte.",cardNote:"Notiz (Zucker, Milch, Ankunftszeit)",cardPh:"Ohne Zucker, komme um 8:30"}},
   gifts:{
     sq:{heroEyebrow:"Dhurata",h1:"Dhurata të gatshme, me porosi në WhatsApp.",lede:"Zgjidhni dhuratën, shtoni një mesazh dhe na e dërgoni porosinë me një prekje.",shopTitle:"Zgjidhni dhuratën.",cardNote:"Mesazhi (opsionale)",cardPh:"Për mamin, me dashuri"},
     en:{heroEyebrow:"Gifts",h1:"Ready-made gifts, ordered on WhatsApp.",lede:"Pick a gift, add a message and send us the order in one tap.",shopTitle:"Choose a gift.",cardNote:"Message (optional)",cardPh:"For mum, with love"},
@@ -313,6 +317,7 @@ const PAL=["#e7b7c1","#c9d8b6","#f1d2a6","#c8cbe6","#e9c4a8","#bcd9d6"];
 function art(p,i){
   const c=PAL[i%PAL.length], c2=PAL[(i+2)%PAL.length];
   if(C.kind==="clothes") return `<svg viewBox="0 0 400 300" aria-hidden="true"><rect width="400" height="300" fill="${c}"/><path d="M150 70l-50 30 20 40 25-12v102h110V128l25 12 20-40-50-30c-8 18-26 28-50 28s-42-10-50-28z" fill="${c2}" stroke="rgba(0,0,0,.18)" stroke-width="3"/></svg>`;
+  if(C.kind==="cafe") return `<svg viewBox="0 0 400 300" aria-hidden="true"><rect width="400" height="300" fill="${c}"/><path d="M140 120h110v70a40 40 0 0 1-40 40h-30a40 40 0 0 1-40-40z" fill="#fff8f0" stroke="rgba(0,0,0,.15)" stroke-width="3"/><path d="M250 135h18a22 22 0 0 1 0 44h-18" fill="none" stroke="#fff8f0" stroke-width="10"/><path d="M175 70c-10 14 10 22 0 36M205 70c-10 14 10 22 0 36" stroke="${c2}" stroke-width="6" fill="none" stroke-linecap="round"/><ellipse cx="195" cy="240" rx="85" ry="12" fill="rgba(0,0,0,.08)"/></svg>`;
   if(C.kind==="cakes") return `<svg viewBox="0 0 400 300" aria-hidden="true"><rect width="400" height="300" fill="${c}"/><rect x="120" y="150" width="160" height="80" rx="10" fill="${c2}"/><rect x="140" y="105" width="120" height="50" rx="10" fill="#fff8f0"/><rect x="196" y="70" width="8" height="35" fill="#fff"/><circle cx="200" cy="64" r="7" fill="#f0a640"/></svg>`;
   return `<svg viewBox="0 0 400 300" aria-hidden="true"><rect width="400" height="300" fill="${c}"/>${[[200,120],[160,140],[240,140],[180,95],[222,95]].map(([x,y],k)=>`<circle cx="${x}" cy="${y}" r="${26-k%2*4}" fill="${k%2?c2:"#fff6f3"}" stroke="rgba(0,0,0,.12)" stroke-width="2"/>`).join("")}<path d="M200 165v90M200 200l-30-20M200 215l30-22" stroke="#5c7a4e" stroke-width="5" fill="none" stroke-linecap="round"/><path d="M150 240h100l-14 40h-72z" fill="#d8c3a5"/></svg>`;
 }
@@ -368,7 +373,7 @@ function renderSheet(){
   S.innerHTML=`<div class="top"><h2 id="sheetTitle">${esc(t.sheetTitle)}</h2><button type="button" class="x" data-a="close" aria-label="${esc(t.close)}">×</button></div>
    ${items.length?items.map(([id,q])=>{const p=prod(id);return `<div class="line"><span>${esc(p.n[lang])}</span><b>${typeof p.price==="number"?esc(money(p.price*q)):""}</b><div class="q"><button type="button" data-q="${id}" data-d="-1" aria-label="−">−</button><span>${q}</span><button type="button" data-q="${id}" data-d="1" aria-label="+" ${p.unique?"disabled":""}>+</button></div></div>`}).join("")+`<div class="total"><span>${esc(t.total)}</span><span>${esc(money(total()))}</span></div>`:`<p class="muted">${esc(t.empty)}</p>`}
    ${modes.length>1?`<div><div style="font-weight:500;font-size:.92rem;margin-bottom:6px">${esc(t.how2)}</div><div class="choice">${modes.map(m=>`<button type="button" data-mode="${m}" aria-pressed="${st.mode===m}">${esc(m==="pickup"?t.pickupL:t.deliveryL)}</button>`).join("")}</div></div>`:""}
-   ${C.kind==="clothes"?"":`<label for="o-date">${esc(t.when)}<input type="date" id="o-date" min="${minDate()}" value="${esc(st.date)}"></label>`}
+   ${(C.kind==="clothes"||C.kind==="cafe")?"":`<label for="o-date">${esc(t.when)}<input type="date" id="o-date" min="${minDate()}" value="${esc(st.date)}"></label>`}
    ${st.mode==="delivery"?`<label for="o-addr">${esc(t.addr)}<input type="text" id="o-addr" autocomplete="street-address" placeholder="${esc(t.addrPh)}" value="${esc(st.addr)}"></label>`:""}
    <label for="o-name">${esc(t.name)}<input type="text" id="o-name" autocomplete="name" value="${esc(st.name)}"></label>
    <label for="o-tel">${esc(t.tel)}<input type="tel" id="o-tel" autocomplete="tel" inputmode="tel" placeholder="${esc(t.telPh)}" value="${esc(st.tel)}"></label>
@@ -389,7 +394,7 @@ function closeSheet(){readSheet(); st.open=false; $("#drawer").hidden=true; docu
 
 function send(){
   readSheet(); const t=T[lang], items=Object.entries(cart).filter(([,q])=>q>0);
-  st.err = !items.length?t.errEmpty : (C.kind!=="clothes"&&!st.date)?t.errDate : (st.mode==="delivery"&&!st.addr)?t.errAddr : !st.name?t.errName : st.tel.replace(/\D/g,"").length<8?t.errTel : !st.consent?t.errConsent : "";
+  st.err = !items.length?t.errEmpty : (C.kind!=="clothes"&&C.kind!=="cafe"&&!st.date)?t.errDate : (st.mode==="delivery"&&!st.addr)?t.errAddr : !st.name?t.errName : st.tel.replace(/\D/g,"").length<8?t.errTel : !st.consent?t.errConsent : "";
   if(st.err){renderSheet(); return}
   const lines=items.map(([id,q])=>{const p=prod(id);return `• ${q} × ${p.n[lang]}${typeof p.price==="number"?" ("+money(p.price*q)+")":""}`});
   const msg=[`${t.orderFor} ${C.name}`,...lines,`${t.total}: ${money(total())}`,st.mode==="delivery"?`${t.deliveryL}: ${st.addr}`:t.pickupL,st.date?`${t.when}: ${st.date}`:"",st.note?`${t.cardNote.replace(/ \(.*\)$/,"")}: ${st.note}`:"",`${st.name}, ${st.tel}`].filter(Boolean).join("\n");

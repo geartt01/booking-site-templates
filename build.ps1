@@ -56,7 +56,7 @@ function Test-Config($cfg) {
   if ($cfg.demo -eq $false) {
     if ((([string]$cfg.whatsapp) -replace '\D', '').Length -lt 8) { $e.Add('a live site ("demo": false) needs "whatsapp" with the full number, e.g. "38344123456"') }
     foreach ($k in 'name', 'address', 'phone', 'email', 'mapUrl') {
-      if ([string]$cfg.$k -match 'shembull|example|000 000|Rrezja|Studio Vela|Lugina|Lulishtja Bora|Rafti Vintage') { $e.Add("""$k"" still has example data: $($cfg.$k)") }
+      if ([string]$cfg.$k -match 'shembull|example|000 000|Rrezja|Studio Vela|Lugina|Lulishtja Bora|Rafti Vintage|Kafe Ura') { $e.Add("""$k"" still has example data: $($cfg.$k)") }
     }
   }
 
