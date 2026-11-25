@@ -1,0 +1,180 @@
+{
+  "template": "shop",
+  "kind": "cakes",
+  "demo": true,
+  "noindex": true,
+  "langs": [
+    "sq",
+    "en",
+    "de"
+  ],
+  "title": "Nero Cake: torta me porosi në WhatsApp (version provë)",
+  "description": "Version provë i një faqeje për Nero Cake në Prishtinë: tortat me çmime dhe porosi në WhatsApp. Përgatitur nga Ardeno.",
+  "name": "Nero Cake",
+  "address": "Rruga Muje Krasniqi, Prishtinë",
+  "phone": "+383 45 201 585",
+  "whatsapp": "",
+  "email": "info@shembull.com",
+  "instagram": "",
+  "mapUrl": "https://maps.google.com/?q=42.65397665,21.16251045",
+  "timeZone": "Europe/Belgrade",
+  "retentionMonths": 6,
+  "currency": "€",
+  "delivery": true,
+  "pickup": true,
+  "hours": {
+    "0": null,
+    "1": [
+      "10:00",
+      "22:00"
+    ],
+    "2": [
+      "10:00",
+      "22:00"
+    ],
+    "3": [
+      "10:00",
+      "22:00"
+    ],
+    "4": [
+      "10:00",
+      "22:00"
+    ],
+    "5": [
+      "10:00",
+      "22:00"
+    ],
+    "6": [
+      "10:00",
+      "22:00"
+    ]
+  },
+  "categories": [
+    {
+      "id": "slices",
+      "n": {
+        "sq": "Tortë me copë",
+        "en": "Cake by the slice",
+        "de": "Torte am Stück"
+      }
+    }
+  ],
+  "products": [
+    {
+      "id": "milka",
+      "cat": "slices",
+      "price": 1.8,
+      "n": {
+        "sq": "Tortë Milka",
+        "en": "Milka cake",
+        "de": "Milka-Torte"
+      },
+      "tag": {
+        "sq": "Popullore në Wolt",
+        "en": "Popular on Wolt",
+        "de": "Beliebt bei Wolt"
+      }
+    },
+    {
+      "id": "fistek",
+      "cat": "slices",
+      "price": 1.8,
+      "n": {
+        "sq": "Tortë Fistëk",
+        "en": "Pistachio cake",
+        "de": "Pistazientorte"
+      },
+      "tag": {
+        "sq": "Popullore në Wolt",
+        "en": "Popular on Wolt",
+        "de": "Beliebt bei Wolt"
+      }
+    },
+    {
+      "id": "red-velvet",
+      "cat": "slices",
+      "price": 1.8,
+      "n": {
+        "sq": "Tortë Red Velvet",
+        "en": "Red Velvet cake",
+        "de": "Red-Velvet-Torte"
+      },
+      "tag": {
+        "sq": "Popullore në Wolt",
+        "en": "Popular on Wolt",
+        "de": "Beliebt bei Wolt"
+      }
+    },
+    {
+      "id": "jaffa",
+      "cat": "slices",
+      "price": 1.8,
+      "n": {
+        "sq": "Tortë Jaffa",
+        "en": "Jaffa cake",
+        "de": "Jaffa-Torte"
+      },
+      "tag": {
+        "sq": "Popullore në Wolt",
+        "en": "Popular on Wolt",
+        "de": "Beliebt bei Wolt"
+      }
+    },
+    {
+      "id": "fruta-mali",
+      "cat": "slices",
+      "price": 1.8,
+      "n": {
+        "sq": "Tortë Fruta Mali",
+        "en": "Forest fruit cake",
+        "de": "Waldfruchttorte"
+      },
+      "tag": {
+        "sq": "Popullore në Wolt",
+        "en": "Popular on Wolt",
+        "de": "Beliebt bei Wolt"
+      }
+    },
+    {
+      "id": "oreo",
+      "cat": "slices",
+      "price": 1.8,
+      "n": {
+        "sq": "Tortë Oreo",
+        "en": "Oreo cake",
+        "de": "Oreo-Torte"
+      }
+    },
+    {
+      "id": "snickers",
+      "cat": "slices",
+      "price": 1.8,
+      "n": {
+        "sq": "Tortë Snickers",
+        "en": "Snickers cake",
+        "de": "Snickers-Torte"
+      }
+    },
+    {
+      "id": "karamel",
+      "cat": "slices",
+      "price": 1.8,
+      "n": {
+        "sq": "Tortë Karamel",
+        "en": "Caramel cake",
+        "de": "Karamelltorte"
+      }
+    }
+  ],
+  "text": {
+    "sq": {
+      "demo": "Version provë për Nero Cake, përgatitur nga Ardeno. Porositë këtu nuk dërgohen askund; produktet dhe çmimet duhen konfirmuar. Oraret janë ato të dërgesave në Wolt; emaili është shembull."
+    },
+    "en": {
+      "demo": "Trial version for Nero Cake, prepared by Ardeno. Orders here are not sent anywhere; products and prices need confirming. Hours are the Wolt delivery hours; the email is an example."
+    },
+    "de": {
+      "demo": "Testversion für Nero Cake, erstellt von Ardeno. Bestellungen werden hier nirgendwohin gesendet; Produkte und Preise müssen bestätigt werden. Die Zeiten sind die Wolt-Lieferzeiten; die E-Mail ist ein Beispiel."
+    }
+  }
+}

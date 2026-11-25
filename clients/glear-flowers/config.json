@@ -1,0 +1,168 @@
+{
+  "template": "shop",
+  "kind": "flowers",
+  "demo": true,
+  "noindex": true,
+  "langs": [
+    "sq",
+    "en",
+    "de"
+  ],
+  "title": "Glear Flowers: buqeta me porosi në WhatsApp (version provë)",
+  "description": "Version provë i një faqeje për Glear Flowers në Durrës: buqetat me çmime dhe porosi në WhatsApp. Përgatitur nga Ardeno.",
+  "name": "Glear Flowers",
+  "address": "Rruga Abaz Çelkupa, Lagjja nr. 12, Durrës",
+  "phone": "+355 69 390 5165",
+  "whatsapp": "",
+  "email": "info@shembull.com",
+  "instagram": "",
+  "mapUrl": "https://www.google.com/maps/search/?api=1&query=Glear+Flowers+Durr%C3%ABs",
+  "timeZone": "Europe/Tirane",
+  "retentionMonths": 6,
+  "currency": "lekë",
+  "delivery": true,
+  "pickup": true,
+  "hours": {
+    "0": [
+      "09:00",
+      "19:00"
+    ],
+    "1": [
+      "09:00",
+      "19:00"
+    ],
+    "2": [
+      "09:00",
+      "19:00"
+    ],
+    "3": [
+      "09:00",
+      "19:00"
+    ],
+    "4": [
+      "09:00",
+      "19:00"
+    ],
+    "5": [
+      "09:00",
+      "19:00"
+    ],
+    "6": [
+      "09:00",
+      "19:00"
+    ]
+  },
+  "categories": [
+    {
+      "id": "bouquets",
+      "n": {
+        "sq": "Buqeta",
+        "en": "Bouquets",
+        "de": "Sträuße"
+      }
+    }
+  ],
+  "products": [
+    {
+      "id": "pink-lady",
+      "cat": "bouquets",
+      "price": 5000,
+      "n": {
+        "sq": "Pink Lady",
+        "en": "Pink Lady",
+        "de": "Pink Lady"
+      },
+      "tag": {
+        "sq": "Popullore në Wolt",
+        "en": "Popular on Wolt",
+        "de": "Beliebt bei Wolt"
+      }
+    },
+    {
+      "id": "drita-e-dijes",
+      "cat": "bouquets",
+      "price": 2500,
+      "n": {
+        "sq": "Drita e Dijes",
+        "en": "Light of Knowledge",
+        "de": "Licht des Wissens"
+      },
+      "tag": {
+        "sq": "Popullore në Wolt",
+        "en": "Popular on Wolt",
+        "de": "Beliebt bei Wolt"
+      }
+    },
+    {
+      "id": "faleminderit-mesuese",
+      "cat": "bouquets",
+      "price": 5300,
+      "n": {
+        "sq": "Faleminderit Mësuese",
+        "en": "Thank You, Teacher",
+        "de": "Danke, Lehrerin"
+      }
+    },
+    {
+      "id": "magjia-roze",
+      "cat": "bouquets",
+      "price": 4000,
+      "n": {
+        "sq": "Magjia Rozë",
+        "en": "Pink Magic",
+        "de": "Rosa Zauber"
+      }
+    },
+    {
+      "id": "aroma-dashurie",
+      "cat": "bouquets",
+      "price": 3300,
+      "n": {
+        "sq": "Aromë Dashurie",
+        "en": "Scent of Love",
+        "de": "Duft der Liebe"
+      }
+    },
+    {
+      "id": "kopshti-i-luleve",
+      "cat": "bouquets",
+      "price": 5000,
+      "n": {
+        "sq": "Kopshti i Luleve",
+        "en": "Flower Garden",
+        "de": "Blumengarten"
+      }
+    },
+    {
+      "id": "elegance-e-pranveres",
+      "cat": "bouquets",
+      "price": 2700,
+      "n": {
+        "sq": "Elegance e Pranverës",
+        "en": "Spring Elegance",
+        "de": "Frühlingseleganz"
+      }
+    },
+    {
+      "id": "respekt-vleresim",
+      "cat": "bouquets",
+      "price": 2500,
+      "n": {
+        "sq": "Respekt & Vlerësim",
+        "en": "Respect & Appreciation",
+        "de": "Respekt & Wertschätzung"
+      }
+    }
+  ],
+  "text": {
+    "sq": {
+      "demo": "Version provë për Glear Flowers, përgatitur nga Ardeno. Porositë këtu nuk dërgohen askund; produktet dhe çmimet duhen konfirmuar. Oraret janë ato të dërgesave në Wolt; emaili është shembull."
+    },
+    "en": {
+      "demo": "Trial version for Glear Flowers, prepared by Ardeno. Orders here are not sent anywhere; products and prices need confirming. Hours are the Wolt delivery hours; the email is an example."
+    },
+    "de": {
+      "demo": "Testversion für Glear Flowers, erstellt von Ardeno. Bestellungen werden hier nirgendwohin gesendet; Produkte und Preise müssen bestätigt werden. Die Zeiten sind die Wolt-Lieferzeiten; die E-Mail ist ein Beispiel."
+    }
+  }
+}
